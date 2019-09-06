@@ -13,7 +13,7 @@ Este README mostrará los pasos necesarios para levantar y correr la aplicaciòn
 
 ### Guìa ràpida ###
 Primero instalar globalmente typeorm
-```package.json
+```.json
 npm install typeorm -g
 ```
 
