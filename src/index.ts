@@ -3,32 +3,34 @@ import {createConnection} from "typeorm";
 import {User} from "./entity/User";
 import { UserRepository } from './repository/UserRepository';
 
-createConnection().then(async connection => {
+createConnection({
+    type: "mongodb",
+    host: "192.168.1.10",
+    port: 2035,
+    username: "wcubas",
+    password: "lomizmo407",
+    synchronize: true,
+    database: "dblog",
+    logging: false,
+    entities: [ __dirname + "/entity/*.js",
+                "src/entity/**/*.ts"]
+    })
+    .then(async connection => {
+    console.log("conexiòn creada con mongoDB");
+    // console.log("Inserting a new user into the database...");
+    // let userRepository : UserRepository = <any>connection.getCustomRepository(UserRepository);
+    // let listUsers = await userRepository.buscar("Lesly");
+    // console.log(listUsers);
 
-    
-    console.log("Inserting a new user into the database...");
-    
-    // const user = new User();
-    // user.firstName = "Timber";
-    // user.lastName = "Saw";
-    // user.age = 25;
-    // await connection.manager.save(user);
-    // console.log("Saved a new user with id: " + user.id);
-
-    // console.log("Loading users from the database...");
-    // const users = await connection.manager.find(User);
-    // console.log("Loaded users: ", users);
-
-    // console.log("Here you can setup and run express/koa/any other framework.");
-
-    const userRepository = connection.getCustomRepository(UserRepository);
-    let user = await userRepository.buscar("Timber1");
-    console.log(user);
-
-    let users = await userRepository.find();
-    console.log(users);
-
-    console.log("a");
-
-    
-}).catch(error => console.log(error));
+    const user = new User();
+    user.firstName = "Kenny BALT 4";
+    user.lastName = "B.A.";
+    user.age = 26;
+    await connection.manager.save(user);
+    // console.log("...finish insert con el timer...");
+    // console.log("Saved a new user with sid: " + user.id);
+})
+.catch((error : Error)=>{
+    console.error("error connection..");
+    console.log(error)
+});  
