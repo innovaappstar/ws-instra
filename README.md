@@ -33,9 +33,10 @@ Agregar una conexiòn mongodb
 ```
 
 Correr el servicio web
-```package.json
+```.json
 npm start
 ```
+
 Creando un modelo
 ```ts
 @Entity()
@@ -53,7 +54,6 @@ export class User {
     age: number;
 }
 ```
-
 
 
 
