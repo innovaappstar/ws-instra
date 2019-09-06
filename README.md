@@ -21,7 +21,7 @@ npm install typeorm -g
 Instalar dependencias:
 
 package.json:
-```package.json
+```.json
 npm install
 ```
 
