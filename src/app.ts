@@ -46,12 +46,12 @@ class App {
     this.app.use(this.loggerMiddleware)
 
     // set views root :  view engine setup
-    this.app.set('views', path.join(__dirname, './views'));
+    this.app.set('views', path.join(__dirname, '../views'));
     this.app.set('view engine', 'jade');
     // this.app.use(favicon());
     // app.use(logger('dev'));
     // app.use(cookieParser());
-    this.app.use(express.static(path.join(__dirname, './public')));
+    this.app.use(express.static(path.join(__dirname, '../public')));
   }
 
   /**
@@ -99,7 +99,7 @@ class App {
     https.createServer(options, this.app).listen(this.port, () => {
     // this.app.listen(this.port, () => {
       console.log('======================================================================================='); 
-      console.log('Servidor TuBus iniciado : ' + new Date());    // marca de tiempo para ver hora de arranque en consola..
+      console.log('Servidor Plantilla iniciado : ' + new Date());    // marca de tiempo para ver hora de arranque en consola..
       console.log(`App listening on the port ${this.port}`);
       console.log('======================================================================================='); 
     });

@@ -1,5 +1,5 @@
 import { Repository, Entity, EntityRepository } from "typeorm";
-import { User } from '../entity/User';
+import { User } from "../entity/mongodb/User";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User>
