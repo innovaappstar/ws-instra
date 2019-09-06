@@ -1,29 +1,62 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Este README mostrará los pasos necesarios para levantar y correr la aplicaciòn
 
-### What is this repository for? ###
+### Que contiene este repositorio? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* EndPoinst con uso del framework Express(API Web)
+* ORM (TypeORM) con soporte para MongoDB, SQL, entre otros.
+* Entidades (beans) preparadas para el almacenamiento y/o recuperaciòn de datos en mongodb.
+* Dinamismo de conexiòn entre distintas bases de datos (NoSQL && SQL)
+* Sistema de plantillas JADE
+* [Aprender màs](https://github.com/innovaappstar)
 
-### How do I get set up? ###
+### Guìa ràpida ###
+Primero instalar globalmente typeorm
+```package.json
+npm install typeorm -g
+```
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+Instalar dependencias:
 
-* Writing tests
-* Code review
-* Other guidelines
+package.json:
+```package.json
+npm install
+```
 
-### Who do I talk to? ###
+Agregar una conexiòn mongodb
+```ts
+....
+{ nomDB : "dbpruebas", host : "192.168.1.1", user : "user123", password : "123456", id : 1, operativo : 1, typeDatabase : TYPE_MONGODB, connection : null}
+....
+```
 
-* Repo owner or admin
-* Other community or team contact
+Correr el servicio web
+```package.json
+npm start
+```
+Creando un modelo
+```ts
+@Entity()
+export class User {
+    @ObjectIdColumn()
+    id: number;
+
+    @Column()
+    firstName: string;
+
+    @Column()
+    lastName: string;
+
+    @Column()
+    age: number;
+}
+```
+
+
+
+
+### Continuar..
+Continuar con Readme #01 ([readme.md](https://medium.com/@jkwolanin/introduction-to-typeorm-ce0196d5564)).
+Continuar con Readme #02 ([readme.md](https://github.com/crisbeto/angular-svg-round-progressbar))
