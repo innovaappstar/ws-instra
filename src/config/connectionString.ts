@@ -12,10 +12,11 @@ const password = 'TransRED';
 export const TYPE_MONGODB = 1;
 export const TYPE_SQL = 2;
 export const OPERATIVO = 1;
+export const COD_BDGPSGENERAL = 1;
 
 export const configdb : Array<IConfigDB> = [
     // string connections for SQL
-    { nomDB : "bdGPSGeneral", host : host, user : user, password : password, id : 1, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null},
+    { nomDB : "bdGPSGeneral", host : host, user : user, password : password, id : COD_BDGPSGENERAL, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null},
     { nomDB : "TeGuio", host : host, user : user, password : password, id : 41, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null},
     // string connections for mongodb
     { nomDB : "dblog", host : host, user : "wcubas", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}

@@ -72,7 +72,7 @@ class App {
   private initializeControllers(controllers) {
     controllers.forEach((controller) => {
       // this.app.use('/', controller.router);
-      this.app.use('/api/tubus', controller.router);
+      this.app.use('/api/abresms', controller.router);
     });
 
     /// catch 404 and forward to error handler

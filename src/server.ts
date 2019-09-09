@@ -6,11 +6,13 @@ import { config} from "./config/config";
 import { IConfigDB } from './config/connectionString';
 import { ORMAcess } from './orm/ORMAcces';
 import { NotificacionUsuarioRoutes } from './routes/NotificacionUsuario.routes';
+import { SMSReceiverRoutes } from './routes/SMSReceiver.routes';
 
 let configSQLTeGuio = null;
 const app = new App(
   [
-    new NotificacionUsuarioRoutes
+    new NotificacionUsuarioRoutes,
+    new SMSReceiverRoutes
   ],
   config.puertoHTTP
 );
