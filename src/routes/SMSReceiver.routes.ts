@@ -62,30 +62,14 @@ export class SMSReceiverRoutes {
                 dataAuxiliar += ( (listStringSMS.length == (index + 1))? '' : '~');
                 auxiliar += dataAuxiliar;
             })
-            // ProcDispositivoTelefono '1|1|1|09/09/2019|10|1|123456789|APN|IMEI|SIM|Placa', 20
-            // -- Obtiene parámetros
-            // SELECT	@CodEmpresa = Data FROM @TbParametros WHERE N = 1
-            // SELECT	@CodDispositivoAux = Data FROM @TbParametros WHERE N = 2
-            // SELECT	@CodDispositivoTipo = Data FROM @TbParametros WHERE N = 3
-
-            // SELECT	@FechaInicioDatosMoviles = Data FROM @TbParametros WHERE N = 4
-            // SELECT	@NumKBConsumidos = Data FROM @TbParametros WHERE N = 5
-            // SELECT	@ExisteInternet = Data FROM @TbParametros WHERE N = 6
-
-            // SELECT	@Telefono = Data FROM @TbParametros WHERE N = 7
-            // SELECT	@APN = Data FROM @TbParametros WHERE N = 8
-            // SELECT	@IMEI = Data FROM @TbParametros WHERE N = 9
-
-            // SELECT	@SimOperador = Data FROM @TbParametros WHERE N = 10
-            // SELECT	@Placa = Data FROM @TbParametros WHERE N = 11
-            // SELECT	@IdSqlite = Data FROM @TbParametros WHERE N = 12
 
             // (Android) fechaInicioDatosMoviles|numKBConsumidos|isExisteInternet|numTelefono|APN|latlng|codDispositivo|codEmpresa|imei|tipo|simOperador|placa|_idSQLite|~
             let querySQL =  `exec ProcDispositivoTelefono '${auxiliar}', 20`;
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
-                let jsonResult = JSONUtils.convertArrayJSONtoObjectCabeceraDetalle(result, "UPDATE_NUMERO_TELEFONO", ["CodResultado", "DesResultado", "SerializadoSQLite"]);
-                res.send(JSON.stringify(jsonResult));
-                console.log(jsonResult);
+                // let jsonResult = JSONUtils.convertArrayJSONtoObjectCabeceraDetalle(result, "UPDATE_NUMERO_TELEFONO", ["CodResultado", "DesResultado", "SerializadoSQLite"]);
+                let jsonResult = result[0]["ResultadoJSON"];
+                res.send(JSON.parse(jsonResult));
+                // console.log(jsonResult);
             }).catch((error : Error)=>{
                 let resultado = {UPDATE_NUMERO_TELEFONO : {
                     CodResultado : 0,
