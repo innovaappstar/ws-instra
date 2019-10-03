@@ -17,9 +17,10 @@ const app = new App(
   config.puertoHTTP
 );
 
+ORMAcess.startConnections();  // inicializa las conexiones.
+
 app.listen(); // inicializa el servidor http
 
-ORMAcess.startConnections();  // inicializa las conexiones.
 
 // setInterval(function(){
 //   ORMAcess.execQuerySQL("SELECT 1 AS NUM", 41).then((result : any)=>{

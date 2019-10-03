@@ -20,6 +20,7 @@ export const configdb : Array<IConfigDB> = [
     { nomDB : "TeGuio", host : host, user : user, password : password, id : 41, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null},
     // string connections for mongodb
     { nomDB : "dblog", host : host, user : "wcubas", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
+    // { nomDB : "gps", host : host, user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
 ];  
 
 export interface IConfigDB

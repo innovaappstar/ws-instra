@@ -1,11 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, ObjectIdColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ObjectIdColumn, ObjectID} from "typeorm";
 
 //https://medium.com/@jkwolanin/introduction-to-typeorm-ce0196d5564
 
-@Entity()
+@Entity({database : "dblog"})
 export class User {
     @ObjectIdColumn()
-    id: number;
+    id: ObjectID;
 
     @Column()
     firstName: string;

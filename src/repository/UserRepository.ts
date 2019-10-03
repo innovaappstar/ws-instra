@@ -5,7 +5,6 @@ import { User } from "../entity/mongodb/User";
 export class UserRepository extends Repository<User>
 {
 
-
     buscar(name: string) : User
     {
         // return (this.find({firstName : name});
