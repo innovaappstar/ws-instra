@@ -3,76 +3,85 @@ import {createConnections, Connection, ConnectionOptions} from "typeorm";
 import { UserRepository } from './repository/UserRepository';
 import { config} from "./config/config";
 import { IConfigDB, TYPE_MONGODB, TYPE_SQL, OPERATIVO } from "./config/connectionString";
+import cheerio = require('cheerio');
 
+console.log("iniciado servidor..")
+const axios = require('axios');
+const url = 'https://www.premierleague.com/stats/top/players/goals?se=-1&cl=-1&iso=-1&po=-1?se=-1';
 
+// axios(url)
+//   .then(response => {
+//     const html = response.data;
+//     const $ = cheerio.load(html);
+//     const statsTable = $('.statsTableContainer > tr');
+//     console.log(statsTable.length);
 
-interface IConnection{
-    name: string,
-    type: string,
-    host: string,
-    port: number,
-    username: string,
-    password: string,
-    synchronize: boolean,
-    database: string,
-    logging: boolean,
-    entities: Array<string>
-}
-// creando conexiones para cada database en connectionString
-let listConnections : Array<ConnectionOptions> = []
+//     const topPremierLeagueScorers = [];
 
-config.configdb.forEach((configdb : IConfigDB)=> {
-    if(configdb.operativo == OPERATIVO)
-    {
-        // build the connection object
-        let newConnection : IConnection = <IConnection>{
-            name: configdb.nomDB,
-            type: (configdb.typeDatabase == TYPE_MONGODB) ? "mongodb" : (configdb.typeDatabase == TYPE_SQL) ? "mssql" : "",
-            host: configdb.host,
-            port: (configdb.typeDatabase == TYPE_MONGODB) ? 2035 : (configdb.typeDatabase == TYPE_SQL) ? 1433 : 0,
-            username: configdb.user,
-            password: configdb.password,
-            synchronize: true,
-            database: configdb.nomDB,
-            logging: false,
-            entities:   (configdb.typeDatabase == TYPE_MONGODB) ? [__dirname + "/entity/mongodb/*{.js,.ts}"] : 
-                        (configdb.typeDatabase == TYPE_SQL) ? [__dirname + "/entity/sqlserver/*{.js,.ts}"] : []
-        }
-        listConnections.push(<any>newConnection);    // add new connection to the list..
-    }
-  });
+//     statsTable.each(function () {
+//         const rank = $(this).find('.rank > strong').text();
+//         const playerName = $(this).find('.playerName > strong').text();
+//         const nationality = $(this).find('.playerCountry').text();
+//         const goals = $(this).find('.mainStat').text();
 
-createConnections(listConnections).then(async listConnectionsOpen => {
+//         topPremierLeagueScorers.push({
+//             rank,
+//             name: playerName,
+//             nationality,
+//             goals,
+//         });
+//     });
 
-    console.log("conexiòn creada con mongoDB");
-    // console.log("Inserting a new user into the database...");
-    // let userRepository : UserRepository = <any>connection.getCustomRepository(UserRepository);
-    // let listUsers = await userRepository.buscar("Lesly");
-    // console.log(listUsers);
+//     console.log(topPremierLeagueScorers);
+//   })
+//   .catch(console.error);
 
-    // const user = new User();
-    // user.firstName = "Kenny BALT 4";
-    // user.lastName = "B.A.";
-    // user.age = 26;
-    listConnectionsOpen.forEach(async (connection : Connection, index : number)=>{
-        config.configdb.forEach((configdb : IConfigDB)=> {
-            if(configdb.operativo == OPERATIVO && configdb.nomDB == connection.name)
-                configdb.connection = connection;
-          });
-    })
-    // exe query
-    config.configdb.forEach((configdb : IConfigDB)=> {
-        if(configdb.operativo == OPERATIVO && configdb.typeDatabase == TYPE_SQL)
-            configdb.connection.query("SELECT 1").then((result : any)=>{
-                console.log(result);
-            }).catch((error : Error)=>{
-                console.error(error);
+    const getAllAttributes = function (node) {
+        return node.attributes || node.map(node.attribs,(value,name) => {
+            return { name,value };
+        });
+    };
+  function retrievePopularToday(){
+      let url = "https://www.pesmaster.com/";
+      axios(url)
+      .then(response => {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const listPlayers = $('.player-card-container');
+        const topPlayers = [];
+
+        listPlayers.each(function () {
+            const playerCard = $(this).find('.player-card');
+            let atributos = []
+            let style = playerCard.attr('style');
+
+            let dataURL = $(playerCard).css('background-image')
+            playerCard.each(function(){
+                const ovr = $(this).find('.player-card-ovr').text();
+                const position = $(this).find('.player-card-position').text();
+                const playerName = $(this).find('.player-card-name').text();
+                let urlTeamLogo = null;
+                $(this).find('.player-card-teamlogo').each( function () {
+                    urlTeamLogo = $(this).attr('src');
+                });
+                let urlImagePlayer = null;
+                $(this).find('.player-card-image').each( function () {
+                    urlImagePlayer = $(this).attr('src');
+                });
+                let urlPlayer = $(this).find('a').attr('href');
+                topPlayers.push({
+                    ovr,
+                    position,
+                    playerName,
+                    urlTeamLogo,
+                    urlImagePlayer,
+                    urlPlayer
+                });
             })
-      });
-    // console.log("...finish insert con el timer...");
-    // console.log("Saved a new user with sid: " + user.id);
-})
-.catch((error : Error)=>{
-    console.error("error connection..");
-    console.log(error)
-});  
+        });
+        console.log(topPlayers);
+      })
+      .catch(console.error);
+  }
+
+  retrievePopularToday();
