@@ -4,6 +4,8 @@ import { IRecorridoControl } from "./../nosql/dataAccess/schemas/ControlSchema";
  * Created by innovaapps on 14/03/2017.
  */
 import {Router, Request , Response} from 'express';
+import { UserRepository } from '../repository/UserRepository';
+import { User } from '../entity/mongodb/gps/User';
 export class NotificacionUsuarioRoutes {
     // public path = '/signup';
     public router : Router = Router();
@@ -18,7 +20,7 @@ export class NotificacionUsuarioRoutes {
         this.router.get("/", this.getTest)
         this.router.get(this.PATH_ENVIO_NOTIFICACION_USUARIO, this.getNotificacionUsuario)
     }
-    // https://192.168.1.120:2029/api/tubus/
+    // https://192.168.1.120:2032/api/regins/
     getTest = (req: Request, res: Response) => {
         try
         {
@@ -27,6 +29,21 @@ export class NotificacionUsuarioRoutes {
                 CodResultado : 1,
                 DesResultado : "Lista de rutas de recorrido"}}
             res.send(JSON.stringify(resultado))
+
+            try {
+                const user = new User();
+                user.firstName = "Timber";
+                user.lastName = "Saw";
+                user.age = 25;
+                // await connection.manager.save(user);
+
+                new UserRepository().save(user);
+                new UserRepository().findAll().then((users : Array<User>)=>{
+                    console.log(users);
+                })
+            } catch (error) {
+                console.error(error);
+            }
         }catch (error)
         {
             console.error(error);

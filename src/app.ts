@@ -68,11 +68,10 @@ class App {
     // console.log(`${request.method} ${request.path}`);
     next();
   }
-  // https://192.168.1.120:2029/api/tubus/busqueda_rutav2/?pOrigen=-12.006772*-77.050338&pDestino=-11.99487*-77.00526&maxRangoParadero=0.8
   private initializeControllers(controllers) {
     controllers.forEach((controller) => {
       // this.app.use('/', controller.router);
-      this.app.use('/api/abresms', controller.router);
+      this.app.use('/api/regins', controller.router);
     });
 
     /// catch 404 and forward to error handler

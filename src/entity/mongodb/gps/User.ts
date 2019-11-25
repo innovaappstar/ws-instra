@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, ObjectIdColumn, ObjectID} from "
 
 //https://medium.com/@jkwolanin/introduction-to-typeorm-ce0196d5564
 
-@Entity({database : "dblog"})
+@Entity({database : "gps", name : "user_test"})
 export class User {
     @ObjectIdColumn()
     id: ObjectID;
