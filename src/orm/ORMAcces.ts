@@ -8,10 +8,13 @@ import { ConexionesSocket } from "../entity/mongodb/gps/ConexionesSocket";
 import { ConexionesSocketRepository } from "../repository/ConexionesSocketRepository";
 // import sqlite3 = require('sqlite3');
 const sqlite3 = require('sqlite3').verbose();
+const scanFolder = require("scan-folder");
+var json2xls = require('json2xls');
+const fs = require('fs');
 
 // creando conexiones para cada database en connectionString
 let listConnections : Array<ConnectionOptions> = []
-
+let LIST_DATABASES = []
 
 export class ORMAcess {
     constructor() {
@@ -109,6 +112,70 @@ export class ORMAcess {
             // close the database connection
             db.close();
           });
+    }
+
+
+    public static readDatabaseV2(dirname : string, listPaths ?: Array<string>){
+        if(listPaths == null)
+            listPaths = scanFolder(dirname + "/orm/tsir/", "TSIR.db");
+        // open the database    51989293185
+        let sql = `SELECT I.FechaHora, I.Descripcion, U.NombrePlaca, U.IdDispositivo AS BD, U.NombreConcesionario   FROM Incidencia I
+                    INNER JOIN Unidad U
+                    ON I.IdDispositivo = U.IdDispositivo
+                    WHERE I.Descripcion LIKE '%+51989293185%' LIMIT 1;`;
+
+        if(listPaths.length < 0){
+            let listTemp = LIST_DATABASES;
+            console.log("tarea finalizada..")
+            return
+        }
+
+        let pathActual = listPaths[0];
+        listPaths.shift();
+        let pathDatabase = `${pathActual}`;
+        try {
+            if(listPaths.length == 0)
+            {
+                let listTemp = JSON.stringify(LIST_DATABASES);
+                var xls = json2xls(LIST_DATABASES);
+                
+                fs.writeFileSync('numeros_1333.xlsx', xls, 'binary');
+                console.log("tarea finalizada..")
+                return
+            }
+            let db = new sqlite3.Database(pathDatabase, sqlite3.OPEN_READWRITE, (err) => {
+                if (err) {
+                    console.error(err.message);
+                    return;
+                }
+                // console.log('Connected to the chinook database.');
+                db.all(sql, [], (err, rows) => {
+                    if (err) {
+                        // throw err;
+                        ORMAcess.readDatabaseV2(dirname, listPaths)
+                        return
+                    }
+                    if(rows.length > 0){
+                        rows.forEach((row, index) => {
+                            console.log(row);
+                            let numeroTelefono = (row.Descripcion).substring(15, 24)
+                            rows[index]["NumeroTelefono"] = numeroTelefono
+                            delete rows[index].Descripcion;  // or delete person["age"];
+                        });
+                        
+                        LIST_DATABASES = LIST_DATABASES.concat(rows)
+                        // LIST_DATABASES.push(rows)   // push
+                    }
+                    // close the database connection
+                    db.close();
+                    // recursividad..
+                    ORMAcess.readDatabaseV2(dirname, listPaths)
+                });
+            });
+        } catch (error) {
+            console.log(error)
+            ORMAcess.readDatabaseV2(dirname, listPaths)
+        }
     }
 
 

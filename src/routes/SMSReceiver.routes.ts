@@ -76,14 +76,12 @@ export class SMSReceiverRoutes {
                     DesResultado : error.message}};
                 res.send(JSON.stringify(resultado));
             })
-
         }catch (error)
         {
             console.error(error);
         }
     }
-
-  }
+}
 
 export interface IRequestSMSSerializado{
     listSMS : string;
