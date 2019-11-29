@@ -39,8 +39,11 @@ export class AuthenticationRoutes extends BaseRoutes {
                 res.send(JSON.stringify(resultado));
                 return;
             }
-                                                                                                                                                                
+            // 27/11/2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104                                                                                                                                    //  
             let querySQL = `exec ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc} '${requestAuthLogin.username}|${requestAuthLogin.password}', ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index}`;
+            querySQL = `exec ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc} '${requestAuthLogin.username}|${requestAuthLogin.password}|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index}`;
+            // querySQL = "exec ProcUsuarioV2 'ncorrales|6b6277afcb65d33525545904e95c2fa240632660|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', 12"
+            // querySQL = "exec ProcUsuarioV2 'ncorrales|6b6277afcb65d33525545904e95c2fa240632660|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', 144"
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
@@ -61,4 +64,9 @@ export class AuthenticationRoutes extends BaseRoutes {
 export interface IRequestAuth{
     username : string;
     password : string;
+    dateTime : string;
+    macAddress : string;
+    phoneModel : string;
+    deviceVersion : string;
+    applicationVersion : string;
 }
