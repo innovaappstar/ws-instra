@@ -5,7 +5,7 @@ const axios = require('axios')
 const request = require('request');
 // const querystring = require('querystring');
 import querystring = require('querystring');
-import { IRequestIncidencia, IRequestIMAGEN } from '../routes/Incidencia.routes';
+import { IRequestIncidencia } from '../routes/Incidencia.routes';
 
 class QueryStringUtils
 {
