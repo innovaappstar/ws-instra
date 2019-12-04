@@ -7,7 +7,7 @@ import {Router, Request , Response} from 'express';
 import { ORMAcess } from '../orm/ORMAcces';
 import {COD_BDGPSGENERAL} from '../config/connectionString';
 import JSONUtils = require('../utils/JSONUtils');
-import { BaseRoutes } from './baseRoutes';
+import { BaseRoutes } from '../routes/BaseRoutes';
 import PROCEDURES from '../sql/procedures.sql';
 
 export class AuthenticationRoutes extends BaseRoutes {

@@ -12,15 +12,38 @@ export class TestRoutes {
 
     private PATH_INIT = "/envio_notificacion_usuario/?";
     private PATH_LIQUIDACION = "/liquidacion/?";
+    private PATH_LOGOUT = "/auth/logout/?";
 
     constructor() {
       this.intializeRoutes();
     }
    
     public intializeRoutes() {
-      this.router.get("/", this.getTest)
-      this.router.get(this.PATH_LIQUIDACION, this.getTestLiquidacion)
+      this.router.get("/", this.getTest),
+      this.router.get(this.PATH_LIQUIDACION, this.getTestLiquidacion),
+      this.router.get(this.PATH_LOGOUT, this.getLogout)
     }
+
+    // https://192.168.1.132:2032/api/regins/auth/logout/
+    getLogout = (req: Request, res: Response) => {
+      try
+      {
+        //usuario session
+          let resultado = 
+          {
+            "TEST" : {
+              codResultado : 1,
+              desResultado : "Cierre de sesion correctamente"
+            }
+          }
+          res.send(JSON.stringify(resultado))
+      }catch (error)
+      {
+          console.error(error);
+      }
+  }
+
+
     
     // https://192.168.1.120:2032/api/regins/
     getTest = (req: Request, res: Response) => {
