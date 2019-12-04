@@ -14,6 +14,7 @@ import HttpUtils = require('./http/HttpUtils');
 // import './define/String.extensions';
 // import dateFormat = require('dateformat')
 import './define/MyExtensions.extensions'
+import { LiquidationRoutes } from './routes/Liquidation.routes';
 
 const save = require('save-file')
 
@@ -23,7 +24,8 @@ const app = new App(
     new TestRoutes,
     // new SMSReceiverRoutes,
     new AuthenticationRoutes,
-    new IncidenciaRoutes
+    new IncidenciaRoutes,
+    new LiquidationRoutes
   ],
   config.puertoHTTP
 );

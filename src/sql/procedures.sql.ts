@@ -21,7 +21,8 @@ var PROCEDURES = {
             index : 20,
             proc : "ins.ProcIncidencia",
             comment : "registro de incidencia"
-        }
+        },
+        
     }
     // ,     
     // DBGPSGENERAL :{
