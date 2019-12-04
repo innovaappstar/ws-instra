@@ -57,14 +57,15 @@ class Utils
     }
 
 
-    public static getQuerySQLStandar(data : string[], callback : Function) : void
+    public static getQuerySQLStandar(data : string[]) : string
     {
-        Utils.getQueryStringSQL(data, {tipo : this.tipoStandar}, (error : Error, data : string) => callback(error, data));
+        return Utils.getQueryStringSQL(data, {tipo : this.tipoStandar});
     }
 
-    public static getQuerySQLPersonalizado(data : string[], callback : Function) : void
+
+    public static getQuerySQLPersonalizado(data : string[]) : string
     {
-        Utils.getQueryStringSQL(data, {tipo : this.tipoPersonalizado}, (error : Error, data : string) => callback(error, data));
+        return Utils.getQueryStringSQL(data, {tipo : this.tipoPersonalizado});
     }
 
     /**
@@ -73,13 +74,13 @@ class Utils
      * @param metodo IMetodo
      * @param callback function
      */
-    private static getQueryStringSQL(data : string[], metodo : IMetodo, callback : Function) : void
+    private static getQueryStringSQL(data : string[], metodo : IMetodo) : string
     {
         let query = "";
         if(data.length == 0)
         {
-            callback(null, "''");
-            return;
+            // callback(null, "''");
+            return "";
         }
         for (let i = 0; i < data.length; i++)
         {
@@ -88,7 +89,8 @@ class Utils
             else if (metodo.tipo == this.tipoPersonalizado)
                 query = `${(i == 0)?"'":""}${query} ${data[i]} ${(i == (data.length -1))?"'":""} |`;
         }
-        callback(null, query.substring(0, query.length - 1));
+        // callback(null, query.substring(0, query.length - 1));
+        return query.substring(0, query.length - 1);
     }
 
     /**

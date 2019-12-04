@@ -29,7 +29,7 @@ export class ORMAcess {
             if(configdb.operativo == OPERATIVO)
             {
                 // build the connection object
-                let newConnection : IConnection = <IConnection>{
+                let newConnection : IConnection = <IConnection><any>{
                     name: configdb.nomDB,
                     type: (configdb.typeDatabase == TYPE_MONGODB) ? "mongodb" : (configdb.typeDatabase == TYPE_SQL) ? "mssql" : "",
                     host: configdb.host,
@@ -38,7 +38,7 @@ export class ORMAcess {
                     password: configdb.password,
                     synchronize: true,
                     database: configdb.nomDB,
-                    logging: true,
+                    logging: ["error"], // https://github.com/typeorm/typeorm/blob/master/docs/logging.md
                     entities:   (configdb.typeDatabase == TYPE_MONGODB) ? [`${dirname}/entity/mongodb/${configdb.dirEntities}/*{.js,.ts}`] : 
                                 (configdb.typeDatabase == TYPE_SQL) ? [`${dirname}/entity/sqlserver/${configdb.dirEntities}/*{.js,.ts}`] : []
                 }

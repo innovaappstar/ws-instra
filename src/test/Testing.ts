@@ -10,7 +10,6 @@ const fs = require('fs');
 
 export class Testing {
 
-
     constructor() {
     }
 
