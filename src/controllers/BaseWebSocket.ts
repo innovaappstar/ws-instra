@@ -12,7 +12,6 @@ import DateUtils = require("../utils/DateUtils");
 //import IExceptionSQLModel = require("../nosql/model/interfaces/IExceptionSQLModel");
 //import { ISendDataSocket } from '../routes/notificacionUsuario.routes';
 //import IConexionModel = require('../nosql/model/interfaces/IConexionModel');
-import { properties } from '../server';
 //import { ConexionController } from '../nosql/controllers/ConexionController';
 import ConexionDEO = require('../deo/ConexionDEO');
 
@@ -53,24 +52,31 @@ abstract class BaseWebSocket{
    public ws : WebSocketServer.Server = new WebSocketServer.Server({
       verifyClient: (info, done) =>{
         var url  = info.req.url;
-        if (URLUtils.VerificarInteger(url, HeaderDispositivo.idPerfil) &&
-        URLUtils.VerificarString(url, HeaderDispositivo.ipDispositivo) &&
-        URLUtils.VerificarString(url, HeaderDispositivo.macAddress) &&
-        URLUtils.VerificarString(url, HeaderDispositivo.v) &&
-        URLUtils.VerificarString(url, HeaderDispositivo.md) &&
-        URLUtils.VerificarInteger(url, HeaderDispositivo.codTipoDispositivo))
-                // URLUtils.VerificarString(url, HeaderDispositivo.imei))    // cod empresa distinto de 0
-            done(true);
-        else
-            done(false);
+        try {
+            if (URLUtils.VerificarInteger(url, HeaderDispositivo.idPerfil) &&
+            URLUtils.VerificarString(url, HeaderDispositivo.ipDispositivo) &&
+            URLUtils.VerificarString(url, HeaderDispositivo.macAddress) &&
+            URLUtils.VerificarString(url, HeaderDispositivo.v) &&
+            URLUtils.VerificarString(url, HeaderDispositivo.md) &&
+            URLUtils.VerificarInteger(url, HeaderDispositivo.codTipoDispositivo))
+                    // URLUtils.VerificarString(url, HeaderDispositivo.imei))    // cod empresa distinto de 0
+                {
+                    
+                    done(true);
+                }
+            else
+                done(false);
+        } catch (error) {
+            console.error(error);
+        }
       }, port: config.puertoWS, path : '/ws'});
 
    constructor()
    {
         try
         {
-            this.ws.on('connection', (client: WebSocket) => {
-                let url = client.upgradeReq['url'];
+            this.ws.on('connection', (client: WebSocket, req : any) => {
+                let url = req.url;
                 let clienteWs : IClientWS =
                 {
                     id : connectionIDCounter++,

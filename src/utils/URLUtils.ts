@@ -1,7 +1,8 @@
 /**
  * Created by innovaapps on 15/03/2017.
  */
-import qs = require("query-string");
+// import qs = require("query-string");
+const qs = require("query-string");
 
 class URLUtils
 {
