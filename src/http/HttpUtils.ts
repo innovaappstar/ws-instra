@@ -115,15 +115,11 @@ class HttpUtils
             callback(null, postPhoto);
             return;
         }
-        requestRegIncidencia.listPhotos.forEach((requestPhoto : Object, index : number)=>{
-            Object.keys(requestPhoto).forEach((keyString : string, indexKey : number)=>{
-                let requestPhotoObject = <IRequestPhoto> requestPhoto[keyString];
-                let keyFile = ("file" + indexKey);
-                let pathFile = ( __dirname + "/../../" + requestPhotoObject.path);
-                let file = fs.createReadStream(pathFile);
-    
-                formData[keyFile] = file;
-            })
+        requestRegIncidencia.listPhotos.forEach((requestPhoto : IRequestPhoto, index : number)=>{
+            let keyFile = ("file" + index);
+            let pathFile = ( __dirname + "/../../" + requestPhoto.path);
+            let file = fs.createReadStream(pathFile);
+            formData[keyFile] = file;
         })
 
         request.post({

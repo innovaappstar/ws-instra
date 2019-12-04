@@ -31,15 +31,18 @@ class IncidenciaDEO
             request.codInfraccion.toString(),
             request.observacion,
             request.codUnidad.toString(),
-            request.timeStamp.convertToDateSQL(),
+            request.fechaHoraCreacion.convertToDateSQL(),
             request.latitud,
             request.longitud,
             tramaPhotoSerializado,
             request.padron,
             request.placa,
-            request.codConductor.toString(),
-            request.codRuta.toString(),
-            request.codControl.toString()
+            "1",
+            "1",
+            "1"
+            // request.codConductor.toString(),
+            // request.codRuta.toString(),
+            // request.codControl.toString()
         ]);
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;

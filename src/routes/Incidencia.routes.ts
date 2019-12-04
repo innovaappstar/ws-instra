@@ -65,10 +65,10 @@ export class IncidenciaRoutes extends BaseRoutes {
             let ALIASJSON = "REGISTRO_INCIDENCIA";
             let requestRegIncidencia : IRequestIncidencia = <IRequestIncidencia>JSON.parse(req.body[KEY_INCIDENCE]);  
             let listPhotos : Array<IRequestPhoto> = []
-            if(req.files != null && req.files[KEY_PHOTOS])  
-                listPhotos = Array<IRequestPhoto>(<any>req.files[KEY_PHOTOS])
+            if(req.files != null && req.files[KEY_PHOTOS] && Object.keys(req.files).length > 0 )  
+                listPhotos = <any>req.files[KEY_PHOTOS]
             requestRegIncidencia.listPhotos = listPhotos;
-            if(listPhotos.length == 0){
+            if(listPhotos.length > 0){
                 HttpUtils.uploadFilesToHosting(requestRegIncidencia, (error : Error, result : IPOSTPhoto)=>{
                     if(error){
                         console.error(error);
@@ -114,12 +114,11 @@ export class IncidenciaRoutes extends BaseRoutes {
         {
             let ALIASJSON = "REGISTRO_INCIDENCIA";
             
+            requestRegIncidencia.codInfraccion = 1;   // codEmpresa de pruebas para los testings !!
             requestRegIncidencia.codEmpresa = 25;   // codEmpresa de pruebas para los testings !!
             requestRegIncidencia.codUnidad = 199;
 
             let querySQL = IncidenciaDEO.getQueryRegistroIncidencia(requestRegIncidencia, postPhoto);
-            
-
             ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
@@ -191,4 +190,5 @@ export interface IRequestIncidencia{
     codUnidad : number;
     codRuta : number;
     codControl : number;
+    fechaHoraCreacion : string;
 }
