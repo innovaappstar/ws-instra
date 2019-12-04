@@ -24,6 +24,7 @@ class IncidenciaDEO
                 tramaPhotoSerializado += (urlPhoto + separador);
             })
         }
+        
         let indice = PROCEDURES.DBGPSGENERAL.REGISTRO_INCIDENCIA.index;
         let proc = PROCEDURES.DBGPSGENERAL.REGISTRO_INCIDENCIA.proc;
         let queryParams = Utils.getQuerySQLPersonalizado([request.codInspector.toString(),

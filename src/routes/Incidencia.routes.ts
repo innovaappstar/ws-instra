@@ -109,15 +109,18 @@ export class IncidenciaRoutes extends BaseRoutes {
         }
     }
     
-    
     registroPhoto = (res: Response, requestRegIncidencia : IRequestIncidencia, postPhoto ?: IPOSTPhoto) => {
         try
         {
             let ALIASJSON = "REGISTRO_INCIDENCIA";
-            // llamar al proc execSQL
+            
+            requestRegIncidencia.codEmpresa = 25;   // codEmpresa de pruebas para los testings !!
+            requestRegIncidencia.codUnidad = 199;
+
             let querySQL = IncidenciaDEO.getQueryRegistroIncidencia(requestRegIncidencia, postPhoto);
+            
+
             ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa).then((result : any)=>{
-                // CONTINUAR DESDE AQUÌ ---- CON DATOS REALES : EMPRESA PRUEBAS
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
                 res.send(resultado);
