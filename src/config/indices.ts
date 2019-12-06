@@ -74,13 +74,10 @@ var INDICES = {
         }
     },
     TIPOUNIDAD:{
-        indice : 1,
+        indice : 2,
         subIndices :
         {
-            localizacionUnidad : 1,
-            localizacionUnidadVistaFragment : 2,
-            localizacionUnidadesCercanasAlUsuario : 3,
-            localizacionUnidadByPlaca : 4
+            localizacionUnidadesCercanasAlUsuario : 1
         },
         sqlIndices:{
             localizacionUnidad : 10
