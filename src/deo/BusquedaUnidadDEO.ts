@@ -87,10 +87,10 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
-        queryParadero.lat = Number(queryParadero.lat)
-        queryParadero.lng = Number(queryParadero.lng)
-        queryParadero.maxDistance = Number(queryParadero.maxDistance)
-        queryParadero.codEmpresa = Number(queryParadero.codEmpresa)
+        // queryParadero.lat = Number(queryParadero.lat)
+        // queryParadero.lng = Number(queryParadero.lng)
+        // queryParadero.maxDistance = Number(queryParadero.maxDistance)
+        // queryParadero.codEmpresa = Number(queryParadero.codEmpresa)
         
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             console.log(listUnidadTrack)

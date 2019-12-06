@@ -23,7 +23,13 @@ export class BaseDEO
       let listValoresTrama = tramaSerializado.split((tipoSeparador)? tipoSeparador : this.SEP_COLUMNA); // separador de columna
       let objectResponse : T = <any>{};
       Object.keys(object).forEach((key : string, index : number )=>{
-        objectResponse[key] = listValoresTrama[index];
+        let valueFromKey = object[key];
+        if(typeof valueFromKey == "string")
+          objectResponse[key] = listValoresTrama[index];
+        else if(typeof valueFromKey == "number")
+          objectResponse[key] = Number(listValoresTrama[index]);
+        // else if(typeof valueFromKey == "another type")
+        // else if(valueFromKey instanceof Date)
       })
       return objectResponse;
     }

@@ -109,12 +109,12 @@ export class Testing extends BaseDEO{
     // }
 
     public initBuilding(){
-      let tramaSerializado = "1|2|3|4|5|6|7|8|9|10|11~11|12|13|14|15|16|17|18|19|20|21";
+      let tramaSerializado = "1|2|3|ABC|5|6|7|8|9|10|11~11|12|13|DEF|15|16|17|18|19|20|21";
       var object = {
         val0 : 0,
         val1 : 0,
         val2 : 0,
-        val3 : 0,
+        val3 : "Hola mundo",
         val4 : 0,
       }
       let myObject = super.buildListObject<IObjectValue>(tramaSerializado, object);

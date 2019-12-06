@@ -30,13 +30,8 @@ class UnidadObserver implements IObserver
     update(dataWs: DataWs, clientWS : IClientWS): void {
         if (dataWs.isTipoUnidad())
         {
-            if (dataWs.isLocalizacionUnidad() || dataWs.isLocalizacionUnidadVistaFragment())
-            {
-                // this.localizacionUnidad(dataWs, clientWS);
-            }else if(dataWs.isLocalizacionListaUnidadesCercanasAlUsuario()){
+            if(dataWs.isLocalizacionListaUnidadesCercanasAlUsuario()){
                 this.localizacionUnidadesCercanas(dataWs, clientWS);
-            }else if(dataWs.isLocalizacionUnidadByPlaca()){
-                // this.localizacionUnidadByPlaca(dataWs, clientWS);
             }
         }
     }
