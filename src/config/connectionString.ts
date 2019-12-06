@@ -54,7 +54,7 @@ export const configdb : Array<IConfigDB> = [
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps"},
     { nomDB : DBNAME_GPS_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps"},
     { nomDB : DBNAME_TSIR_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 2, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tsir"},
-    { nomDB : DBNAME_TSIR_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 2, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tsir"}
+    { nomDB : DBNAME_TUBUS, host : host, user : "innova", password : "lomizmo407", id : 3, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tubus"}
 
     // { nomDB : "gps", host : host, user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
 ];  

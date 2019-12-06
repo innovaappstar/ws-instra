@@ -70,7 +70,7 @@ abstract class BaseWebSocket{
             console.error(error);
         }
       }, port: config.puertoWS, path : '/ws'});
-
+    //   ws://192.168.1.120:2028/ws?id=1&ipDispositivo=192.168.1.120&idPerfil=1&codTipoDispositivo=1&macAddress=ABCDEFGHI&v=10.7.8&md=Pocket2&codUsuario=1&codEmpresa=14
    constructor()
    {
         try
@@ -88,7 +88,8 @@ abstract class BaseWebSocket{
                     md : URLUtils.VerificarString(url, Header.md) || '',    // algunas unidades
                     ws : new WebSocketCliente(client), // <WebSocketCliente>client
                     isAlive : true,
-                    codUsuario : URLUtils.VerificarInteger(url, Header.codUsuario)
+                    codUsuario : URLUtils.VerificarInteger(url, Header.codUsuario),
+                    codEmpresa : URLUtils.VerificarInteger(url, Header.codEmpresa),
                 };
 
                 clienteWs.ws.send(`1|1|1|1|config-values|1#${optionsWebSocket.frecuenciaHeartbeat}|${optionsWebSocket.delayAnswerHeartbeat}`);    // config de heartbeath
@@ -354,6 +355,7 @@ interface IClientWS
     ws : WebSocketCliente;
     isAlive : boolean;
     codUsuario : number;
+    codEmpresa : number;
 }
 
 class Header
@@ -366,6 +368,7 @@ class Header
     public static v : string = 'v';
     public static md : string = 'md';
     public static codUsuario : string = 'codUsuario';
+    public static codEmpresa : string = 'codEmpresa';
 }  
 
 /**

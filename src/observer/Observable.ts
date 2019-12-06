@@ -3,6 +3,7 @@ import IObservable = require("./IObservable");
 import DataWs = require("../entity/DataWs");
 import WebSocket = require("ws");
 import { IClientSocket } from "../controllers/BaseSocket";
+import UnidadObserver = require("./UnidadObserver");
 
 /**
  * Created by innovaapps on 20/03/2017.
@@ -12,7 +13,7 @@ class Observable implements IObservable
     public static listObservadores : Array<IObserver> = [];
 
     agregarObservadoresPredeterminados(): void {
-        // Observable.listObservadores.push(new ClienteWebObserver());
+        Observable.listObservadores.push(new UnidadObserver());
     }
 
     removerObservadoresPredeterminados(): void {

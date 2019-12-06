@@ -16,10 +16,9 @@ import HttpUtils = require('./http/HttpUtils');
 import './define/MyExtensions.extensions'
 import { LiquidationRoutes } from './routes/Liquidation.routes';
 import ws from './controllers/ws';
+import { UnidadTrackRepository, IQueryParadero } from './repository/UnidadTrackRepository';
+import { UnidadTrack } from './entity/mongodb/tubus/UnidadTrack';
 
-const save = require('save-file')
-
-let configSQLTeGuio = null;
 const app = new App(
   [
     new TestRoutes,
@@ -35,6 +34,8 @@ ORMAcess.startConnections(__dirname);  // inicializa las conexiones.
 // ORMAcess.readDatabaseV2(__dirname)  // test
 app.listen(); // inicializa el servidor http
 ws.getInstance();
+
+// new Testing().initBuilding();
 
 // console.log(timeConverted);
 // let dateFormatedPrototyped = dateFormat(timeStamp.convertToDateTime(), "dd-mm-yyyy HH:MM:ss");

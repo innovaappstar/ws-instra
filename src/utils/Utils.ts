@@ -1,3 +1,6 @@
+import { UnidadTrack } from "../entity/mongodb/tubus/UnidadTrack";
+import { IQueryParadero } from "../repository/UnidadTrackRepository";
+
 /**
  * Created by innovaapps on 15/03/2017.
  */
@@ -172,6 +175,61 @@ class Utils
             console.log(error);
             return fechaParsing;
         }
+    }
+
+    // public static getDistanceTwoPointsInMetersParadero(paraderoOrigen : IParaderoModel,
+    //     paraderoDestino : IParaderoModel) : number
+    // {
+    //     return this.getDistanceTwoPointsInMeters(
+    //         paraderoOrigen.location.coordinates,
+    //         paraderoDestino.location.coordinates);
+    // }
+    /**
+     * This script [in Javascript] calculates great-circle distances between the two points – that is, the shortest distance
+     * over the earth’s surface – using the ‘Haversine’ formula.
+     * 
+     * https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+     * 
+     * More info : 
+     * https://en.wikipedia.org/wiki/Haversine_formula
+     */
+    public static getDistanceTwoPointsInMeters // getDistanceBetweenTwoPointsNoSQL
+        (latLngOrigen : number[],
+        latLngDestino : number[]) : number
+    {
+        let lat2 = latLngDestino[1];
+        let lng2 = latLngDestino[0];
+
+        let lat1 = latLngOrigen[1];
+        let lng1 = latLngOrigen[0];
+
+        var R = 6371; // Radius of the earth in km
+        var dLat = Utils.deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = Utils.deg2rad(lng2-lng1); 
+        var a = 
+          Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(Utils.deg2rad(lat1)) * Math.cos(Utils.deg2rad(lat2)) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2)
+          ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        d *= 1000;
+        return d;
+    }
+    
+    public static deg2rad(deg : number) : number {
+        return deg * (Math.PI/180)
+    }
+
+    public static getDistanceTwoPointsInMetersQueryParadero(queryParaderoOrigen : IQueryParadero,
+        queryParaderoDestino : IQueryParadero) : number
+    {
+        if(queryParaderoOrigen == null || queryParaderoDestino == null){
+            console.log("null es origen..");
+        }
+        return this.getDistanceTwoPointsInMeters(
+            [ queryParaderoOrigen.lng, queryParaderoOrigen.lat], 
+            [ queryParaderoDestino.lng, queryParaderoDestino.lat]);
     }
 
 }
