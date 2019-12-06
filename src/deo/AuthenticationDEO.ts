@@ -38,7 +38,7 @@ class AuthenticationDEO
     {
         let indice = PROCEDURES.DBGPSGENERAL.AUTH_LOGOUT.index;
         let proc = PROCEDURES.DBGPSGENERAL.AUTH_LOGOUT.proc;
-        let queryParams = Utils.getQuerySQLPersonalizado([request.codUsuarioSesion, request.timeStamp.convertToDateSQL()]);
+        let queryParams = Utils.getQuerySQLPersonalizado([request.userSessionCode, request.timeStamp.convertToDateSQL()]);
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;
     }
