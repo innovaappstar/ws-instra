@@ -112,4 +112,6 @@ export interface IRequestAuth{
     codUsuarioSesion : string;
     lat : string;
     lng : string;
+
+    userSessionCode : string;
 }

@@ -93,7 +93,7 @@ class BusquedaUnidadDEO extends BaseDEO
         // queryParadero.codEmpresa = Number(queryParadero.codEmpresa)
         
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
-            console.log(listUnidadTrack)
+            // console.log(listUnidadTrack)
             callback(null, listUnidadTrack);
         }).catch((error : Error)=>{
             console.error(error);

@@ -12,7 +12,7 @@ export class TestRoutes {
 
     private PATH_INIT = "/envio_notificacion_usuario/?";
     private PATH_LIQUIDACION = "/liquidacion/?";
-    private PATH_LOGOUT = "/auth/logout/?";
+    private PATH_LOGOUT = "/auth/logouttttt/?";
 
     constructor() {
       this.intializeRoutes();

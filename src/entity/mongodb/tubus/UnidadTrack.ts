@@ -46,6 +46,8 @@ export class UnidadTrack {
     @Column()
     frecuenciaPosteo        : number;
     @Column()
+    codUnidad               : number;
+    @Column()
     codEmpresa              : number;
     @Column()
     nomRuta                 : string;
