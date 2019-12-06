@@ -15,6 +15,7 @@ import HttpUtils = require('./http/HttpUtils');
 // import dateFormat = require('dateformat')
 import './define/MyExtensions.extensions'
 import { LiquidationRoutes } from './routes/Liquidation.routes';
+import ws from './controllers/ws';
 
 const save = require('save-file')
 
@@ -33,7 +34,7 @@ const app = new App(
 ORMAcess.startConnections(__dirname);  // inicializa las conexiones.
 // ORMAcess.readDatabaseV2(__dirname)  // test
 app.listen(); // inicializa el servidor http
-
+ws.getInstance();
 
 // console.log(timeConverted);
 // let dateFormatedPrototyped = dateFormat(timeStamp.convertToDateTime(), "dd-mm-yyyy HH:MM:ss");
@@ -50,10 +51,3 @@ app.listen(); // inicializa el servidor http
 //     console.error(error)
 //   })
 // }.bind(this), 5000);
-
-export var properties : IConfigDB = configSQLTeGuio;
-let data = [1, 2, 3]
-save(data, 'data.jpg')
-console.log("save finished..")
-// const saveSync = require('save-file/sync')
-// saveSync(otherData, 'example2.mp3')

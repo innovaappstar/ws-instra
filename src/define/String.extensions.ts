@@ -6,6 +6,8 @@ interface String {
     // convertToDateTime(): string;
     convertToDateTime(formatoFecha : string): string;
     convertToDateSQL(): string;
+    replaceSymbol(symbol : string):string;
+    replaceRegex(symbol : string):string;
 }
 
 String.prototype.print = function (){
@@ -30,4 +32,19 @@ String.prototype.convertToDateSQL = function () : string{
         console.error(error)
     }
     return "";
+}; 
+
+
+// parametro de entrada : '
+String.prototype.replaceSymbol = function (symbol) : string{
+    var value : string = String(this); 
+    //return value.replace(/\/g, "");
+    return value.replace(new RegExp("\\" + symbol, 'g'), '');
+};
+
+
+// parametro de entrada : \'
+String.prototype.replaceRegex = function (symbolRegex) : string{
+    var value : string = String(this); 
+    return value.replace(new RegExp(symbolRegex, 'g'), '');
 };

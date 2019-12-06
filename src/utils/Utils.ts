@@ -56,17 +56,20 @@ class Utils
         return s;
     }
 
+    private static readonly TIPO_SEPARADOR_STANDAR = ",";
+    private static readonly TIPO_SEPARADOR_PERSONALIZADO = "|";
 
     public static getQuerySQLStandar(data : string[]) : string
     {
-        return Utils.getQueryStringSQL(data, {tipo : this.tipoStandar});
+        return Utils.getQueryStringSQL(data, Utils.TIPO_SEPARADOR_STANDAR);
     }
 
 
-    public static getQuerySQLPersonalizado(data : string[]) : string
+    public static getQuerySQLPersonalizado(data : string[], tipoSeparador ?: string) : string
     {
-        return Utils.getQueryStringSQL(data, {tipo : this.tipoPersonalizado});
+        return Utils.getQueryStringSQL(data, ((tipoSeparador)? tipoSeparador : Utils.TIPO_SEPARADOR_PERSONALIZADO) );
     }
+
 
     /**
      * serializa data separandolos por el símbolo ','
@@ -74,7 +77,7 @@ class Utils
      * @param metodo IMetodo
      * @param callback function
      */
-    private static getQueryStringSQL(data : string[], metodo : IMetodo) : string
+    private static getQueryStringSQL(data : string[], tipoSeparador : string) : string
     {
         let query = "";
         if(data.length == 0)
@@ -84,13 +87,13 @@ class Utils
         }
         for (let i = 0; i < data.length; i++)
         {
-            if (metodo.tipo == this.tipoStandar)
-                query = `${query}'${data[i]}',`;
-            else if (metodo.tipo == this.tipoPersonalizado)
-                query = `${(i == 0)?"'":""}${query} ${data[i]} ${(i == (data.length -1))?"'":""} |`;
+            if (tipoSeparador == Utils.TIPO_SEPARADOR_STANDAR)
+                query = `${query}'${data[i]}'${tipoSeparador}`;    // 1,2,3,
+            else if (tipoSeparador != Utils.TIPO_SEPARADOR_STANDAR)
+                query = `${(i == 0)?"'":""} ${query} ${data[i]} ${(i == (data.length -1))?"'":""} ${tipoSeparador}`; // 'a|b|3*4*2*5|c' --- '3*4*2*5'
         }
         // callback(null, query.substring(0, query.length - 1));
-        return query.substring(0, query.length - 1);
+        return query.substring(0, query.length - 1);    // result : 1,2,3
     }
 
     /**

@@ -5,7 +5,8 @@ import Utils = require('../utils/Utils');
 import { IRequestAuth } from '../routes/Authentication.routes';
 import PROCEDURES from '../sql/procedures.sql';
 import '../define/MyExtensions.extensions'
-import { IRequestLiquidation } from '../routes/Liquidation.routes';
+import { IRequestLiquidation, IRequestLiquidationRegister, IRequestBoleto } from '../routes/Liquidation.routes';
+import e = require('express');
 
 class LiquidationDEO
 {
@@ -17,14 +18,10 @@ class LiquidationDEO
      */
     public static getQueryLiquidationList(request : IRequestLiquidation) : string
     {
-        let indice = PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index;
-        let proc = PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc;
+        let indice = PROCEDURES.DBGPSGENERAL.LIQUIDATION_LIST.index;
+        let proc = PROCEDURES.DBGPSGENERAL.LIQUIDATION_LIST.proc;
         let queryParams = Utils.getQuerySQLPersonalizado([
-            request.timeStamp.convertToDateSQL(),
-            request.macAddress,
-            request.deviceVersion,
-            request.applicationVersion,
-            request.phoneModel
+            request.unitCode.toString(),
         ]);
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;
@@ -36,11 +33,43 @@ class LiquidationDEO
      */
     public static getQueryLiquidationRegister(request : IRequestLiquidation) : string
     {
-        let indice = PROCEDURES.DBGPSGENERAL.AUTH_LOGOUT.index;
-        let proc = PROCEDURES.DBGPSGENERAL.AUTH_LOGOUT.proc;
-        let queryParams = Utils.getQuerySQLPersonalizado([request.codUsuarioSesion, request.timeStamp.convertToDateSQL()]);
+        let indice = PROCEDURES.DBGPSGENERAL.LIQUIDATION_REGISTER.index;
+        let proc = PROCEDURES.DBGPSGENERAL.LIQUIDATION_REGISTER.proc;
+        let objectLiquidation : IRequestLiquidationRegister = JSON.parse(request.auxiliar) ;
+        let mySerializadoTEMP = "";
+        // primero armas el serializado de tipo asterIsco -
+        objectLiquidation.boletos.forEach((element : IRequestBoleto) => {
+            mySerializadoTEMP += Utils.getQuerySQLPersonalizado([
+                element.codBoleto.toString(),
+                element.inicioCorteBoleto,
+                element.finCorteBoleto,
+                element.cantidadReintegro.toString()
+            ],"*").replaceSymbol("'")
+
+            mySerializadoTEMP  += "~"
+        });
+        mySerializadoTEMP = mySerializadoTEMP.substr(0, (mySerializadoTEMP.length -1) );
+
+        // segundo, armas el serializado de tipo barrita vertical(para este paso
+        // ya tienes el serializado de boletos "*" y "|") -
+        let queryParams = Utils.getQuerySQLPersonalizado(
+            [
+                objectLiquidation.ruteCode.toString(),
+                objectLiquidation.controlCode.toString(),
+                objectLiquidation.observacion,
+                objectLiquidation.userCode.toString(),
+                objectLiquidation.unitCode.toString(),
+                objectLiquidation.latitude,
+                objectLiquidation.longitude,
+                objectLiquidation.settlementType.toString(),
+                objectLiquidation.dateTime.convertToDateSQL(),
+                objectLiquidation.driverCode.toString(),
+                mySerializadoTEMP
+            ], "|");
+
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;
     }
 }
+
 export = LiquidationDEO;

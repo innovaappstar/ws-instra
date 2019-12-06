@@ -184,7 +184,14 @@ export class ORMAcess {
      * @param queryString string
      * @param codEmpresa number
      */
-    public static execQuerySQL(queryString : string, codEmpresa : number): Promise<any> {
+    public static execQuerySQL(queryString : string, codEmpresa : number, isSetDateFormat ?: boolean): Promise<any> {
+        // util para cuando se requiera trabajar con fechas como parAmetros de entrada o en proceso (get/set) interno del mismo Procedure-SQL
+        if(isSetDateFormat)
+        {
+            let FORMAT_DATE = "SET DATEFORMAT dmy;"
+            queryString = FORMAT_DATE.concat(queryString)
+        } 
+
         return new Promise((resolve, reject)=>
         {
             config.configdb.forEach((configdb : IConfigDB)=> {

@@ -22,6 +22,16 @@ var PROCEDURES = {
             proc : "ins.ProcIncidencia",
             comment : "registro de incidencia"
         },
+        LIQUIDATION_LIST : {
+            index : 10,
+            proc : "ins.ProcLiquidacion",
+            comment : "obtener lista de liquidaciones o inspecciones hasta el momento"
+        },
+        LIQUIDATION_REGISTER : {
+            index : 20,
+            proc : "ins.ProcLiquidacion",
+            comment : "esto me servira para poder registrar las liquidaciones o cortes que haga el inspector (usuario)"
+        }
         
     }
     // ,     
