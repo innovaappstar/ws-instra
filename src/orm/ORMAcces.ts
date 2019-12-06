@@ -6,6 +6,8 @@ import { IConfigDB, TYPE_MONGODB, TYPE_SQL, OPERATIVO } from "../config/connecti
 import { User } from "../entity/mongodb/gps/User";
 import { ConexionesSocket } from "../entity/mongodb/gps/ConexionesSocket";
 import { ConexionesSocketRepository } from "../repository/ConexionesSocketRepository";
+import { UnidadTrackRepository, IQueryParadero } from "../repository/UnidadTrackRepository";
+import { UnidadTrack } from "../entity/mongodb/tubus/UnidadTrack";
 // import sqlite3 = require('sqlite3');
 const sqlite3 = require('sqlite3').verbose();
 const scanFolder = require("scan-folder");
@@ -53,7 +55,7 @@ export class ORMAcess {
                         if(configdb.connection == null && configdb.operativo == OPERATIVO && configdb.nomDB == connection.name)
                             configdb.connection = connection;   // inject new connection
                         
-                        if(configdb.nomDB == "gps" && connection.name == "gps")
+                        if(configdb.nomDB == "dbtubus2" && connection.name == "dbtubus2")
                         {
                             // try 
                             // {
@@ -64,6 +66,22 @@ export class ORMAcess {
                             // }catch(error){
                             //     console.error(error);    
                             // }
+
+                            // -11.976988, -77.083125
+                            // entidad de consulta con mongodb
+                            // let queryParadero : IQueryParadero = <IQueryParadero>{
+                            //     lng : -76.89382,
+                            //     lat : -12.23058,
+                            //     maxDistance : 2000,   // metros * METERS_POR_KM,
+                            //     codEmpresa : 15
+                            // }
+
+                            // new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
+                            //     console.log(listUnidadTrack)
+                            // }).catch((error : Error)=>{
+                            //     console.error(error);
+                            // })
+                            // new UnidadTrackRepository().generateReport();
                         }
                     });
                 })

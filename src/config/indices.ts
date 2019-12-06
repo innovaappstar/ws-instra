@@ -73,6 +73,22 @@ var INDICES = {
             updateNomRutas: "ProcRutaV3"
         }
     },
+    TIPOUNIDAD:{
+        indice : 1,
+        subIndices :
+        {
+            localizacionUnidad : 1,
+            localizacionUnidadVistaFragment : 2,
+            localizacionUnidadesCercanasAlUsuario : 3,
+            localizacionUnidadByPlaca : 4
+        },
+        sqlIndices:{
+            localizacionUnidad : 10
+        },
+        sqlProcedimientos:{
+            localizacionUnidad : "ProcValidadorIncidencia"
+        }
+    }, 
         TIPOTRACK: {
             indice: 8,
             subIndices: {

@@ -49,6 +49,29 @@ class DataWs
     get codigos(): string[] {
         return this._codigos;
     }
+    
+    isTipoUnidad():boolean{
+        return (this._indiceWs == INDICES.TIPOUNIDAD.indice);
+    }
+
+    isLocalizacionUnidad(): boolean
+    {
+        return (this._subIndiceWs == INDICES.TIPOUNIDAD.subIndices.localizacionUnidad);
+    }
+    isLocalizacionUnidadVistaFragment(): boolean
+    {
+        return (this._subIndiceWs == INDICES.TIPOUNIDAD.subIndices.localizacionUnidadVistaFragment);
+    }
+    isLocalizacionListaUnidadesCercanasAlUsuario(): boolean
+    {
+        return (this._subIndiceWs == INDICES.TIPOUNIDAD.subIndices.localizacionUnidadesCercanasAlUsuario);
+    }
+    isLocalizacionUnidadByPlaca(): boolean
+    {
+        return (this._subIndiceWs == INDICES.TIPOUNIDAD.subIndices.localizacionUnidadByPlaca);
+    }
+
+
 
     isTipoSolicitudIncidencia():boolean{
         return (this._indiceWs == INDICES.TIPOSOLICITUDINCIDENCIA.indice);

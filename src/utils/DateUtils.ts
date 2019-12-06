@@ -35,7 +35,28 @@ class DateUtils
         return new Date(new Date().setHours(new Date().getHours() - ((isZonaHoraria) ? 5 : 0)))
     }
 
+   /**
+     * agrega +5 horas al date entrante.
+     * Razòn : las fechas devueltas por SQL estàn trabajadas en formato español y 
+     * tedious en americano. Esto ocasiona que el tiempo varie en -5
+     * @param date 
+     */
+    public convertDateLocale(date : Date) : Date{
+        date.setHours( date.getHours() + 5);
+        return date;
+    }
 
+    /**
+     * agrega/resta minutos a la hora actual para las consultas
+     * de busqueda de unidad.
+     * @param date 
+     */
+    public getDateAddMinutes(minutes : number) : Date{
+        let dateResponse = new Date();
+        dateResponse.setMinutes( dateResponse.getMinutes() + minutes);
+        dateResponse.setHours( dateResponse.getHours() - 5);
+        return dateResponse;
+    }
 }
 
 export = DateUtils;
