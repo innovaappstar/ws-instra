@@ -18,6 +18,7 @@ import { LiquidationRoutes } from './routes/Liquidation.routes';
 import ws from './controllers/ws';
 import { UnidadTrackRepository, IQueryParadero } from './repository/UnidadTrackRepository';
 import { UnidadTrack } from './entity/mongodb/tubus/UnidadTrack';
+import { CompanyRoutes } from './routes/Company.routes';
 
 const app = new App(
   [
@@ -25,7 +26,8 @@ const app = new App(
     // new SMSReceiverRoutes,
     new AuthenticationRoutes,
     new IncidenciaRoutes,
-    new LiquidationRoutes
+    new LiquidationRoutes,
+    new CompanyRoutes
   ],
   config.puertoHTTP
 );

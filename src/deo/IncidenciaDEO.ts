@@ -3,13 +3,45 @@
  */
 import Utils = require('../utils/Utils');
 import PROCEDURES from '../sql/procedures.sql';
-import { IRequestIncidencia, IPOSTPhoto } from '../routes/Incidencia.routes';
+import { IRequestIncidencia, IPOSTPhoto, IRequestInfraction } from '../routes/Incidencia.routes';
 import '../define/MyExtensions.extensions'
 
 class IncidenciaDEO
 {
     constructor(){}
    
+
+    /**
+     * @param dataws DataWs
+     * @param callback Function
+     */
+    public static getQueryIncidentAndInspectionList(request : IRequestInfraction) : string
+    {
+        let indice = PROCEDURES.DBPRUEBAS.INCIDENT_INSPECTION_LIST.index;
+        let proc = PROCEDURES.DBPRUEBAS.INCIDENT_INSPECTION_LIST.proc;
+        let queryParams = Utils.getQuerySQLPersonalizado([
+            request.userCode.toString(),
+            request.type.toString()
+        ], "|");
+        let queryString = `exec ${proc} ${queryParams} , ${indice}`;
+        return queryString;
+    }
+
+
+    /**
+     * @param dataws DataWs
+     * @param callback Function
+     */
+    public static getQueryInfractionList(request : IRequestInfraction) : string
+    {
+        let indice = PROCEDURES.DBPRUEBAS.INFRACTION_LIST.index;
+        let proc = PROCEDURES.DBPRUEBAS.INFRACTION_LIST.proc;
+        let queryParams = "''";
+        let queryString = `exec ${proc} ${queryParams} , ${indice}`;
+        return queryString;
+    }
+
+
     /**
      * @param dataws DataWs
      * @param callback Function

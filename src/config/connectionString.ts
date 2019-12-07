@@ -14,6 +14,8 @@ export const TYPE_SQL = 2;
 export const OPERATIVO = 1;
 export const COD_BDGPSGENERAL = 1;
 export const COD_BDGPSPRUEBAS = 25;
+export const COD_BDCONIN = 1000;
+
 export const DBNAME_LOG_MONGODB = "dblog";
 export const DBNAME_GPS_MONGODB = "gps";
 export const DBNAME_TSIR_MONGODB = "tsir";
@@ -49,6 +51,7 @@ export const configdb : Array<IConfigDB> = [
     { nomDB : "AGPS_SantaBarbara", host : host, user : user, password : password, id : 40, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver"},
     { nomDB : "TeGuio", host : host, user : user, password : password, id : 41, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver"},
     { nomDB : "AGPS_Vipusa", host : host, user : user, password : password, id : 42, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver"},
+    { nomDB : "Conin", host : host, user : user, password : password, id : COD_BDCONIN, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver"},
     // string connections for mongodb
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps"},

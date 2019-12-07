@@ -5,11 +5,12 @@ import { IRecorridoControl } from "./../nosql/dataAccess/schemas/ControlSchema";
  */
 import {Router, Request , Response} from 'express';
 import { ORMAcess } from '../orm/ORMAcces';
-import {COD_BDGPSGENERAL} from '../config/connectionString';
+import { COD_BDGPSGENERAL, COD_BDGPSPRUEBAS } from '../config/connectionString';
 import JSONUtils = require('../utils/JSONUtils');
 // import { BaseRoutes } from './baseRoutes';
 import { BaseRoutes } from '../routes/BaseRoutes' 
 import PROCEDURES from '../sql/procedures.sql';
+import { IRequestBoleto } from './Liquidation.routes';
 import HttpUtils = require('../http/HttpUtils');
 import multer = require('multer');
 import IncidenciaDEO = require('../deo/IncidenciaDEO');
@@ -33,6 +34,8 @@ export class IncidenciaRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_REGISTRO_INCIDENCIA = "/registro/incidencia/?";
+    private PATH_LISTA_INFRACCION = "/lista/infraccion/?";
+    private PATH_LISTA_INCIDENCIA = "/lista/incidencia_inspeccion/?";
 
     constructor() {
         super()
@@ -41,7 +44,71 @@ export class IncidenciaRoutes extends BaseRoutes {
    
     public intializeRoutes() {
         // this.router.get(this.PATH_REGISTRO_INCIDENCIA, this.postRegistroIncidencia)
+        this.router.get(this.PATH_LISTA_INCIDENCIA, this.getIncidentAndInspectionList),
+        this.router.get(this.PATH_LISTA_INFRACCION, this.getInfractionsList),
         this.router.post(this.PATH_REGISTRO_INCIDENCIA, cpUpload, this.postRegistroIncidencia)
+    }
+
+    // https://192.168.1.132:2032/api/regins/lista/incidencia_inspeccion/?userCode=15&type=1
+    getIncidentAndInspectionList = (req: Request, res: Response) => {
+        try
+        {
+            let requestInfraction : IRequestInfraction = <any>req.query;           
+            let ALIASJSON = "INCIDENT_LIST";
+            if(requestInfraction.userCode == null || requestInfraction.type == null)
+            {
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : "No tiene permisos necesarios"});
+                res.send(JSON.stringify(resultado));
+                return;
+            }
+            let querySQL = IncidenciaDEO.getQueryIncidentAndInspectionList(requestInfraction);
+            ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
+                let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
+                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                res.send(resultado);
+            }).catch((error : Error)=>{
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : error.message});
+                res.send(JSON.stringify(resultado));
+            })
+        }catch (error)
+        {
+            console.error(error);
+        }
+    }
+
+    // https://192.168.1.132:2032/api/regins/lista/infraccion/?userCode=10
+    getInfractionsList = (req: Request, res: Response) => {
+        try
+        {
+            let requestInfraction : IRequestInfraction = <any>req.query;           
+            let ALIASJSON = "INFRACTION_LIST";
+            if(requestInfraction.userCode == null)
+            {
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : "No tiene permisos necesarios"});
+                res.send(JSON.stringify(resultado));
+                return;
+            }
+            let querySQL = IncidenciaDEO.getQueryInfractionList(requestInfraction);
+            ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
+                let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
+                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                res.send(resultado);
+            }).catch((error : Error)=>{
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : error.message});
+                res.send(JSON.stringify(resultado));
+            })
+        }catch (error)
+        {
+            console.error(error);
+        }
     }
 
 // -- ins.ProcIncidencia '1|1|test3|3|25/11/2019 10:39:30|-11.976406|-77.087933|test2|01|PRS-111|Prueba|ruta|control',20
@@ -142,6 +209,15 @@ export class IncidenciaRoutes extends BaseRoutes {
 
 
         
+export interface IRequestInfraction{
+    userCode : number;
+    codIncidenciaTipo : number;
+    nomIncidenciaTipo : string;
+    codigoIncidencia : number;
+    abrevNomIncideciaTipo : string;
+    type : number; // 1 -> liquidaciones | 0 -> incidencias 
+}
+
 
 // $data = ['codResultado' => $FILES_UPLOADED_SUCCESSFULLY, 'descripcion' => 'Los archivos fueron cargados exitosamente.' , 'listPhotoLinks' => $listPhotoLinks];
 

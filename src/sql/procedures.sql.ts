@@ -32,8 +32,27 @@ var PROCEDURES = {
             proc : "ins.ProcLiquidacion",
             comment : "esto me servira para poder registrar las liquidaciones o cortes que haga el inspector (usuario)"
         }
+    },
+    DBPRUEBAS : 
+    {
         
+        COMPANY_LIST : {
+            index : 13,
+            proc : "ins.ProcIncidencia",
+            comment : "este procedimiento me devuelve la lista de empresas"
+        },
+        INFRACTION_LIST : {
+            index : 12,
+            proc : "ins.ProcIncidencia",
+            comment : "este procedimiento me devuelve la lista de infracciones para registrar una incidencia"
+        },
+        INCIDENT_INSPECTION_LIST : {
+            index : 11,
+            proc : "ins.ProcIncidencia",
+            comment : "este procedimiento me retorna las lista de incidencias o inspecciones que tiene el usuario y que haya hecho en el dia"
+        }
     }
+
     // ,     
     // DBGPSGENERAL :{
     //     INFOEXAMPLE :{
