@@ -49,7 +49,28 @@ export class IncidenciaRoutes extends BaseRoutes {
         this.router.post(this.PATH_REGISTRO_INCIDENCIA, cpUpload, this.postRegistroIncidencia)
     }
     
-    // https://192.168.1.132:2032/api/regins/lista/incidencia_inspeccion/?userCode=15&type=1
+    /**
+    * @api {get} /api/regins/lista/incidencia_inspeccion/?userCode=13&type=1 Return Incidence and inspection list
+    * @apiGroup Incidence
+    * @apiParam {int} userCode User code.
+    * @apiParam {int} type type
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "INCIDENT_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *           "id": 1,
+    *           "title": "Study",
+    *           "done": false
+    *           "updated_at": "2016-02-10T15:46:51.778Z",
+    *           "created_at": "2016-02-10T15:46:51.778Z"
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getIncidentAndInspectionList = (req: Request, res: Response) => {
         try
         {
@@ -80,7 +101,23 @@ export class IncidenciaRoutes extends BaseRoutes {
         }
     }
 
-    // https://192.168.1.132:2032/api/regins/lista/infraccion/?userCode=10
+
+    /**
+    * @api {get} /api/regins/lista/infraccion/?userCode=13 Return Incidence and inspection list
+    * @apiGroup Incidence
+    * @apiParam {int} userCode User code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "INFRACTION_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getInfractionsList = (req: Request, res: Response) => {
         try
         {
@@ -110,8 +147,51 @@ export class IncidenciaRoutes extends BaseRoutes {
             console.error(error);
         }
     }
-    
-    // https://192.168.1.120:2032/api/regins/registro/incidencia/?
+
+   /**
+    * @api {post} /registro/incidencia/? Register a new incidence
+    * @apiGroup Incidence
+    * @apiParam {files} Photos Photos.
+    * @apiParamExample {json} Incidence
+    *    {
+    *      "listPhotos": 1,
+    *      "codInfraccion": 1,
+    *      "codConductor": 12,
+    *      "codEmpresa": 14,
+    *      "codSesion": 14,
+    *      "codInspector": 123,
+    *      "fechaHora": 98967893111,
+    *      "timeStamp": 98967893111,
+    *      "flagEnviado": 1,
+    *      "latitud": 11.1234,
+    *      "longitud": 17.123456,
+    *      "modeloDispositivo": "Pocket2",
+    *      "observacion": "mi observaciòn de ejemplo",
+    *      "padron": "015",
+    *      "placa": "XXX-069",
+    *      "sentido": "A",
+    *      "urlFoto": "www.xxx.com",
+    *      "versionApp": "12.2",
+    *      "versionDispositivo": "8.1.2",
+    *      "wlan": "AB:CD:EF:GH:IJ",
+    *      "ID": 1,
+    *      "codUnidad": 12,
+    *      "codRuta": 1,
+    *      "codControl": 12,
+    *      "fechaHoraCreacion": 98967893111
+    * }
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "REGISTRO_INCIDENCIA" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *       }
+    *    }
+    * @apiErrorExample {json} Register error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     postRegistroIncidencia = (req: Request, res: Response, next) => {
         try
         {

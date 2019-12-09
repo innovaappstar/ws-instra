@@ -29,31 +29,20 @@ export class LiquidationRoutes extends BaseRoutes {
         this.router.get(this.PATH_LIQUIDATION_REGISTER, this.registerLiquidation)
     }
 
-    // https://192.168.1.120:2032/ api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
-
     /**
     * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200 Return liquidation list from unit
-    * @apiGroup Unit
-    * @apiParam {int} timeStamp TimeStamp.
-    * @apiParam {int} userSessionCode User session code.
-    * @apiParam {int} userCode User code.
-    * @apiParam {int} companyCode Company code
+    * @apiGroup Liquidation
     * @apiParam {int} unitCode Unit code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
-    *       "UNIT_DETAIL" : 
+    *       "LIQUIDATION_LIST" : 
     *       {
     *           "codResultado" : 1,
-    *           "desResultado" : "detalle de la unidad",
-    *           "id": 1,
-    *           "title": "Study",
-    *           "done": false
-    *           "updated_at": "2016-02-10T15:46:51.778Z",
-    *           "created_at": "2016-02-10T15:46:51.778Z"
+    *           "desResultado" : "detalle de la unidad"
     *       }
     *    }
-    * @apiErrorExample {json} List error
+    * @apiErrorExample {json} Error
     *    HTTP/1.1 500 Internal Server Error
     */
     getLiquidationList = (req: Request, res: Response) => {
@@ -88,36 +77,26 @@ export class LiquidationRoutes extends BaseRoutes {
             console.error(error);
         }
     }
-
+    
     /**
-     * -- serializado por -> | <- 
-        ->ins.ProcLiquidacion '4|1|test|1|209|123|123|1|30/11/2019 18:35:00|1668|2*3*6*5~1*5*9*1~5*1*2*10',20                    <-cadena de ejemplo
-				
-        SELECT  @CodRuta = Data FROM @TbParametros WHERE N = 1
-        SELECT  @CodControl = Data FROM @TbParametros WHERE N = 2 
-        SELECT  @Observacion = Data FROM @TbParametros WHERE N = 3 
-        SELECT  @CodUsuario = Data FROM @TbParametros WHERE N = 4
-        SELECT  @CodUnidad = Data FROM @TbParametros WHERE N = 5
-        SELECT  @LatitudLiquidacion = Data FROM @TbParametros WHERE N =  6
-        SELECT  @LongitudLiquidacion = Data FROM @TbParametros WHERE N = 7
-        SELECT  @CodUnidadLiquidacionTipo = Data FROM @TbParametros WHERE N = 8
-        SELECT  @FechaHoraMovilRegistro = Data FROM @TbParametros WHERE N = 9
-        SELECT  @CodPersonaConductor = Data FROM @TbParametros WHERE N = 10
-        SELECT  @ParametrosLiquidacionDetalle = Data FROM @TbParametros WHERE N = 11
-        ----------------------------------------------------------------------
-        INSERT INTO @TbParametrosLiquidacionDetalleAux (N, DATA)
-        SELECT * FROM  dbo.SplitNumerado((SELECT DATA FROM @TbParametrosLiquidacionDetalle WHERE N = @N), '*')
-        -- serializado por -> * <-
-        --
-        SELECT	@CodBoleto = DATA FROM @TbParametrosLiquidacionDetalleAux WHERE N = 1
-        SELECT  @Inicio = DATA FROM @TbParametrosLiquidacionDetalleAux WHERE N = 2
-        SELECT  @Corte = DATA FROM @TbParametrosLiquidacionDetalleAux WHERE N = 3
-        SELECT  @Reintegro = DATA FROM @TbParametrosLiquidacionDetalleAux WHERE N = 4
-        ==============================================================
+    * @api {get} api/regins/liquidation/register/?codBoleto=12&inicioCorteBoleto=12&finCorteBoleto=12&cantidadReintegro=12 Register liquidation
+    * @apiGroup Liquidation
+    * @apiParam {int} codBoleto TicketCode.
+    * @apiParam {int} inicioCorteBoleto Ticket cut start.
+    * @apiParam {int} finCorteBoleto Ticket cut end.
+    * @apiParam {int} cantidadReintegro Refund quantity
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "LIQUIDATION_REGISTER" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "register liquidation"
+    *       }
+    *    }
+    * @apiErrorExample {json} Error
+    *    HTTP/1.1 500 Internal Server Error
     */
-
-
-    // https://192.168.1.120:2032/api/regins/liquidation/register/?auxiliar=23123
     registerLiquidation = (req: Request, res: Response) => {
         try
         {

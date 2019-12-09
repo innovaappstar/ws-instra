@@ -26,7 +26,22 @@ export class CompanyRoutes extends BaseRoutes {
         this.router.get(this.PATH_COMPANY_LIST, this.getCompanyList)
     }
 
-    // https://192.168.1.132:2032/api/regins/company/list/?userCode=10
+    /**
+    * @api {get} /api/regins/company/?userCode=13 Return company list
+    * @apiGroup Company
+    * @apiParam {int} userCode User code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "COMPANY_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getCompanyList = (req: Request, res: Response) => {
         try
         {
