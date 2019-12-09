@@ -423,6 +423,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                                 claseUnidad : { $first : "$claseUnidad"},
                                 codEstado : { $first : "$codEstado"},
                                 coloresUnidad : { $first : "$coloresUnidad"},
+                                codUnidad : { $first : "$codUnidad"},
                                 fechaHoraPaso : { $first : "$fechaHoraPaso"},
                                 frecuenciaPosteo : { $first : "$frecuenciaPosteo"},
                                 ladoActual : { $first : "$ladoActual"},

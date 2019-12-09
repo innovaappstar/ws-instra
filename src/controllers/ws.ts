@@ -5,6 +5,7 @@ import {BaseWebSocket, WebSocket, Header, IClientWS} from '../controllers/BaseWe
 import URLUtils = require('../utils/URLUtils');
 import Observable = require('../observer/Observable');
 import { CheckDataUtils, ICheckData } from '../utils/CheckDataUtils';
+import {config} from "../config/config";
 
 /**
  * objeto ws-servidor que se encargará
@@ -26,9 +27,9 @@ export default class ws extends BaseWebSocket
     static getInstance() : ws{
         if (!ws.instance)
         {
-            // ws.instance = new ws();
-            // ws.observable.agregarObservadoresPredeterminados();
-            // console.log('****************** servidor-websocket iniciado en ' + config.host + ':' + config.puertoWS);
+            ws.instance = new ws();
+            ws.observable.agregarObservadoresPredeterminados();
+            console.log('****************** servidor-websocket iniciado en ' + config.host + ':' + config.puertoWS);
         }
         return ws.instance;
     }

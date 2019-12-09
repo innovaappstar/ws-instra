@@ -29,7 +29,33 @@ export class LiquidationRoutes extends BaseRoutes {
         this.router.get(this.PATH_LIQUIDATION_REGISTER, this.registerLiquidation)
     }
 
-    // https://192.168.1.120:2032/api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
+    // https://192.168.1.120:2032/ api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
+
+    /**
+    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200 Return liquidation list from unit
+    * @apiGroup Unit
+    * @apiParam {int} timeStamp TimeStamp.
+    * @apiParam {int} userSessionCode User session code.
+    * @apiParam {int} userCode User code.
+    * @apiParam {int} companyCode Company code
+    * @apiParam {int} unitCode Unit code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "UNIT_DETAIL" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *           "id": 1,
+    *           "title": "Study",
+    *           "done": false
+    *           "updated_at": "2016-02-10T15:46:51.778Z",
+    *           "created_at": "2016-02-10T15:46:51.778Z"
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getLiquidationList = (req: Request, res: Response) => {
         try
         {
@@ -46,11 +72,6 @@ export class LiquidationRoutes extends BaseRoutes {
             }
 
             let querySQL = LiquidationDEO.getQueryLiquidationList(requestLiquidation);
-
-            let listBoletos = Utils.getQuerySQLPersonalizado(["1", "2", "3"], "*");  // '1*2*3'
-            let listBoletos2 = Utils.getQuerySQLPersonalizado(["1", "2", "3"], "*").replaceSymbol("'");
-            let listBoletos3 = Utils.getQuerySQLPersonalizado(["1", "2", "3"], "*").replaceRegex("\'");
-            console.log(listBoletos)
 
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])

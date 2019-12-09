@@ -33,7 +33,7 @@ export class UnitRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} /api/regins/unit/detalle/?timeStamp=xx&userSessionCode=xx&userCod=xx&companyCod=xx&unitCod=xx
+    * @api {get} /api/regins/unit/detalle/?timeStamp=1234567890&userSessionCode=123&userCod=321&companyCod=123&unitCod=13 Return unit detail
     * @apiGroup Unit
     * @apiParam {int} timeStamp TimeStamp.
     * @apiParam {int} userSessionCode User session code.
