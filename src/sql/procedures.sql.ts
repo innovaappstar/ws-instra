@@ -50,6 +50,12 @@ var PROCEDURES = {
             index : 11,
             proc : "ins.ProcIncidencia",
             comment : "este procedimiento me retorna las lista de incidencias o inspecciones que tiene el usuario y que haya hecho en el dia"
+        },
+        UNIDAD_DETALLE :
+        {
+            index : 11,
+            proc : "ins.ProcLiquidacion",
+            comment : "este procedimiento me devuelve los detalles de una unidad como padron - placa, etc"
         }
     }
 

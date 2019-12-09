@@ -48,7 +48,7 @@ export class IncidenciaRoutes extends BaseRoutes {
         this.router.get(this.PATH_LISTA_INFRACCION, this.getInfractionsList),
         this.router.post(this.PATH_REGISTRO_INCIDENCIA, cpUpload, this.postRegistroIncidencia)
     }
-
+    
     // https://192.168.1.132:2032/api/regins/lista/incidencia_inspeccion/?userCode=15&type=1
     getIncidentAndInspectionList = (req: Request, res: Response) => {
         try
