@@ -3,8 +3,6 @@
  */
 import IObserver = require("./IObserver");
 import JSONUtils = require("../utils/JSONUtils");
-import { IClientSocket } from "../controllers/BaseSocket";
-import SocketCliente from "../controllers/SocketCliente";
 import { IClientWS } from "../controllers/BaseWebSocket";
 import DateFormat = require('dateformat');
 import DateUtils = require("../utils/DateUtils");

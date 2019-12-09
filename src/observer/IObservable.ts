@@ -4,7 +4,7 @@
 import DataWs = require('../entity/DataWs');
 import IObserver = require('./IObserver');
 import WebSocket = require("ws");
-import { IClientSocket } from '../controllers/BaseSocket';
+import { IClientWS } from '../controllers/BaseWebSocket';
 
 interface IObservable
 {
@@ -12,6 +12,6 @@ interface IObservable
     removerObservadoresPredeterminados() : void;
     agregarObservador(iObserver : IObserver): void;
     removerObservador(iObserver : IObserver): void;
-    notificar(dataWs : DataWs, clienteSocket : IClientSocket) : void;
+    notificar(dataWs : DataWs, clientWS : IClientWS) : void;
 }
 export = IObservable;

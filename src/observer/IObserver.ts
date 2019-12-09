@@ -3,10 +3,10 @@
  */
 import DataWs = require('../entity/DataWs');
 import WebSocket = require("ws");
-import { IClientSocket } from '../controllers/BaseSocket';
+import { IClientWS } from '../controllers/BaseWebSocket';
 
 interface IObserver
 {
-    update(dataWs : DataWs, clientSocket : IClientSocket) : void;
+    update(dataWs : DataWs, clientWS : IClientWS) : void;
 }
 export = IObserver;

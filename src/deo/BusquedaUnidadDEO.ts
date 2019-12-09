@@ -6,7 +6,6 @@ import ArrayUtils = require('../utils/ArrayUtils');
 import INDICES from "../config/indices";
 import {IClientWS} from "../controllers/BaseWebSocket";
 import DateUtils = require("../utils/DateUtils");
-import { IClientSocket } from '../controllers/BaseSocket';
 import DataWs = require('../entity/DataWs');
 import { IQueryParadero, UnidadTrackRepository } from '../repository/UnidadTrackRepository';
 import { UnidadTrack } from '../entity/mongodb/tubus/UnidadTrack';

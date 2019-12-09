@@ -1,9 +1,10 @@
 import IObserver = require("./IObserver");
 import IObservable = require("./IObservable");
 import DataWs = require("../entity/DataWs");
-import WebSocket = require("ws");
-import { IClientSocket } from "../controllers/BaseSocket";
 import UnidadObserver = require("./UnidadObserver");
+import { IClientWS } from "../controllers/BaseWebSocket";
+
+
 
 /**
  * Created by innovaapps on 20/03/2017.
@@ -11,6 +12,9 @@ import UnidadObserver = require("./UnidadObserver");
 class Observable implements IObservable
 {
     public static listObservadores : Array<IObserver> = [];
+
+    // constructor() {
+    // }
 
     agregarObservadoresPredeterminados(): void {
         Observable.listObservadores.push(new UnidadObserver());
@@ -35,11 +39,12 @@ class Observable implements IObservable
         });
     }
 
-    notificar(dataWs: DataWs, clientSocket : IClientSocket): void {
+    notificar(dataWs: DataWs, clientWS : IClientWS): void {
         Observable.listObservadores.forEach((iObserverItem : IObserver)=>
         {
-            iObserverItem.update(dataWs, clientSocket);
+            iObserverItem.update(dataWs, clientWS);
         });
     }
 }
+// export default Observable
 export = Observable;

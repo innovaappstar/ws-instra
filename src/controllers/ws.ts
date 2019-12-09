@@ -4,10 +4,6 @@
 import {BaseWebSocket, WebSocket, Header, IClientWS} from '../controllers/BaseWebSocket';
 import URLUtils = require('../utils/URLUtils');
 import Observable = require('../observer/Observable');
-import DateUtils = require("../utils/DateUtils");
-import {config} from "../config/config";
-import JSONUtils = require("../utils/JSONUtils");
-import ConexionDEO = require('../deo/ConexionDEO');
 import { CheckDataUtils, ICheckData } from '../utils/CheckDataUtils';
 
 /**
@@ -30,9 +26,9 @@ export default class ws extends BaseWebSocket
     static getInstance() : ws{
         if (!ws.instance)
         {
-            ws.instance = new ws();
-            ws.observable.agregarObservadoresPredeterminados();
-            console.log('****************** servidor-websocket iniciado en ' + config.host + ':' + config.puertoWS);
+            // ws.instance = new ws();
+            // ws.observable.agregarObservadoresPredeterminados();
+            // console.log('****************** servidor-websocket iniciado en ' + config.host + ':' + config.puertoWS);
         }
         return ws.instance;
     }
