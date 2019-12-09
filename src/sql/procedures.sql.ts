@@ -28,7 +28,7 @@ var PROCEDURES = {
         LIQUIDATION_LIST : {
             index : 10,
             proc : "ins.ProcLiquidacion",
-            example : "ins.ProcLiquidacion ......, 10",
+            example : "ins.ProcLiquidacion '331', 10",
             comment : "obtener lista de liquidaciones o inspecciones hasta el momento"
         },
         LIQUIDATION_REGISTER : {
