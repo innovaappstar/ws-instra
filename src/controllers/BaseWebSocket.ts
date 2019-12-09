@@ -6,14 +6,6 @@ import WebSocket = require('ws');
 import {config} from "../config/config";
 //https://medium.com/@Zenkilies/express-session-with-typescript-85bf6dff3dc9#.ptzk6z5uy
 import URLUtils = require('../utils/URLUtils');
-//import {ExceptionSQLController} from "../nosql/controllers/ExceptionSQLController";
-//import {DBSQL} from "../models/sql/dbSQLConnection";
-import DateUtils = require("../utils/DateUtils");
-//import IExceptionSQLModel = require("../nosql/model/interfaces/IExceptionSQLModel");
-//import { ISendDataSocket } from '../routes/notificacionUsuario.routes';
-//import IConexionModel = require('../nosql/model/interfaces/IConexionModel');
-//import { ConexionController } from '../nosql/controllers/ConexionController';
-import ConexionDEO = require('../deo/ConexionDEO');
 
 let optionsWebSocket = {
     delayCheckConnection : (130 * 1000),
@@ -146,13 +138,6 @@ abstract class BaseWebSocket{
               }, optionsWebSocket.delayCheckConnection);
         }catch (error)
         {
-            // new ExceptionSQLController().create(<IExceptionSQLModel>{
-            //     codEmpresa      :   0,
-            //     nomDB           :   '0',
-            //     detalle         :   error.message,
-            //     fechaHora       :   new DateUtils().getDateLocale(),
-            //     codTipo         :   DBSQL.CODERRORWEBSOCKET
-            // });
         }
    }
 

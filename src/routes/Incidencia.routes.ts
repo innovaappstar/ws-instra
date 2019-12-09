@@ -110,22 +110,7 @@ export class IncidenciaRoutes extends BaseRoutes {
             console.error(error);
         }
     }
-
-// -- ins.ProcIncidencia '1|1|test3|3|25/11/2019 10:39:30|-11.976406|-77.087933|test2|01|PRS-111|Prueba|ruta|control',20
-// 		SELECT	@CodUsuario = Data FROM @TbParametros WHERE N = 1
-// 		SELECT	@CodIndidenciaTipo = Data FROM @TbParametros WHERE N = 2
-// 		SELECT	@Observacion = Data FROM @TbParametros WHERE N = 3
-// 		SELECT  @CodUnidad = Data FROM @TbParametros WHERE N = 4
-// 		SELECT  @FechaHoraMovilRegistro = Data FROM @TbParametros WHERE N = 5
-// 		SELECT  @LatitudIncidencia = Data FROM @TbParametros WHERE N = 6
-// 		SELECT  @LongitudIncidencia = Data FROM @TbParametros WHERE N = 7
-// 		SELECT  @Imagen = Data FROM  @TbParametros WHERE N = 8
-// 		SELECT  @PadronUnidad = Data FROM @TbParametros WHERE N = 9
-// 		SELECT  @PlacaUnidad = Data FROM @TbParametros WHERE N = 10
-// 		SELECT  @NomPersonaCondutor = Data FROM @TbParametros WHERE N = 11
-// 		SELECT  @NomRuta = Data FROM @TbParametros WHERE N = 12
-//         SELECT  @NomControl = Data FROM @TbParametros WHERE N = 13
-
+    
     // https://192.168.1.120:2032/api/regins/registro/incidencia/?
     postRegistroIncidencia = (req: Request, res: Response, next) => {
         try

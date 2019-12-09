@@ -62,23 +62,6 @@ export class ReporteUnidad {
                 dataAuxiliar += ( (listStringSMS.length == (index + 1))? '' : '~');
                 auxiliar += dataAuxiliar;
             })
-            // ProcDispositivoTelefono '1|1|1|09/09/2019|10|1|123456789|APN|IMEI|SIM|Placa', 20
-            // -- Obtiene parámetros
-            // SELECT	@CodEmpresa = Data FROM @TbParametros WHERE N = 1
-            // SELECT	@CodDispositivoAux = Data FROM @TbParametros WHERE N = 2
-            // SELECT	@CodDispositivoTipo = Data FROM @TbParametros WHERE N = 3
-
-            // SELECT	@FechaInicioDatosMoviles = Data FROM @TbParametros WHERE N = 4
-            // SELECT	@NumKBConsumidos = Data FROM @TbParametros WHERE N = 5
-            // SELECT	@ExisteInternet = Data FROM @TbParametros WHERE N = 6
-
-            // SELECT	@Telefono = Data FROM @TbParametros WHERE N = 7
-            // SELECT	@APN = Data FROM @TbParametros WHERE N = 8
-            // SELECT	@IMEI = Data FROM @TbParametros WHERE N = 9
-
-            // SELECT	@SimOperador = Data FROM @TbParametros WHERE N = 10
-            // SELECT	@Placa = Data FROM @TbParametros WHERE N = 11
-            // SELECT	@IdSqlite = Data FROM @TbParametros WHERE N = 12
 
             // (Android) fechaInicioDatosMoviles|numKBConsumidos|isExisteInternet|numTelefono|APN|latlng|codDispositivo|codEmpresa|imei|tipo|simOperador|placa|_idSQLite|~
             let querySQL =  `exec ProcDispositivoTelefono '${auxiliar}', 20`;
@@ -104,36 +87,18 @@ export class ReporteUnidad {
 export interface IRequestSMSSerializado{
     listSMS : string;
 }
-    // @SerializedName("FIKB")
-    // public String fechaInicioDatosMoviles = "";
-    // @SerializedName("KB")
-    // public int numKBConsumidos = 0;
-    // @SerializedName("PIN")
-    // public int isExisteInternet = 0;
-    // @SerializedName("APN")
-    // public String APNSeleccionado = "";
-    // @SerializedName("LATLNG")
-    // public String latlng = "";
-    // @SerializedName("CODDISPOSITIVO")
-    // public int codDispositivo = 0;
-    // @SerializedName("CODEMPRESA")
-    // public int codEmpresa = 0;
-    // @SerializedName("IMEI")
-    // public String imei = "";
-    // @SerializedName("TIPO")
-    // public int tipo = 0;  // DEFAULT => 1 (GPS) 
-  export interface IRequestSMSDispositivo{
-    fechaInicioDatosMoviles : string;
-    numKBConsumidos : number;  
-    isExisteInternet : number;  
-    numTelefono : string;  
-    APN : string;  
-    latlng : string;  
-    codDispositivo : number;  
-    codEmpresa : number;  
-    imei : string;      
-    tipo : number;      // 1 (gps) | 2 (tsir)
-    simOperador : number; // PENDIENTEEEE 
-    placa : string;
-    _idSQLite : number; // _id 
+export interface IRequestSMSDispositivo{
+fechaInicioDatosMoviles : string;
+numKBConsumidos : number;  
+isExisteInternet : number;  
+numTelefono : string;  
+APN : string;  
+latlng : string;  
+codDispositivo : number;  
+codEmpresa : number;  
+imei : string;      
+tipo : number;      // 1 (gps) | 2 (tsir)
+simOperador : number; // PENDIENTEEEE 
+placa : string;
+_idSQLite : number; // _id 
 }

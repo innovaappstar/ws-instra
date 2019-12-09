@@ -86,25 +86,7 @@ export class SMSReceiverRoutes {
 export interface IRequestSMSSerializado{
     listSMS : string;
 }
-    // @SerializedName("FIKB")
-    // public String fechaInicioDatosMoviles = "";
-    // @SerializedName("KB")
-    // public int numKBConsumidos = 0;
-    // @SerializedName("PIN")
-    // public int isExisteInternet = 0;
-    // @SerializedName("APN")
-    // public String APNSeleccionado = "";
-    // @SerializedName("LATLNG")
-    // public String latlng = "";
-    // @SerializedName("CODDISPOSITIVO")
-    // public int codDispositivo = 0;
-    // @SerializedName("CODEMPRESA")
-    // public int codEmpresa = 0;
-    // @SerializedName("IMEI")
-    // public String imei = "";
-    // @SerializedName("TIPO")
-    // public int tipo = 0;  // DEFAULT => 1 (GPS) 
-  export interface IRequestSMSDispositivo{
+export interface IRequestSMSDispositivo{
     fechaInicioDatosMoviles : string;
     numKBConsumidos : number;  
     isExisteInternet : number;  

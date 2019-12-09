@@ -1,8 +1,3 @@
-/**
-import { StoreUtils } from "./../utils/StoreUtils";
-import { IRecorridoControl } from "./../nosql/dataAccess/schemas/ControlSchema";
- * Created by innovaapps on 14/03/2017.
- */
 import {Router, Request , Response} from 'express';
 import { UserRepository } from '../repository/UserRepository';
 import { User } from '../entity/mongodb/gps/User';

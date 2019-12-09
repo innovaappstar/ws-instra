@@ -2,6 +2,11 @@
 import { StoreUtils } from "./../utils/StoreUtils";
 import { IRecorridoControl } from "./../nosql/dataAccess/schemas/ControlSchema";
  * Created by innovaapps on 14/03/2017.
+
+ https://blog.jscrambler.com/documenting-apis-using-apidoc-js/
+ apidoc - e "(node_modules|public|doc)" - o public / apidoc
+ https://github.com/apidoc/apidoc/issues/545
+
  */
 import {Router, Request , Response} from 'express';
 import { ORMAcess } from '../orm/ORMAcces';
@@ -27,7 +32,31 @@ export class UnitRoutes extends BaseRoutes {
         this.router.get(this.PATH_UNIDAD_DETALLE, this.getUnitDetail)
     }
 
-    // https://192.168.1.120:2032/api/regins/unit/detalle/?timeStamp=xx&userSessionCode=xx&userCod=xx&companyCod=xx&unitCod=xx
+    /**
+    * @api {get} /api/regins/unit/detalle/?timeStamp=xx&userSessionCode=xx&userCod=xx&companyCod=xx&unitCod=xx
+    * @apiGroup Unit
+    * @apiParam {int} timeStamp TimeStamp.
+    * @apiParam {int} userSessionCode User session code.
+    * @apiParam {int} userCode User code.
+    * @apiParam {int} companyCode Company code
+    * @apiParam {int} unitCode Unit code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "UNIT_DETAIL" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *           "id": 1,
+    *           "title": "Study",
+    *           "done": false
+    *           "updated_at": "2016-02-10T15:46:51.778Z",
+    *           "created_at": "2016-02-10T15:46:51.778Z"
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getUnitDetail = (req: Request, res: Response) => {
         try
         {
