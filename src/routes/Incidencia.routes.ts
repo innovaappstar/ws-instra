@@ -76,7 +76,7 @@ export class IncidenciaRoutes extends BaseRoutes {
         {
             let requestInfraction : IRequestInfraction = <any>req.query;           
             let ALIASJSON = "INCIDENT_LIST";
-            if(requestInfraction.userCode == null || requestInfraction.type == null)
+            if(requestInfraction.userCode == null || requestInfraction.type == null || requestInfraction.companyCode == null)
             {
                 let resultado = super.toObject(ALIASJSON, {
                         codResultado : 0,
@@ -85,7 +85,7 @@ export class IncidenciaRoutes extends BaseRoutes {
                 return;
             }
             let querySQL = IncidenciaDEO.getQueryIncidentAndInspectionList(requestInfraction);
-            ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
+            ORMAcess.execQuerySQL(querySQL, requestInfraction.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
                 res.send(resultado);
@@ -247,9 +247,9 @@ export class IncidenciaRoutes extends BaseRoutes {
         {
             let ALIASJSON = "REGISTRO_INCIDENCIA";
             
-            requestRegIncidencia.codInfraccion = 1;   // codEmpresa de pruebas para los testings !!
-            requestRegIncidencia.codEmpresa = 25;   // codEmpresa de pruebas para los testings !!
-            requestRegIncidencia.codUnidad = 199;
+            // requestRegIncidencia.codInfraccion = 1;   // codEmpresa de pruebas para los testings !!
+            // requestRegIncidencia.codEmpresa = 25;   // codEmpresa de pruebas para los testings !!
+            // requestRegIncidencia.codUnidad = 199;
 
             let querySQL = IncidenciaDEO.getQueryRegistroIncidencia(requestRegIncidencia, postPhoto);
             ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa).then((result : any)=>{
@@ -281,6 +281,7 @@ export interface IRequestInfraction{
     codigoIncidencia : number;
     abrevNomIncideciaTipo : string;
     type : number; // 1 -> liquidaciones | 0 -> incidencias 
+    companyCode : number;
 }
 
 

@@ -5,7 +5,6 @@ import { config} from "./config/config";
 import { IConfigDB } from './config/connectionString';
 import { ORMAcess } from './orm/ORMAcces';
 import { NotificacionUsuarioRoutes } from './routes/NotificacionUsuario.routes';
-import { SMSReceiverRoutes } from './routes/SMSReceiver.routes';
 import { TestRoutes } from './routes/Test.routes';
 import { Testing } from './test/Testing';
 import { AuthenticationRoutes } from './routes/Authentication.routes';

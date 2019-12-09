@@ -28,7 +28,24 @@ export class AuthenticationRoutes extends BaseRoutes {
         this.router.get(this.PATH_AUTH_LOGOUT, this.getAuthLogOut)
     }
 
-    // https://192.168.1.120:2032/api/regins/auth/login/?username=xx&password=xx&timeStamp=xx&macAddress=xx&deviceVersion=xx&applicationVersion=xx&phoneModel=xx
+    // https://192.168.1.120:2032/api/regins/auth/login/?username=&password=xx&timeStamp=xx&macAddress=xx&deviceVersion=xx&applicationVersion=xx&phoneModel=xx
+
+    /**
+    * @api {get} /api/regins/auth/login/?username=pedro&password=123&timeStamp=123456789&macAddress=AB:CD:EF:GH:IJ&deviceVersion=xx&applicationVersion=xx&phoneModel=xx Return company list
+    * @apiGroup Company
+    * @apiParam {int} userCode User code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "COMPANY_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getAuthLogin = (req: Request, res: Response) => {
         try
         {

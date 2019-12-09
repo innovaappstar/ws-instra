@@ -51,7 +51,7 @@ export class LiquidationRoutes extends BaseRoutes {
             let requestLiquidation : IRequestLiquidation = <any>req.query;           
             let ALIASJSON = "LIQUIDATION_LIST";
 
-            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null)
+            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || requestLiquidation.companyCode == null)
             {
                 let resultado = super.toObject(ALIASJSON, {
                         codResultado : 0,
@@ -62,7 +62,7 @@ export class LiquidationRoutes extends BaseRoutes {
 
             let querySQL = LiquidationDEO.getQueryLiquidationList(requestLiquidation);
 
-            ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
+            ORMAcess.execQuerySQL(querySQL, requestLiquidation.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
                 res.send(resultado);
@@ -134,6 +134,7 @@ export interface IRequestLiquidation{
 
     userSessionCode : number;
     unitCode : number;
+    companyCode : number;
     //esto recupera el json de liquidacion
     auxiliar : string;
 }
