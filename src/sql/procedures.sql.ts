@@ -47,6 +47,12 @@ var PROCEDURES = {
             example : "ins.ProcIncidencia ......, 13",
             comment : "este procedimiento me devuelve la lista de empresas"
         },
+        COMPANY_AND_ROUTES_LIST : {
+            index : 14,
+            proc : "ins.ProcIncidencia",
+            example : "ins.ProcIncidencia ......, 14",
+            comment : "este procedimiento me devuelve empresa y rutas"
+        },
         INFRACTION_LIST : {
             index : 12,
             proc : "ins.ProcIncidencia",

@@ -23,5 +23,19 @@ class CompanyDEO
         return queryString;
     }
 
+        
+    /**
+     * @param dataws DataWs
+     * @param callback Function
+     */
+    public static getQueryCompanyAndRoutesList(request : IRequestCompany) : string
+    {
+        let indice = PROCEDURES.DBPRUEBAS.COMPANY_AND_ROUTES_LIST.index;
+        let proc = PROCEDURES.DBPRUEBAS.COMPANY_AND_ROUTES_LIST.proc;
+        let queryParams = "''"
+        let queryString = `exec ${proc} ${queryParams} , ${indice}`;
+        return queryString;
+    }
+
 }
 export = CompanyDEO;
