@@ -55,7 +55,7 @@ class LiquidationDEO
         let queryParams = Utils.getQuerySQLPersonalizado(
             [
                 objectLiquidation.ruteCode.toString(),
-                objectLiquidation.controlCode.toString(),
+                objectLiquidation.userControlCode.toString(),
                 objectLiquidation.observacion,
                 objectLiquidation.userCode.toString(),
                 objectLiquidation.unitCode.toString(),
@@ -63,13 +63,17 @@ class LiquidationDEO
                 objectLiquidation.longitude,
                 objectLiquidation.settlementType.toString(),
                 objectLiquidation.dateTime.convertToDateSQL(),
-                objectLiquidation.driverCode.toString(),
+                objectLiquidation.driverId.toString(),
                 mySerializadoTEMP
             ], "|");
 
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;
+ 
     }
+    
+    
+    
 }
 
 export = LiquidationDEO;
