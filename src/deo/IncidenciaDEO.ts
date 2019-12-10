@@ -69,12 +69,12 @@ class IncidenciaDEO
             tramaPhotoSerializado,
             request.padron,
             request.placa,
-            "1",
-            "1",
-            "1"
-            // request.codConductor.toString(),
-            // request.codRuta.toString(),
-            // request.codControl.toString()
+            // "1",
+            // "1",
+            // "1"
+            request.codConductor.toString(),
+            request.codRuta.toString(),
+            request.codControlUsuario.toString()
         ]);
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;

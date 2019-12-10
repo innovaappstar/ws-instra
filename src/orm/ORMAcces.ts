@@ -223,6 +223,84 @@ export class ORMAcess {
         }); 
     }
 
+
+    /**
+     * ejecuta consulta a la base de datos seleccionada
+     * @param queryString string
+     * @param codEmpresa number
+     */
+    public static execQuerySQLXMLPath(queryString : string, codEmpresa : number, isSetDateFormat ?: boolean): Promise<any> {
+        // util para cuando se requiera trabajar con fechas como parAmetros de entrada o en proceso (get/set) interno del mismo Procedure-SQL
+        if(isSetDateFormat)
+        {
+            let FORMAT_DATE = "SET DATEFORMAT dmy;"
+            queryString = FORMAT_DATE.concat(queryString)
+        } 
+
+        return new Promise((resolve, reject)=>
+        {
+            config.configdb.forEach((configdb : IConfigDB)=> {
+                if(configdb.operativo == OPERATIVO && configdb.typeDatabase == TYPE_SQL && configdb.id == codEmpresa)
+                    (configdb.connection.query(queryString)).then((rows : any)=>{
+                        let jsonString = "";
+                        Object.keys(rows).forEach((nomKey : string, index : number)=>{
+                            let objIteracion = rows[index];
+                            Object.keys(objIteracion).forEach((nomKey : string, j : number)=>{
+                                jsonString += objIteracion[nomKey];
+                            })
+                        });
+                        // callback(null, jsonString);
+                        resolve(jsonString);
+                    }).catch((error : Error)=>{
+                        reject(error);
+                    });
+            });
+        }); 
+    }
+
+
+
+    /**
+     * todo : USO DE MÉTODO doneProc.. 
+     * Efectividad optimizada de respuesta!!
+     * recorre lista de pool de conexiones
+     * @param idConnectionPool
+     * @param query
+     * @param callback
+     * @param isCallbackVacio
+     */
+    public execSQLXMLPath(queryString : string, codEmpresa : number, callback : (error : Error, jsonString : string) => void, isNomColInclude ?: boolean)
+    {
+        try
+        { 
+            let jsonResponse = [];
+            return new Promise((resolve, reject)=>
+            {
+                config.configdb.forEach((configdb : IConfigDB)=> {
+                    if(configdb.operativo == OPERATIVO && configdb.typeDatabase == TYPE_SQL && configdb.id == codEmpresa)
+                        (configdb.connection.query(queryString)).then((rows : any)=>{
+                            let jsonString = "";
+                            Object.keys(rows).forEach((nomKey : string, index : number)=>{
+                                let objIteracion = rows[index];
+                                Object.keys(objIteracion).forEach((nomKey : string, j : number)=>{
+                                    jsonString += objIteracion[nomKey];
+                                })
+                            });
+                            // callback(null, jsonString);
+                            resolve(jsonString);
+                        }).catch((error : Error)=>{
+                            reject(error);
+                        });
+                });
+            }); 
+        }catch (error)
+        {
+            console.error(error);
+            callback(error, null);
+        }
+
+    }
+
     // /**
     //  * Retorna la base de datos por filtro de nombre
     //  * @param queryString string

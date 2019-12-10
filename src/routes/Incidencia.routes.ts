@@ -252,7 +252,7 @@ export class IncidenciaRoutes extends BaseRoutes {
             // requestRegIncidencia.codUnidad = 199;
 
             let querySQL = IncidenciaDEO.getQueryRegistroIncidencia(requestRegIncidencia, postPhoto);
-            ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa).then((result : any)=>{
+            ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
                 res.send(resultado);
@@ -332,6 +332,6 @@ export interface IRequestIncidencia{
     
     codUnidad : number;
     codRuta : number;
-    codControl : number;
+    codControlUsuario : number;
     fechaHoraCreacion : string;
 }
