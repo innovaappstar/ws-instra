@@ -16,6 +16,7 @@ export class CompanyRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_COMPANY_LIST = "/company/list/?";
+    private PATH_COMPANY_LIST_AND_ROUTES = "/list/company_and_routes/?";
 
     constructor() {
         super()
@@ -24,6 +25,7 @@ export class CompanyRoutes extends BaseRoutes {
    
     public intializeRoutes() {
         this.router.get(this.PATH_COMPANY_LIST, this.getCompanyList)
+        this.router.get(this.PATH_COMPANY_LIST_AND_ROUTES, this.getCompanyAndRoutesList)
     }
 
     /**
@@ -42,7 +44,7 @@ export class CompanyRoutes extends BaseRoutes {
     * @apiErrorExample {json} List error
     *    HTTP/1.1 500 Internal Server Error
     */
-    getCompanyList = (req: Request, res: Response) => {
+   getCompanyList = (req: Request, res: Response) => {
         try
         {
             let requestAuthLogin : IRequestCompany = <any>req.query;           
@@ -71,9 +73,59 @@ export class CompanyRoutes extends BaseRoutes {
             console.error(error);
         }
     }
+
+    // https://192.168.1.120:2032/api/regins/list/company_and_routes/?userCode=13&companyCod=14
+    /**
+    * @api {get} /api/regins/list/company_and_routes/?userCode=13&companyCod=14 Return company and routes list
+    * @apiGroup Company
+    * @apiParam {int} userCode User code.
+    * @apiParam {int} companyCod Company code.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "COMPANY_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : ".....",
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
+   getCompanyAndRoutesList = (req: Request, res: Response) => {
+        try
+        {
+            let requestCompany : IRequestCompany = <any>req.query;           
+            let ALIASJSON = "COMPANY_AND_ROUTES_LIST";
+            if(requestCompany.userCode == null || requestCompany.companyCod == null)
+            {
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : "No tiene permisos necesarios"});
+                res.send(JSON.stringify(resultado));
+                return;
+            }
+            let querySQL = CompanyDEO.getQueryCompanyAndRoutesList(requestCompany);
+            ORMAcess.execQuerySQLXMLPath(querySQL, requestCompany.companyCod, true).then((result : any)=>{
+                let rowAuthResponse = super.toObject(this.COL_NAME_RESPONSE, JSON.parse(result))
+                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                res.send(resultado);
+            }).catch((error : Error)=>{
+                let resultado = super.toObject(ALIASJSON, {
+                        codResultado : 0,
+                        desResultado : error.message});
+                res.send(JSON.stringify(resultado));
+            })
+        }catch (error)
+        {
+            console.error(error);
+        }
+    }
+
 }
 
 export interface IRequestCompany
 {
     userCode : number;
+    companyCod : number;
 }

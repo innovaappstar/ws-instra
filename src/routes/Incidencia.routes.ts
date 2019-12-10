@@ -308,7 +308,7 @@ export interface IRequestIncidencia{
     // IMAGEN : Array<IRequestIMAGEN>;
     listPhotos : Array<IRequestPhoto>;
     codInfraccion : number;
-    codConductor : number;
+    idConductor : number;
     codEmpresa : number;
     codSesion : number;
     codInspector : number;

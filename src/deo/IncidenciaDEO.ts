@@ -72,7 +72,7 @@ class IncidenciaDEO
             // "1",
             // "1",
             // "1"
-            request.codConductor.toString(),
+            request.idConductor.toString(),
             request.codRuta.toString(),
             request.codControlUsuario.toString()
         ]);
