@@ -33,6 +33,8 @@ export class LiquidationRoutes extends BaseRoutes {
     * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200 Return liquidation list from unit
     * @apiGroup Liquidation
     * @apiParam {int} unitCode Unit code.
+    * @apiParam {int} userSessionCode user session code.
+    * @apiParam {int} companyCode company code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -51,7 +53,9 @@ export class LiquidationRoutes extends BaseRoutes {
             let requestLiquidation : IRequestLiquidation = <any>req.query;           
             let ALIASJSON = "LIQUIDATION_LIST";
 
-            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || requestLiquidation.companyCode == null)
+            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || 
+                requestLiquidation.companyCode == null || requestLiquidation.userCode == null || 
+                requestLiquidation.timeStamp == null)
             {
                 let resultado = super.toObject(ALIASJSON, {
                         codResultado : 0,
@@ -135,6 +139,10 @@ export interface IRequestLiquidation{
     userSessionCode : number;
     unitCode : number;
     companyCode : number;
+    timeStamp : number;
+    lat : number;
+    lng : number;
+    userCode : number;
     //esto recupera el json de liquidacion
     auxiliar : string;
 }
