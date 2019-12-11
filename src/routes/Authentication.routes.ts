@@ -31,9 +31,18 @@ export class AuthenticationRoutes extends BaseRoutes {
     // https://192.168.1.120:2032/api/regins/auth/login/?username=&password=xx&timeStamp=xx&macAddress=xx&deviceVersion=xx&applicationVersion=xx&phoneModel=xx
 
     /**
-    * @api {get} /api/regins/auth/login/?username=pedro&password=123&timeStamp=123456789&macAddress=AB:CD:EF:GH:IJ&deviceVersion=xx&applicationVersion=xx&phoneModel=xx Return company list
-    * @apiGroup Company
-    * @apiParam {int} userCode User code.
+    * @api {get} /api/regins/auth/login/?username=pedro&password=123&timeStamp=123456789&macAddress=AB:CD:EF:GH:IJ&deviceVersion=xx&applicationVersion=xx&phoneModel=xx
+    * @apiGroup Auth
+    * @apiName LogIn
+    * @apiParam {String} username Username.
+    * @apiParam {String} password Password.
+    * @apiParam {Number} timeStamp TimeStamp.
+    * @apiParam {String} macAddress macAddress.
+    * @apiParam {String} deviceVersion deviceVersion.
+    * @apiParam {String} applicationVersion applicationVersion.
+    * @apiParam {String} phoneModel phoneModel.
+    * @apiParam {Number} lat lat.
+    * @apiParam {Number} lng lng.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -83,6 +92,26 @@ export class AuthenticationRoutes extends BaseRoutes {
 
 
     // https://192.168.1.120:2032/api/regins/auth/logout/?timeStamp=xx&lat=xx&lng=xx&codUsuarioSesion=xx
+    /**
+    * @api {get} /api/regins/auth/logout/?timeStamp=xx&lat=xx&lng=xx&codUsuarioSesion=xx
+    * @apiGroup Auth
+    * @apiName LogOut
+    * @apiParam {Number} timeStamp timeStamp.
+    * @apiParam {Number} lat lat.
+    * @apiParam {Number} lng lng.
+    * @apiParam {Number} codUsuarioSesion codUsuarioSesion.
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "AUTH_LOGOUT" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
     getAuthLogOut = (req: Request, res: Response) => {
         try
         {

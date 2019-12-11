@@ -30,11 +30,12 @@ export class LiquidationRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200 Return liquidation list from unit
+    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
     * @apiGroup Liquidation
-    * @apiParam {int} unitCode Unit code.
-    * @apiParam {int} userSessionCode user session code.
-    * @apiParam {int} companyCode company code.
+    * @apiName GetLiquidationListFromUnit
+    * @apiParam {Number} unitCode Unit code.
+    * @apiParam {Number} userSessionCode user session code.
+    * @apiParam {Number} companyCode company code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -85,10 +86,11 @@ export class LiquidationRoutes extends BaseRoutes {
     /**
     * @api {get} api/regins/liquidation/register/?codBoleto=12&inicioCorteBoleto=12&finCorteBoleto=12&cantidadReintegro=12 Register liquidation
     * @apiGroup Liquidation
-    * @apiParam {int} codBoleto TicketCode.
-    * @apiParam {int} inicioCorteBoleto Ticket cut start.
-    * @apiParam {int} finCorteBoleto Ticket cut end.
-    * @apiParam {int} cantidadReintegro Refund quantity
+    * @apiName GetRegisterLiquidation
+    * @apiParam {Number} codBoleto TicketCode.
+    * @apiParam {Number} inicioCorteBoleto Ticket cut start.
+    * @apiParam {Number} finCorteBoleto Ticket cut end.
+    * @apiParam {Number} cantidadReintegro Refund quantity
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {

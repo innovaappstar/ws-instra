@@ -29,13 +29,20 @@ export class AlertaRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} api/regins/alert/register_alert/?userCode=1&unitCode=1&driverCode=1&routeCode=1&controlCode=1&lat=11.222&lng=17.222&timeStamp=123456789012&companyCode=14 Return liquidation list from unit
-    * @apiGroup Liquidation
-    * @apiParam {int} unitCode Unit code.
-    * @apiParam {int} userSessionCode user session code.
-    * @apiParam {int} companyCode company code.
+    * @api {get} api/regins/alert/register_alert/?userCode=1&unitCode=1&driverCode=1&routeCode=1&controlCode=1&lat=11.222&lng=17.222&timeStamp=123456789012&companyCode=14
+    * @apiGroup Alert
+    * @apiName Register unit alert
+    * @apiParam {Number} userCode user code.
+    * @apiParam {Number} unitCode Unit code.
+    * @apiParam {Number} driverCode driver code.
+    * @apiParam {Number} routeCode route code.
+    * @apiParam {Number} controlCode control code.
+    * @apiParam {Number} lat latitud.
+    * @apiParam {Number} lng longitud.
+    * @apiParam {Number} timeStamp timeStamp.
+    * @apiParam {Number} companyCode company Code.
     * @apiSuccessExample {json} Success
-    *    HTTP/1.1 200 OK
+    *    HTTPS/1.1 200 OK
     *    {
     *       "ALERT_REGISTER" : 
     *       {
@@ -44,7 +51,7 @@ export class AlertaRoutes extends BaseRoutes {
     *       }
     *    }
     * @apiErrorExample {json} Error
-    *    HTTP/1.1 500 Internal Server Error
+    *    HTTPS/1.1 500 Internal Server Error
     */
     getInsertAlert = (req: Request, res: Response) => {
         try

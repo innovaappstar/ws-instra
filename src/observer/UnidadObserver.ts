@@ -95,7 +95,7 @@ class UnidadObserver implements IObserver
                     let tramaUnidad = `${unidadTrack.location.coordinates[1]}|${unidadTrack.location.coordinates[0]}|${unidadTrack.distancia}|${unidadTrack.placaUnidad}|`+
                                     `${unidadTrack.velocidad}|${unidadTrack.frecuenciaPosteo}|${unidadTrack.padronUnidad}|${unidadTrack.distanciaMovimiento}|`+
                                     `${unidadTrack.codEmpresa}|${unidadTrack.nomRuta}|${unidadTrack.numAsientos}|${unidadTrack.nombrePersonaConductor}|`+
-                                    `${unidadTrack.nomRecorrido}|${fechaHoraPaso}|${unidadTrack.ladoActual}|${unidadTrack.codUnidad}${separador}`
+                                    `${unidadTrack.nomRecorrido}|${fechaHoraPaso}|${unidadTrack.ladoActual}|${unidadTrack.codUnidad}|${unidadTrack.codAlertaInspectoria}${separador}`
                     listUnidadesSerializados += tramaUnidad;
                 } catch (error) {
                     console.log("=============");

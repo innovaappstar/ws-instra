@@ -438,6 +438,8 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                                 nomRecorrido : { $first : "$nomRecorrido"},
                                 placaUnidad : { $first : "$placaUnidad"},
                                 velocidad : { $first : "$velocidad"},
+                                codAlertaInspectoria : { $first : "$codAlertaInspectoria"}
+                                
                             }
                     },
                     {

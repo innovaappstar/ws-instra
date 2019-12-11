@@ -6,7 +6,7 @@ import { IRecorridoControl } from "./../nosql/dataAccess/schemas/ControlSchema";
  https://blog.jscrambler.com/documenting-apis-using-apidoc-js/
  apidoc - e "(node_modules|public|doc)" - o public / apidoc
  https://github.com/apidoc/apidoc/issues/545
-
+https://apidocjs.com/#param-api-param-example   
  */
 import {Router, Request , Response} from 'express';
 import { ORMAcess } from '../orm/ORMAcces';
@@ -35,11 +35,12 @@ export class UnitRoutes extends BaseRoutes {
     /**
     * @api {get} /api/regins/unit/detalle/?timeStamp=1234567890&userSessionCode=123&userCod=321&companyCod=123&unitCod=13 Return unit detail
     * @apiGroup Unit
-    * @apiParam {int} timeStamp TimeStamp.
-    * @apiParam {int} userSessionCode User session code.
-    * @apiParam {int} userCode User code.
-    * @apiParam {int} companyCode Company code
-    * @apiParam {int} unitCode Unit code.
+    * @apiName GetUnitDetail
+    * @apiParam {Number} timeStamp TimeStamp.
+    * @apiParam {Number} userSessionCode User session code.
+    * @apiParam {Number} userCode User code.
+    * @apiParam {Number} companyCode Company code
+    * @apiParam {Number} unitCode Unit code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
