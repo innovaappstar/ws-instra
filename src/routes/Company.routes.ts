@@ -97,7 +97,7 @@ export class CompanyRoutes extends BaseRoutes {
         {
             let requestCompany : IRequestCompany = <any>req.query;           
             let ALIASJSON = "COMPANY_AND_ROUTES_LIST";
-            if(requestCompany.userCode == null || requestCompany.companyCod == null)
+            if(requestCompany.userCode == null || requestCompany.companyCode == null)
             {
                 let resultado = super.toObject(ALIASJSON, {
                         codResultado : 0,
@@ -106,7 +106,7 @@ export class CompanyRoutes extends BaseRoutes {
                 return;
             }
             let querySQL = CompanyDEO.getQueryCompanyAndRoutesList(requestCompany);
-            ORMAcess.execQuerySQLXMLPath(querySQL, requestCompany.companyCod, true).then((result : any)=>{
+            ORMAcess.execQuerySQLXMLPath(querySQL, requestCompany.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.toObject(this.COL_NAME_RESPONSE, JSON.parse(result))
                 let resultado = super.toObject(ALIASJSON, rowAuthResponse);
                 res.send(resultado);
@@ -127,5 +127,5 @@ export class CompanyRoutes extends BaseRoutes {
 export interface IRequestCompany
 {
     userCode : number;
-    companyCod : number;
+    companyCode : number;
 }
