@@ -17,8 +17,11 @@ export class LiquidationRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_LIQUIDATION_LIST = "/liquidation/list/?";
-    private PATH_LIQUIDATION_REGISTER = "/liquidation/register/?";
+    private ALIAS_JSON_LIQUIDATION_LIST = "LIQUIDATION_LIST";
 
+    private PATH_LIQUIDATION_REGISTER = "/liquidation/register/?";
+    private ALIAS_JSON_LIQUIDATION_REGISTER = "LIQUIDATION_REGISTER";
+    
     constructor() {
         super()
         this.intializeRoutes();
@@ -30,12 +33,16 @@ export class LiquidationRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
+    * @api {get} api/regins/liquidation/list/?userSessionCode=200&unitCode=200
     * @apiGroup Liquidation
     * @apiName GetLiquidationListFromUnit
     * @apiParam {Number} unitCode Unit code.
+    * @apiParam {Number} userCode user Code.
     * @apiParam {Number} userSessionCode user session code.
     * @apiParam {Number} companyCode company code.
+    * @apiParam {Number} timeStamp time Stamp.
+    * @apiParam {Number} lat lat.
+    * @apiParam {Number} lng lng.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -52,13 +59,12 @@ export class LiquidationRoutes extends BaseRoutes {
         try
         {
             let requestLiquidation : IRequestLiquidation = <any>req.query;           
-            let ALIASJSON = "LIQUIDATION_LIST";
 
             if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || 
                 requestLiquidation.companyCode == null || requestLiquidation.userCode == null || 
                 requestLiquidation.timeStamp == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_LIST, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -69,10 +75,10 @@ export class LiquidationRoutes extends BaseRoutes {
 
             ORMAcess.execQuerySQL(querySQL, requestLiquidation.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_LIST, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_LIST, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -107,11 +113,9 @@ export class LiquidationRoutes extends BaseRoutes {
         try
         {
             let requestLiquidation : IRequestLiquidation = <any>req.query;           
-            let ALIASJSON = "LIQUIDATION_REGISTER";
-
             if(requestLiquidation.auxiliar == null || requestLiquidation.companyCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_REGISTER, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -121,10 +125,10 @@ export class LiquidationRoutes extends BaseRoutes {
             
             ORMAcess.execQuerySQL(querySQL, requestLiquidation.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_REGISTER, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LIQUIDATION_REGISTER, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -168,7 +172,7 @@ export interface IRequestLiquidationRegister{
 export interface IRequestBoleto {
 
     codBoleto : number,
-    inicioCorteBoleto : string,
-    finCorteBoleto : string,
+    inicio : string,
+    actual : string,
     cantidadReintegro : number,
 }

@@ -22,7 +22,8 @@ export class UnitRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_UNIDAD_DETALLE = "/unit/detalle/?";
-
+    private ALIAS_JSON_UNIT_DETAIL = "UNIT_DETAIL";
+    
     constructor() {
         super()
         this.intializeRoutes();
@@ -62,11 +63,9 @@ export class UnitRoutes extends BaseRoutes {
         try
         {
             let requestUnitDetail : IRequestUnidad = <any>req.query;           
-            let ALIASJSON = "UNIT_DETAIL";
-
             if(requestUnitDetail.userCode == null || requestUnitDetail.userSessionCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_UNIT_DETAIL, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -75,10 +74,10 @@ export class UnitRoutes extends BaseRoutes {
             let querySQL = UnitDEO.getQueryUnitDetail(requestUnitDetail);
             ORMAcess.execQuerySQL(querySQL, requestUnitDetail.companyCode).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let response = super.toObject(ALIASJSON, rowAuthResponse);
+                let response = super.toObject(this.ALIAS_JSON_UNIT_DETAIL, rowAuthResponse);
                 res.send(response);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_UNIT_DETAIL, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
