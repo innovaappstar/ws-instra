@@ -107,8 +107,7 @@ export class CompanyRoutes extends BaseRoutes {
             }
             let querySQL = CompanyDEO.getQueryCompanyAndRoutesList(requestCompany);
             ORMAcess.execQuerySQLXMLPath(querySQL, requestCompany.companyCode, true).then((result : any)=>{
-                let rowAuthResponse = super.toObject(this.COL_NAME_RESPONSE, JSON.parse(result))
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(ALIASJSON, JSON.parse(result));
                 res.send(resultado);
             }).catch((error : Error)=>{
                 let resultado = super.toObject(ALIASJSON, {
