@@ -30,9 +30,12 @@ export class LiquidationRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200 Return liquidation list from unit
+    * @api {get} api/regins/liquidation/list/?userSessionCode=200&&unitCode=200
     * @apiGroup Liquidation
-    * @apiParam {int} unitCode Unit code.
+    * @apiName GetLiquidationListFromUnit
+    * @apiParam {Number} unitCode Unit code.
+    * @apiParam {Number} userSessionCode user session code.
+    * @apiParam {Number} companyCode company code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -51,7 +54,9 @@ export class LiquidationRoutes extends BaseRoutes {
             let requestLiquidation : IRequestLiquidation = <any>req.query;           
             let ALIASJSON = "LIQUIDATION_LIST";
 
-            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || requestLiquidation.companyCode == null)
+            if(requestLiquidation.userSessionCode == null || requestLiquidation.unitCode == null || 
+                requestLiquidation.companyCode == null || requestLiquidation.userCode == null || 
+                requestLiquidation.timeStamp == null)
             {
                 let resultado = super.toObject(ALIASJSON, {
                         codResultado : 0,
@@ -81,10 +86,11 @@ export class LiquidationRoutes extends BaseRoutes {
     /**
     * @api {get} api/regins/liquidation/register/?codBoleto=12&inicioCorteBoleto=12&finCorteBoleto=12&cantidadReintegro=12 Register liquidation
     * @apiGroup Liquidation
-    * @apiParam {int} codBoleto TicketCode.
-    * @apiParam {int} inicioCorteBoleto Ticket cut start.
-    * @apiParam {int} finCorteBoleto Ticket cut end.
-    * @apiParam {int} cantidadReintegro Refund quantity
+    * @apiName GetRegisterLiquidation
+    * @apiParam {Number} codBoleto TicketCode.
+    * @apiParam {Number} inicioCorteBoleto Ticket cut start.
+    * @apiParam {Number} finCorteBoleto Ticket cut end.
+    * @apiParam {Number} cantidadReintegro Refund quantity
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -135,6 +141,10 @@ export interface IRequestLiquidation{
     userSessionCode : number;
     unitCode : number;
     companyCode : number;
+    timeStamp : number;
+    lat : number;
+    lng : number;
+    userCode : number;
     //esto recupera el json de liquidacion
     auxiliar : string;
 }

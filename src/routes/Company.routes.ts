@@ -29,9 +29,10 @@ export class CompanyRoutes extends BaseRoutes {
     }
 
     /**
-    * @api {get} /api/regins/company/?userCode=13 Return company list
+    * @api {get} /api/regins/company/?userCode=13
     * @apiGroup Company
-    * @apiParam {int} userCode User code.
+    * @apiName GetCompanyList
+    * @apiParam {Number} userCode User code.
     * @apiSuccessExample {json} Success
     *    HTTP/1.1 200 OK
     *    {
@@ -76,21 +77,22 @@ export class CompanyRoutes extends BaseRoutes {
 
     // https://192.168.1.120:2032/api/regins/list/company_and_routes/?userCode=13&companyCod=14
     /**
-    * @api {get} /api/regins/list/company_and_routes/?userCode=13&companyCod=14 Return company and routes list
+    * @api {get} /api/regins/list/company_and_routes/?userCode=13&companyCod=14
     * @apiGroup Company
-    * @apiParam {int} userCode User code.
-    * @apiParam {int} companyCod Company code.
+    * @apiName GetCompanyAndRoutesList
+    * @apiParam {Number} userCode User code.
+    * @apiParam {Number} companyCod Company code.
     * @apiSuccessExample {json} Success
-    *    HTTP/1.1 200 OK
+    *    HTTPS/1.1 200 OK
     *    {
-    *       "COMPANY_LIST" : 
+    *       "COMPANY_AND_ROUTES_LIST" : 
     *       {
     *           "codResultado" : 1,
     *           "desResultado" : ".....",
     *       }
     *    }
     * @apiErrorExample {json} List error
-    *    HTTP/1.1 500 Internal Server Error
+    *    HTTPS/1.1 500 Internal Server Error
     */
    getCompanyAndRoutesList = (req: Request, res: Response) => {
         try

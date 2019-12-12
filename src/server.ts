@@ -19,6 +19,7 @@ import { UnidadTrackRepository, IQueryParadero } from './repository/UnidadTrackR
 import { UnidadTrack } from './entity/mongodb/tubus/UnidadTrack';
 import { CompanyRoutes } from './routes/Company.routes';
 import { UnitRoutes } from './routes/Unit.routes';
+import { AlertaRoutes } from './routes/Alert.routes';
 
 const app = new App(
   [
@@ -28,7 +29,8 @@ const app = new App(
     new IncidenciaRoutes,
     new LiquidationRoutes,
     new CompanyRoutes, 
-    new UnitRoutes
+    new UnitRoutes,
+    new AlertaRoutes
   ],
   config.puertoHTTP
 );

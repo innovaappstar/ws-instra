@@ -7,8 +7,9 @@ import PROCEDURES from '../sql/procedures.sql';
 import '../define/MyExtensions.extensions'
 import { IRequestLiquidation, IRequestLiquidationRegister, IRequestBoleto } from '../routes/Liquidation.routes';
 import e = require('express');
+import { IRequestAlert } from '../routes/Alert.routes';
 
-class LiquidationDEO
+class AlertDEO
 {
     constructor(){}
     
@@ -16,16 +17,19 @@ class LiquidationDEO
      * @param dataws DataWs
      * @param callback Function
      */
-    public static getQueryLiquidationList(request : IRequestLiquidation) : string
+    public static getQueryRegisterAlert(request : IRequestAlert) : string
     {
-        let indice = PROCEDURES.DBGPSGENERAL.LIQUIDATION_LIST.index;
-        let proc = PROCEDURES.DBGPSGENERAL.LIQUIDATION_LIST.proc;
+        let indice = PROCEDURES.DBGPSGENERAL.REGISTER_ALERT.index;
+        let proc = PROCEDURES.DBGPSGENERAL.REGISTER_ALERT.proc;
         let queryParams = Utils.getQuerySQLPersonalizado([
+            request.userCode.toString(),
             request.unitCode.toString(),
-            request.timeStamp.toString().convertToDateSQL(),
+            request.driverCode.toString(),
+            request.routeCode.toString(),
+            request.controlCode.toString(),
             request.lat.toString(),
             request.lng.toString(),
-            request.userCode.toString()
+            request.timeStamp.toString().convertToDateSQL()
         ]);
         let queryString = `exec ${proc} ${queryParams} , ${indice}`;
         return queryString;
@@ -80,4 +84,4 @@ class LiquidationDEO
     
 }
 
-export = LiquidationDEO;
+export = AlertDEO;
