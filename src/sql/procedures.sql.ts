@@ -66,9 +66,9 @@ var PROCEDURES = {
             comment : "este procedimiento me devuelve la lista de infracciones para registrar una incidencia"
         },
         INCIDENT_INSPECTION_LIST : {
-            index : 11,
-            proc : "ins.ProcIncidencia",
-            example : "ins.ProcIncidencia ......, 11",
+            index : 12,
+            proc : "ins.ProcReporteInspectoria",
+            example : "ins.ProcReporteInspectoria ......, 12",
             comment : "este procedimiento me retorna las lista de incidencias o inspecciones que tiene el usuario y que haya hecho en el dia"
         },
         UNIT_DETAIL :

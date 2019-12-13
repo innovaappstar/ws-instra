@@ -14,12 +14,17 @@ import '../define/MyExtensions.extensions'
 // var jwt = require('jsonwebtoken')
 import jwt = require('jsonwebtoken')
 import * as bodyParser from 'body-parser';
+import {ENDPOINTS_MAIN_PATH, App} from '../app';
+
+let PATH_AUTH_LOGIN = "/auth/login/?";
+export var TOTAL_PATH_AUTH_LOGIN = `${ENDPOINTS_MAIN_PATH}${PATH_AUTH_LOGIN}`;  // actually it's used to check in each request by midleware
 
 export class AuthenticationRoutes extends BaseRoutes {
     public router : Router = Router();
 
-    private PATH_AUTH_LOGIN = "/auth/login/?";
+    private static PATH_AUTH_LOGIN = "/auth/login/?";
     private ALIAS_JSON_LOGIN = "AUTH_LOGIN";
+    // public static TOTAL_PATH_AUTH_LOGIN = `${ENDPOINTS_MAIN_PATH}${AuthenticationRoutes.PATH_AUTH_LOGIN}`;  // actually it's used to check in each request by midleware
 
     private PATH_AUTH_LOGOUT = "/auth/logout/?";
     private ALIAS_JSON_LOGOUT = "AUTH_LOGOUT";
@@ -28,9 +33,9 @@ export class AuthenticationRoutes extends BaseRoutes {
         super()
         this.intializeRoutes();
     }
-   
+    
     public intializeRoutes() {
-        this.router.get(this.PATH_AUTH_LOGIN, this.getAuthLogin)
+        this.router.get(AuthenticationRoutes.PATH_AUTH_LOGIN, this.getAuthLogin)
         this.router.get(this.PATH_AUTH_LOGOUT, this.getAuthLogOut)
     }
 
@@ -75,10 +80,10 @@ export class AuthenticationRoutes extends BaseRoutes {
                 return;
             }
             let tokenData = { username: requestAuthLogin.username }
-            let token = jwt.sign(tokenData, 'MySecretKey', {
+            let token = jwt.sign(tokenData, App.SECRET_KEY, {
                 expiresIn: 60 * 60 * 24 // expires in 24 hours
             })
-
+            
             // 27/11/2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104                                                                                                                                    //  
             // querySQL = `exec ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc} '${requestAuthLogin.username}|${requestAuthLogin.password}|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index}`;
             let querySQL = AuthenticationDEO.getQueryAuthLogIn(requestAuthLogin);
@@ -86,6 +91,7 @@ export class AuthenticationRoutes extends BaseRoutes {
             // "exec dbo.ProcUsuarioV2 'ncorrales','6b6277afcb65d33525545904e95c2fa240632660','03-12-2019 16:29:14','20:32:6C:12:39:0C','9','1.0','SM-A505G' , 12"
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
+                rowAuthResponse["token"] = token;
                 let resultado = super.toObject(this.ALIAS_JSON_LOGIN, rowAuthResponse);
                 res.send(resultado);
                 // res.send(token);

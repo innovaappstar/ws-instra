@@ -6,6 +6,7 @@ import WebSocket = require('ws');
 import {config} from "../config/config";
 //https://medium.com/@Zenkilies/express-session-with-typescript-85bf6dff3dc9#.ptzk6z5uy
 import URLUtils = require('../utils/URLUtils');
+import TokenUtils = require('../utils/TokenUtils');
 
 let optionsWebSocket = {
     delayCheckConnection : (130 * 1000),
@@ -50,11 +51,11 @@ abstract class BaseWebSocket{
             URLUtils.VerificarString(url, HeaderDispositivo.macAddress) &&
             URLUtils.VerificarString(url, HeaderDispositivo.v) &&
             URLUtils.VerificarString(url, HeaderDispositivo.md) &&
+            URLUtils.VerificarString(url, HeaderDispositivo.authorization) &&
             URLUtils.VerificarInteger(url, HeaderDispositivo.codTipoDispositivo))
                     // URLUtils.VerificarString(url, HeaderDispositivo.imei))    // cod empresa distinto de 0
                 {
-                    
-                    done(true);
+                    done(true)
                 }
             else
                 done(false);
@@ -68,48 +69,58 @@ abstract class BaseWebSocket{
         try
         {
             this.ws.on('connection', (client: WebSocket, req : any) => {
-                let url = req.url;
-                let clienteWs : IClientWS =
+                let authorization = URLUtils.VerificarString(req.url, HeaderDispositivo.authorization);
+                TokenUtils.verificarTokenInParamWebSocket(authorization, (error, result)=>  
                 {
-                    id : connectionIDCounter++,
-                    ipDispositivo :  URLUtils.VerificarString(url, HeaderDispositivo.ipDispositivo),
-                    idPerfil :  URLUtils.VerificarString(url, HeaderDispositivo.idPerfil),
-                    codTipoDispositivo : URLUtils.VerificarInteger(url, HeaderDispositivo.codTipoDispositivo),
-                    macAddress : URLUtils.VerificarString(url, HeaderDispositivo.macAddress),
-                    v : URLUtils.VerificarString(url, Header.v), 
-                    md : URLUtils.VerificarString(url, Header.md) || '',    // algunas unidades
-                    ws : new WebSocketCliente(client), // <WebSocketCliente>client
-                    isAlive : true,
-                    codUsuario : URLUtils.VerificarInteger(url, Header.codUsuario),
-                    codEmpresa : URLUtils.VerificarInteger(url, Header.codEmpresa),
-                };
-
-                clienteWs.ws.send(`1|1|1|1|config-values|1#${optionsWebSocket.frecuenciaHeartbeat}|${optionsWebSocket.delayAnswerHeartbeat}`);    // config de heartbeath
-                
-                connections[clienteWs.id] = clienteWs;
-                this.onOpen(clienteWs);
-
-                client.on('message', (data: any) => {
-                    if (typeof data === 'string')
-                    {
-                        if(data.length == 0) //prueba de ping - mensaje vacìo..
-                            clienteWs.ws.send(data);
-                        else 
-                            this.onTextMessage(data, clienteWs);
-                        // console.log('received: %s%s', data, new Date());
+                    if(error){
+                        client.send(`0|1|1|1|error de token|0`);    // config de heartbeath
+                        client.close();
+                        return;
                     }
-                    clienteWs.isAlive = true;
-                });
+                    let url = req.url;
+                    let clienteWs : IClientWS =
+                    {
+                        id : connectionIDCounter++,
+                        ipDispositivo :  URLUtils.VerificarString(url, HeaderDispositivo.ipDispositivo),
+                        idPerfil :  URLUtils.VerificarString(url, HeaderDispositivo.idPerfil),
+                        codTipoDispositivo : URLUtils.VerificarInteger(url, HeaderDispositivo.codTipoDispositivo),
+                        macAddress : URLUtils.VerificarString(url, HeaderDispositivo.macAddress),
+                        v : URLUtils.VerificarString(url, Header.v), 
+                        md : URLUtils.VerificarString(url, Header.md) || '',    // algunas unidades
+                        ws : new WebSocketCliente(client), // <WebSocketCliente>client
+                        isAlive : true,
+                        codUsuario : URLUtils.VerificarInteger(url, Header.codUsuario),
+                        codEmpresa : URLUtils.VerificarInteger(url, Header.codEmpresa)
+                        // token : URLUtils.VerificarString(url, HeaderDispositivo.token)
+                    };
 
-                client.on('close', (code : Number, reason : string) => {
-                    this.onClose(code, reason, clienteWs);
-                    delete connections[clienteWs.id];
-                });
-                // necesario manejar errores para q no se pause el servicio..
-                client.on('error', (error : Error) => {
-                    console.error(error);
-                    delete connections[clienteWs.id];
-                });
+                    clienteWs.ws.send(`1|1|1|1|config-values|1#${optionsWebSocket.frecuenciaHeartbeat}|${optionsWebSocket.delayAnswerHeartbeat}`);    // config de heartbeath
+                    
+                    connections[clienteWs.id] = clienteWs;
+                    this.onOpen(clienteWs);
+
+                    client.on('message', (data: any) => {
+                        if (typeof data === 'string')
+                        {
+                            if(data.length == 0) //prueba de ping - mensaje vacìo..
+                                clienteWs.ws.send(data);
+                            else 
+                                this.onTextMessage(data, clienteWs);
+                            // console.log('received: %s%s', data, new Date());
+                        }
+                        clienteWs.isAlive = true;
+                    });
+
+                    client.on('close', (code : Number, reason : string) => {
+                        this.onClose(code, reason, clienteWs);
+                        delete connections[clienteWs.id];
+                    });
+                    // necesario manejar errores para q no se pause el servicio..
+                    client.on('error', (error : Error) => {
+                        console.error(error);
+                        delete connections[clienteWs.id];
+                    });
+                })
             });
 
             setInterval(function() {
@@ -340,6 +351,7 @@ interface IClientWS
     ws : WebSocketCliente;
     isAlive : boolean;
     codUsuario : number;
+    // token : string;
     codEmpresa : number;
 }
 
@@ -353,6 +365,7 @@ class Header
     public static v : string = 'v';
     public static md : string = 'md';
     public static codUsuario : string = 'codUsuario';
+    public static authorization : string = 'authorization';
     public static codEmpresa : string = 'codEmpresa';
 }  
 
@@ -368,6 +381,8 @@ class HeaderDispositivo
     public static macAddress : string = 'macAddress';
     public static codTipoDispositivo : string = 'codTipoDispositivo';
     public static v : string = 'v';
+    // public static token : string = 'token';
+    public static authorization : string = "authorization"; 
     public static md : string = 'md';
 }
 
