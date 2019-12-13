@@ -11,6 +11,9 @@ import { BaseRoutes } from '../routes/BaseRoutes';
 import PROCEDURES from '../sql/procedures.sql';
 import AuthenticationDEO = require('../deo/AuthenticationDEO');
 import '../define/MyExtensions.extensions'
+// var jwt = require('jsonwebtoken')
+import jwt = require('jsonwebtoken')
+import * as bodyParser from 'body-parser';
 
 export class AuthenticationRoutes extends BaseRoutes {
     public router : Router = Router();
@@ -71,6 +74,11 @@ export class AuthenticationRoutes extends BaseRoutes {
                 res.send(JSON.stringify(resultado));
                 return;
             }
+            let tokenData = { username: requestAuthLogin.username }
+            let token = jwt.sign(tokenData, 'MySecretKey', {
+                expiresIn: 60 * 60 * 24 // expires in 24 hours
+            })
+
             // 27/11/2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104                                                                                                                                    //  
             // querySQL = `exec ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc} '${requestAuthLogin.username}|${requestAuthLogin.password}|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index}`;
             let querySQL = AuthenticationDEO.getQueryAuthLogIn(requestAuthLogin);
@@ -80,6 +88,7 @@ export class AuthenticationRoutes extends BaseRoutes {
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(this.ALIAS_JSON_LOGIN, rowAuthResponse);
                 res.send(resultado);
+                // res.send(token);
             }).catch((error : Error)=>{
                 let resultado = super.toObject(this.ALIAS_JSON_LOGIN, {
                         codResultado : 0,
