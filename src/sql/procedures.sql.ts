@@ -37,6 +37,12 @@ var PROCEDURES = {
             example : "ins.ProcAlertaInspectoria '1|1|1|1|1|1|1|11/12/2019 13:01',20",
             comment : "obtener lista de liquidaciones o inspecciones hasta el momento"
         },
+        INSPECTOR_PROFILE : {
+            index : 13,
+            proc : "ins.ProcReporteInspectoria",
+            example : "ins.ProcReporteInspectoria '1',13",
+            comment : "obtener cantidad de unidades intervenidas por codUsuario"
+        },
         LIQUIDATION_REGISTER : {
             index : 20,
             proc : "ins.ProcLiquidacion",

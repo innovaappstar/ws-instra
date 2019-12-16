@@ -59,6 +59,7 @@ export class IncidenciaRoutes extends BaseRoutes {
     /**
     * @api {get} /api/regins/lista/incidencia_inspeccion/?userCode=13&type=1
     * @apiGroup Incidence
+    * @apiHeader {String} authorization authorization token.
     * @apiName GetIncidenceAndInspectionList
     * @apiParam {Number} userCode User code.
     * @apiParam {Number} type type
@@ -112,6 +113,7 @@ export class IncidenciaRoutes extends BaseRoutes {
     /**
     * @api {get} /api/regins/lista/infraccion/?userCode=13 Return Incidence and inspection list
     * @apiGroup Incidence
+    * @apiHeader {String} authorization authorization token.
     * @apiName GetInspectionList
     * @apiParam {Number} userCode User code.
     * @apiSuccessExample {json} Success
@@ -158,6 +160,7 @@ export class IncidenciaRoutes extends BaseRoutes {
    /**
     * @api {post} /registro/incidencia/? Register a new incidence
     * @apiGroup Incidence
+    * @apiHeader {String} authorization authorization token.
     * @apiName PostRegisterNewIncidence
     * @apiParam {files} Photos Photos.
     * @apiParamExample {json} Incidence

@@ -27,6 +27,7 @@ var options = {
 export var ENDPOINTS_MAIN_PATH = "/api/regins";
 let REGEX_ENDPOINT_TESTING = /(\/testing\/)/;
 let REGEX_ENDPOINT_AUTH_LOGIN = /(\/auth\/login\/)/;
+let REGEX_ENDPOINT_DOC = /^(\/doc)/;
 let ALIAS_JSON_ERROR_TOKEN = "ERROR_TOKEN";
 
 export class App {
@@ -89,7 +90,9 @@ export class App {
     if(req.path == "/favicon.ico")
       return;
     if(!(REGEX_ENDPOINT_AUTH_LOGIN.test(req.path)) &&
-      !(REGEX_ENDPOINT_TESTING.test(req.path)))
+      !(REGEX_ENDPOINT_TESTING.test(req.path)) &&
+      !(REGEX_ENDPOINT_DOC.test(req.path))
+      )
     {
       TokenUtils.verificarTokenInHttpRequest(req, res, (error, result)=>  
       {

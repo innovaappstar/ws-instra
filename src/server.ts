@@ -20,6 +20,7 @@ import { UnidadTrack } from './entity/mongodb/tubus/UnidadTrack';
 import { CompanyRoutes } from './routes/Company.routes';
 import { UnitRoutes } from './routes/Unit.routes';
 import { AlertaRoutes } from './routes/Alert.routes';
+import { InspectorRoutes } from './routes/Inspector.routes';
 
 const app = new App(
   [
@@ -30,7 +31,8 @@ const app = new App(
     new LiquidationRoutes,
     new CompanyRoutes, 
     new UnitRoutes,
-    new AlertaRoutes
+    new AlertaRoutes,
+    new InspectorRoutes
   ],
   config.puertoHTTP
 );

@@ -113,6 +113,7 @@ export class AuthenticationRoutes extends BaseRoutes {
     * @api {get} /api/regins/auth/logout/?timeStamp=xx&lat=xx&lng=xx&codUsuarioSesion=xx
     * @apiGroup Auth
     * @apiName LogOut
+    * @apiHeader {String} authorization authorization token.
     * @apiParam {Number} timeStamp timeStamp.
     * @apiParam {Number} lat lat.
     * @apiParam {Number} lng lng.
