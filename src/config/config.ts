@@ -10,9 +10,9 @@ export const config = {
         app : {
             nombre : 'servidor-template'
         },
-        puertoHTTP : 2032,  // editar
-        puertoWS : 2028,
-        host : '192.168.1.120',
+        puertoHTTP : 2033,  // editar
+        puertoWS : 2034,
+        host : '192.168.1.15',
         db : 'localhost:27017/vci',
         configdb : configdb,
         terminales	: terminalesRegistrados
