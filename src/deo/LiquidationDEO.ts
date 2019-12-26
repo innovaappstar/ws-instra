@@ -45,8 +45,8 @@ class LiquidationDEO
         objectLiquidation.boletos.forEach((element : IRequestBoleto) => {
             mySerializadoTEMP += Utils.getQuerySQLPersonalizado([
                 element.codBoleto.toString(),
-                element.inicioCorteBoleto,
-                element.finCorteBoleto,
+                element.inicio,
+                element.actual,
                 element.cantidadReintegro.toString()
             ],"*").replaceSymbol("'")
 

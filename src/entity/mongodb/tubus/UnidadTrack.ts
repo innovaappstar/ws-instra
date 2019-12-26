@@ -50,6 +50,8 @@ export class UnidadTrack {
     @Column()
     codAlertaInspectoria    : number;
     @Column()
+    codAlerta               : number;
+    @Column()
     codEmpresa              : number;
     @Column()
     nomRuta                 : string;

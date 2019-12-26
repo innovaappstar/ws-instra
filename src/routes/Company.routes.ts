@@ -16,7 +16,10 @@ export class CompanyRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_COMPANY_LIST = "/company/list/?";
+    private ALIAS_JSON_COMPANY_LIST = "COMPANY_LIST";
+
     private PATH_COMPANY_LIST_AND_ROUTES = "/list/company_and_routes/?";
+    private ALIAS_JSON_COMPANY_AND_ROUTES_LIST = "COMPANY_AND_ROUTES_LIST";
 
     constructor() {
         super()
@@ -49,22 +52,22 @@ export class CompanyRoutes extends BaseRoutes {
         try
         {
             let requestAuthLogin : IRequestCompany = <any>req.query;           
-            let ALIASJSON = "COMPANY_LIST";
             if(requestAuthLogin.userCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_LIST, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
                 return;
             }
             let querySQL = CompanyDEO.getQueryCompanyList(requestAuthLogin);
+            
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_LIST, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_LIST, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -98,10 +101,9 @@ export class CompanyRoutes extends BaseRoutes {
         try
         {
             let requestCompany : IRequestCompany = <any>req.query;           
-            let ALIASJSON = "COMPANY_AND_ROUTES_LIST";
             if(requestCompany.userCode == null || requestCompany.companyCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_AND_ROUTES_LIST, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -109,10 +111,10 @@ export class CompanyRoutes extends BaseRoutes {
             }
             let querySQL = CompanyDEO.getQueryCompanyAndRoutesList(requestCompany);
             ORMAcess.execQuerySQLXMLPath(querySQL, requestCompany.companyCode, true).then((result : any)=>{
-                let resultado = super.toObject(ALIASJSON, JSON.parse(result));
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_AND_ROUTES_LIST, JSON.parse(result));
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_COMPANY_AND_ROUTES_LIST, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));

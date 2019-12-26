@@ -34,8 +34,15 @@ export class IncidenciaRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_REGISTRO_INCIDENCIA = "/registro/incidencia/?";
+    private ALIAS_JSON_REGISTRO_INCIDENCIA = "REGISTRO_INCIDENCIA";
+
     private PATH_LISTA_INFRACCION = "/lista/infraccion/?";
+    private ALIAS_JSON_INFRACTION_LIST = "INFRACTION_LIST";
+
     private PATH_LISTA_INCIDENCIA = "/lista/incidencia_inspeccion/?";
+    private ALIAS_JSON_INCIDENT_LIST = "INCIDENT_LIST";
+
+
 
     constructor() {
         super()
@@ -76,10 +83,9 @@ export class IncidenciaRoutes extends BaseRoutes {
         try
         {
             let requestInfraction : IRequestInfraction = <any>req.query;           
-            let ALIASJSON = "INCIDENT_LIST";
             if(requestInfraction.userCode == null || requestInfraction.type == null || requestInfraction.companyCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_INCIDENT_LIST, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -88,10 +94,10 @@ export class IncidenciaRoutes extends BaseRoutes {
             let querySQL = IncidenciaDEO.getQueryIncidentAndInspectionList(requestInfraction);
             ORMAcess.execQuerySQL(querySQL, requestInfraction.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_INCIDENT_LIST, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_INCIDENT_LIST, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -124,10 +130,9 @@ export class IncidenciaRoutes extends BaseRoutes {
         try
         {
             let requestInfraction : IRequestInfraction = <any>req.query;           
-            let ALIASJSON = "INFRACTION_LIST";
             if(requestInfraction.userCode == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_INFRACTION_LIST, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -136,10 +141,10 @@ export class IncidenciaRoutes extends BaseRoutes {
             let querySQL = IncidenciaDEO.getQueryInfractionList(requestInfraction);
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_INFRACTION_LIST, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_INFRACTION_LIST, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -198,7 +203,6 @@ export class IncidenciaRoutes extends BaseRoutes {
     postRegistroIncidencia = (req: Request, res: Response, next) => {
         try
         {
-            let ALIASJSON = "REGISTRO_INCIDENCIA";
             let requestRegIncidencia : IRequestIncidencia = <IRequestIncidencia>JSON.parse(req.body[KEY_INCIDENCE]);  
             let listPhotos : Array<IRequestPhoto> = []
             if(req.files != null && req.files[KEY_PHOTOS] && Object.keys(req.files).length > 0 )  
@@ -248,8 +252,6 @@ export class IncidenciaRoutes extends BaseRoutes {
     registroPhoto = (res: Response, requestRegIncidencia : IRequestIncidencia, postPhoto ?: IPOSTPhoto) => {
         try
         {
-            let ALIASJSON = "REGISTRO_INCIDENCIA";
-            
             // requestRegIncidencia.codInfraccion = 1;   // codEmpresa de pruebas para los testings !!
             // requestRegIncidencia.codEmpresa = 25;   // codEmpresa de pruebas para los testings !!
             // requestRegIncidencia.codUnidad = 199;
@@ -257,10 +259,10 @@ export class IncidenciaRoutes extends BaseRoutes {
             let querySQL = IncidenciaDEO.getQueryRegistroIncidencia(requestRegIncidencia, postPhoto);
             ORMAcess.execQuerySQL(querySQL, requestRegIncidencia.codEmpresa, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_REGISTRO_INCIDENCIA, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_REGISTRO_INCIDENCIA, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));

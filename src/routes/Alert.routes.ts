@@ -18,6 +18,7 @@ export class AlertaRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_REGISTER_ALERT = "/alert/register_alert/?";
+    private ALIAS_JSON_REGISTER_ALERT = "ALERT_REGISTER";
 
     constructor() {
         super()
@@ -57,14 +58,13 @@ export class AlertaRoutes extends BaseRoutes {
         try
         {
             let requestAlert : IRequestAlert = <any>req.query;           
-            let ALIASJSON = "ALERT_REGISTER";
 
             if(requestAlert.userCode == null || requestAlert.unitCode == null || 
                 requestAlert.driverCode == null || requestAlert.routeCode == null || 
                 requestAlert.lat == null || requestAlert.controlCode == null || 
                 requestAlert.timeStamp == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_REGISTER_ALERT, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -75,10 +75,10 @@ export class AlertaRoutes extends BaseRoutes {
 
             ORMAcess.execQuerySQL(querySQL, requestAlert.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_REGISTER_ALERT, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_REGISTER_ALERT, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));

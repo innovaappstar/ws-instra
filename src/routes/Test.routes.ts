@@ -4,6 +4,8 @@
 import {Router, Request , Response} from 'express';
 import { UserRepository } from '../repository/UserRepository';
 import { User } from '../entity/mongodb/gps/User';
+import jwt = require('jsonwebtoken')
+
 export class TestRoutes {
     // public path = '/signup';
     public router : Router = Router();
@@ -11,6 +13,7 @@ export class TestRoutes {
     private PATH_INIT = "/envio_notificacion_usuario/?";
     private PATH_LIQUIDACION = "/liquidacion/?";
     private PATH_LOGOUT = "/auth/logouttttt/?";
+    private PATH_TESTING = "/auth/testing/?";
 
     constructor() {
       this.intializeRoutes();
@@ -20,6 +23,7 @@ export class TestRoutes {
       this.router.get("/", this.getTest),
       this.router.get(this.PATH_LIQUIDACION, this.getTestLiquidacion),
       this.router.get(this.PATH_LOGOUT, this.getLogout)
+      this.router.get(this.PATH_TESTING, this.getAuthTest)
     }
 
     // https://192.168.1.132:2032/api/regins/auth/logout/
@@ -41,7 +45,42 @@ export class TestRoutes {
       }
   }
 
+ 
+    // https://192.168.1.120:2032/api/regins/auth/testing/
+    getAuthTest = (req: Request, res: Response) => {
+      try
+      {
+          var token = req.headers['authorization']
+          if(!token){
+              res.status(401).send({
+                error: "Es necesario el token de autenticación"
+              })
+              return
+          }
+          jwt.verify(token, 'MySecretKey', function(err, user) {
+            if (err) {
+              res.status(401).send({
+                error: 'Token inválido'
+              })
+            } else 
+            {
+              //usuario session
+              let resultado = 
+              {
+                "TEST" : {
+                  CodResultado : 1,
+                  DesResultado : "OK Token - Bienvenido",
+                }
+              }
+              res.send(JSON.stringify(resultado))
+            }
+          })
 
+      }catch (error)
+      {
+          console.error(error);
+      }
+  }
     
     // https://192.168.1.120:2032/api/regins/
     getTest = (req: Request, res: Response) => {
@@ -69,48 +108,6 @@ export class TestRoutes {
               }
             }
           }
-        //tarifa boleto
-          // let resultado = 
-          // {
-          //     "TEST": {
-          //         CodResultado : 1,
-          //         DesResultado : "pajaroPerro",
-          //       "Boletos": [
-          //         {
-          //           "codBoleto" : 1,
-          //           "boleto": "0.50",
-          //           "inicioCorteBoleto": "1",
-          //           "finCorteBoleto": "10",
-          //           "cantidadReintegro": 0,
-          //           "nombreBoleto" : "ZONAL UNIVERSITARIO"
-          //         },
-          //         {
-          //           "codBoleto" : 2,
-          //           "boleto": "0.70",
-          //           "inicioCorteBoleto": "15",
-          //           "finCorteBoleto": "20",
-          //           "cantidadReintegro": 0,
-          //           "nombreBoleto" : "ESCOLAR"
-          //         },
-          //         {
-          //           "codBoleto" : 3,
-          //           "boleto": "1.50",
-          //           "inicioCorteBoleto": "1",
-          //           "finCorteBoleto": "10",
-          //           "cantidadReintegro": 0,
-          //           "nombreBoleto" : "ESCOLAR 2"
-          //         },
-          //         {
-          //           "codBoleto" : 4,
-          //           "boleto": "2.50",
-          //           "inicioCorteBoleto": "1",
-          //           "finCorteBoleto": "10",
-          //           "cantidadReintegro": 0,
-          //           "nombreBoleto" : "ADULTO"
-          //         }
-          //       ]
-          //     }
-          //   }       
           res.send(JSON.stringify(resultado))
       }catch (error)
       {

@@ -11,12 +11,18 @@ import { BaseRoutes } from '../routes/BaseRoutes';
 import PROCEDURES from '../sql/procedures.sql';
 import AuthenticationDEO = require('../deo/AuthenticationDEO');
 import '../define/MyExtensions.extensions'
+// var jwt = require('jsonwebtoken')
+import jwt = require('jsonwebtoken')
+import * as bodyParser from 'body-parser';
 
 export class AuthenticationRoutes extends BaseRoutes {
     public router : Router = Router();
 
     private PATH_AUTH_LOGIN = "/auth/login/?";
+    private ALIAS_JSON_LOGIN = "AUTH_LOGIN";
+
     private PATH_AUTH_LOGOUT = "/auth/logout/?";
+    private ALIAS_JSON_LOGOUT = "AUTH_LOGOUT";
 
     constructor() {
         super()
@@ -59,16 +65,20 @@ export class AuthenticationRoutes extends BaseRoutes {
         try
         {
             let requestAuthLogin : IRequestAuth = <any>req.query;           
-            let ALIASJSON = "AUTH_LOGIN";
 
             if(requestAuthLogin.username == null || requestAuthLogin.password == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LOGIN, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
                 return;
             }
+            let tokenData = { username: requestAuthLogin.username }
+            let token = jwt.sign(tokenData, 'MySecretKey', {
+                expiresIn: 60 * 60 * 24 // expires in 24 hours
+            })
+
             // 27/11/2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104                                                                                                                                    //  
             // querySQL = `exec ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.proc} '${requestAuthLogin.username}|${requestAuthLogin.password}|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', ${PROCEDURES.DBGPSGENERAL.AUTH_LOGIN.index}`;
             let querySQL = AuthenticationDEO.getQueryAuthLogIn(requestAuthLogin);
@@ -76,10 +86,11 @@ export class AuthenticationRoutes extends BaseRoutes {
             // "exec dbo.ProcUsuarioV2 'ncorrales','6b6277afcb65d33525545904e95c2fa240632660','03-12-2019 16:29:14','20:32:6C:12:39:0C','9','1.0','SM-A505G' , 12"
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_LOGIN, rowAuthResponse);
                 res.send(resultado);
+                // res.send(token);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LOGIN, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));
@@ -116,11 +127,10 @@ export class AuthenticationRoutes extends BaseRoutes {
         try
         {
             let requestAuthLogOut : IRequestAuth = <any>req.query;           
-            let ALIASJSON = "AUTH_LOGOUT";
 
             if(requestAuthLogOut.timeStamp == null || requestAuthLogOut.lat == null || requestAuthLogOut.lng == null)
             {
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LOGOUT, {
                         codResultado : 0,
                         desResultado : "No tiene permisos necesarios"});
                 res.send(JSON.stringify(resultado));
@@ -130,10 +140,10 @@ export class AuthenticationRoutes extends BaseRoutes {
             let querySQL = AuthenticationDEO.getQueryAuthLogOut(requestAuthLogOut);
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
-                let resultado = super.toObject(ALIASJSON, rowAuthResponse);
+                let resultado = super.toObject(this.ALIAS_JSON_LOGOUT, rowAuthResponse);
                 res.send(resultado);
             }).catch((error : Error)=>{
-                let resultado = super.toObject(ALIASJSON, {
+                let resultado = super.toObject(this.ALIAS_JSON_LOGOUT, {
                         codResultado : 0,
                         desResultado : error.message});
                 res.send(JSON.stringify(resultado));

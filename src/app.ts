@@ -42,6 +42,9 @@ class App {
     // parse application/json
     this.app.use(bodyParser.json());
 
+    // this.app.use(bodyParser.urlencoded({extended: false}))
+    // this.app.use(bodyParser.json({limit:'10mb'}))
+
     // check authentication from swagger,,
     this.app.use(this.loggerMiddleware)
 
@@ -96,13 +99,21 @@ class App {
  
   public listen() {
     https.createServer(options, this.app).listen(this.port, () => {
-    // this.app.listen(this.port, () => {
-      console.log('======================================================================================='); 
-      console.log('Servidor Plantilla iniciado : ' + new Date());    // marca de tiempo para ver hora de arranque en consola..
-      console.log(`App listening on the port ${this.port}`);
-      console.log('======================================================================================='); 
-      
+      // this.app.listen(this.port, () => {
+        console.log('======================================================================================='); 
+        console.log('Servidor Plantilla iniciado : ' + new Date());    // marca de tiempo para ver hora de arranque en consola..
+        console.log(`App listening on the port ${this.port}`);
+        console.log('======================================================================================='); 
     });
+
+    // http.createServer(this.app).listen(this.port, () => {
+    //   // this.app.listen(this.port, () => {
+    //     console.log('======================================================================================='); 
+    //     console.log('Servidor Plantilla iniciado : ' + new Date());    // marca de tiempo para ver hora de arranque en consola..
+    //     console.log(`App listening on the port ${this.port}`);
+    //     console.log('======================================================================================='); 
+        
+    // });
   }
 }
 
