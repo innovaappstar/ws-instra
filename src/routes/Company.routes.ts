@@ -34,6 +34,7 @@ export class CompanyRoutes extends BaseRoutes {
     /**
     * @api {get} /api/regins/company/?userCode=13
     * @apiGroup Company
+    * @apiHeader {String} authorization authorization token.
     * @apiName GetCompanyList
     * @apiParam {Number} userCode User code.
     * @apiSuccessExample {json} Success

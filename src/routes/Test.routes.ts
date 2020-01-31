@@ -5,15 +5,16 @@ import {Router, Request , Response} from 'express';
 import { UserRepository } from '../repository/UserRepository';
 import { User } from '../entity/mongodb/gps/User';
 import jwt = require('jsonwebtoken')
+import {App} from '../app';
 
 export class TestRoutes {
     // public path = '/signup';
     public router : Router = Router();
 
-    private PATH_INIT = "/envio_notificacion_usuario/?";
     private PATH_LIQUIDACION = "/liquidacion/?";
     private PATH_LOGOUT = "/auth/logouttttt/?";
     private PATH_TESTING = "/auth/testing/?";
+    private PATH_GET_TOKEN = "/auth/testing/get_token/?";
 
     constructor() {
       this.intializeRoutes();
@@ -24,6 +25,7 @@ export class TestRoutes {
       this.router.get(this.PATH_LIQUIDACION, this.getTestLiquidacion),
       this.router.get(this.PATH_LOGOUT, this.getLogout)
       this.router.get(this.PATH_TESTING, this.getAuthTest)
+      this.router.get(this.PATH_GET_TOKEN, this.getToken)
     }
 
     // https://192.168.1.132:2032/api/regins/auth/logout/
@@ -44,8 +46,6 @@ export class TestRoutes {
           console.error(error);
       }
   }
-
- 
     // https://192.168.1.120:2032/api/regins/auth/testing/
     getAuthTest = (req: Request, res: Response) => {
       try
@@ -57,7 +57,7 @@ export class TestRoutes {
               })
               return
           }
-          jwt.verify(token, 'MySecretKey', function(err, user) {
+          jwt.verify(token, App.SECRET_KEY, function(err, user) {
             if (err) {
               res.status(401).send({
                 error: 'Token inválido'
@@ -76,6 +76,25 @@ export class TestRoutes {
             }
           })
 
+      }catch (error)
+      {
+          console.error(error);
+      }
+  }
+
+
+    // http://192.168.1.120:2032/api/regins/auth/testing/get_token/?username=kenny
+    getToken = (req: Request, res: Response) => {
+      try
+      {
+        let tokenData = { username: req["username"] }
+        let token = jwt.sign(tokenData, App.SECRET_KEY, {
+            expiresIn: 60 * 60 * 24 // expires in 24 hours
+        })
+        res.send(JSON.stringify({
+          token : token,
+          descripcion : "token envìado"
+        }))
       }catch (error)
       {
           console.error(error);

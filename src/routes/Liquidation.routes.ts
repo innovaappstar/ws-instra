@@ -36,6 +36,7 @@ export class LiquidationRoutes extends BaseRoutes {
     * @api {get} api/regins/liquidation/list/?userSessionCode=200&unitCode=200
     * @apiGroup Liquidation
     * @apiName GetLiquidationListFromUnit
+    * @apiHeader {String} authorization authorization token.
     * @apiParam {Number} unitCode Unit code.
     * @apiParam {Number} userCode user Code.
     * @apiParam {Number} userSessionCode user session code.
@@ -93,6 +94,7 @@ export class LiquidationRoutes extends BaseRoutes {
     * @api {get} api/regins/liquidation/register/?codBoleto=12&inicioCorteBoleto=12&finCorteBoleto=12&cantidadReintegro=12 Register liquidation
     * @apiGroup Liquidation
     * @apiName GetRegisterLiquidation
+    * @apiHeader {String} authorization authorization token.
     * @apiParam {Number} codBoleto TicketCode.
     * @apiParam {Number} inicioCorteBoleto Ticket cut start.
     * @apiParam {Number} finCorteBoleto Ticket cut end.

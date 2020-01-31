@@ -37,6 +37,7 @@ export class UnitRoutes extends BaseRoutes {
     * @api {get} /api/regins/unit/detalle/?timeStamp=1234567890&userSessionCode=123&userCod=321&companyCod=123&unitCod=13 Return unit detail
     * @apiGroup Unit
     * @apiName GetUnitDetail
+    * @apiHeader {String} authorization authorization token.
     * @apiParam {Number} timeStamp TimeStamp.
     * @apiParam {Number} userSessionCode User session code.
     * @apiParam {Number} userCode User code.
