@@ -42,6 +42,9 @@ export class IncidenciaRoutes extends BaseRoutes {
     private PATH_LISTA_INCIDENCIA = "/lista/incidencia_inspeccion/?";
     private ALIAS_JSON_INCIDENT_LIST = "INCIDENT_LIST";
 
+    private PATH_DETALLE_INCIDENCIA = "/lista/detail_incidence/?";
+    private ALIAS_DETALLE_INCIDENCIA = "INCIDENT_DETAIL";
+
 
 
     constructor() {
@@ -53,9 +56,65 @@ export class IncidenciaRoutes extends BaseRoutes {
         // this.router.get(this.PATH_REGISTRO_INCIDENCIA, this.postRegistroIncidencia)
         this.router.get(this.PATH_LISTA_INCIDENCIA, this.getIncidentAndInspectionList),
         this.router.get(this.PATH_LISTA_INFRACCION, this.getInfractionsList),
-        this.router.post(this.PATH_REGISTRO_INCIDENCIA, cpUpload, this.postRegistroIncidencia)
+        this.router.post(this.PATH_REGISTRO_INCIDENCIA, cpUpload, this.postRegistroIncidencia),
+        this.router.get(this.PATH_DETALLE_INCIDENCIA, this.getIncidentDetail)
     }
     
+/**
+    * @api {get} https://192.168.1.132:2033/api/regins/lista/detail_incidence/?codIncidence=5&companyCode=6
+    * @apiGroup Incidence
+    * @apiHeader {String} authorization authorization token.
+    * @apiName GetIncidenceAndInspectionList
+    * @apiParam {Number} userCode User code.
+    * @apiParam {Number} type type
+    * @apiSuccessExample {json} Success
+    *    HTTP/1.1 200 OK
+    *    {
+    *       "INCIDENT_LIST" : 
+    *       {
+    *           "codResultado" : 1,
+    *           "desResultado" : "detalle de la unidad",
+    *           "id": 1,
+    *           "title": "Study",
+    *           "done": false
+    *           "updated_at": "2016-02-10T15:46:51.778Z",
+    *           "created_at": "2016-02-10T15:46:51.778Z"
+    *       }
+    *    }
+    * @apiErrorExample {json} List error
+    *    HTTP/1.1 500 Internal Server Error
+    */
+   getIncidentDetail = (req: Request, res: Response) => {
+    try
+    {
+        let requestIncidenciaDetail : IRequestDetailIncidence = <any>req.query;           
+        if(requestIncidenciaDetail.codIncidence == null && requestIncidenciaDetail.companyCode == null)
+        {
+            let resultado = super.toObject(this.ALIAS_DETALLE_INCIDENCIA, {
+                    codResultado : 0,
+                    desResultado : "No tiene permisos necesarios"});
+            res.send(JSON.stringify(resultado));
+            return;
+        }
+        let querySQL = IncidenciaDEO.getQueryIncidenceDetail(requestIncidenciaDetail);
+        ORMAcess.execQuerySQL(querySQL, requestIncidenciaDetail.companyCode, true).then((result : any)=>{
+            let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
+            let resultado = super.toObject(this.ALIAS_DETALLE_INCIDENCIA, rowAuthResponse);
+            res.send(resultado);
+        }).catch((error : Error)=>{
+            let resultado = super.toObject(this.ALIAS_DETALLE_INCIDENCIA, {
+                    codResultado : 0,
+                    desResultado : error.message});
+            res.send(JSON.stringify(resultado));
+        })
+    }catch (error)
+    {
+        console.error(error);
+    }
+}
+
+
+
     /**
     * @api {get} /api/regins/lista/incidencia_inspeccion/?userCode=13&type=1
     * @apiGroup Incidence
@@ -279,7 +338,11 @@ export class IncidenciaRoutes extends BaseRoutes {
 
 }
 
+export interface IRequestDetailIncidence{
 
+    codIncidence : number;
+    companyCode : number;
+}
 
         
 export interface IRequestInfraction{

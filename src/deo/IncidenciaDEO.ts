@@ -3,13 +3,29 @@
  */
 import Utils = require('../utils/Utils');
 import PROCEDURES from '../sql/procedures.sql';
-import { IRequestIncidencia, IPOSTPhoto, IRequestInfraction } from '../routes/Incidencia.routes';
+import { IRequestIncidencia, IPOSTPhoto, IRequestInfraction, IRequestDetailIncidence } from '../routes/Incidencia.routes';
 import '../define/MyExtensions.extensions'
 
 class IncidenciaDEO
 {
     constructor(){}
    
+
+    /**
+     * @param dataws DataWs
+     * @param callback Function
+     */
+    public static getQueryIncidenceDetail(request : IRequestDetailIncidence) : string
+    {
+        let indice = PROCEDURES.DBPRUEBAS.DETALLE_INCIDENCIA.index;
+        let proc = PROCEDURES.DBPRUEBAS.DETALLE_INCIDENCIA.proc;
+        let queryParams = Utils.getQuerySQLPersonalizado([
+            request.codIncidence.toString(),
+        ], "|");
+        let queryString = `exec ${proc} ${queryParams} , ${indice}`;
+        return queryString;
+    }
+
 
     /**
      * @param dataws DataWs

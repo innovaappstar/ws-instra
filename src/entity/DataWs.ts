@@ -49,6 +49,16 @@ class DataWs
     get codigos(): string[] {
         return this._codigos;
     }
+
+    //Esto para el insert de ubicacion del usuario
+    isTipoUsuario(): boolean{
+        return (this._indiceWs == INDICES.TIPOCLIENTEMOVIL.indice)
+    }
+
+    isLocalizacionUsuario():boolean{
+        return (this._subIndiceWs == INDICES.TIPOCLIENTEMOVIL.subIndices.localizacionUsuario);
+    }
+
     
     isTipoUnidad():boolean{
         return (this._indiceWs == INDICES.TIPOUNIDAD.indice);
