@@ -89,23 +89,23 @@ export class App {
   private loggerMiddleware(req: express.Request, res: express.Response, next) {
     if(req.path == "/favicon.ico")
       return;
-    // if(!(REGEX_ENDPOINT_AUTH_LOGIN.test(req.path)) &&
-    //   !(REGEX_ENDPOINT_TESTING.test(req.path)) &&
-    //   !(REGEX_ENDPOINT_DOC.test(req.path))
-    //   )
-    // {
-    //   TokenUtils.verificarTokenInHttpRequest(req, res, (error, result)=>  
-    //   {
-    //     if(error){
-    //       res.status(TokenUtils.UNAUTHORIZED_CODE).send(error.message)
-    //       // res.send(JSON.stringify(error))
-    //       // res.send(error.message)
-    //       return;
-    //     }
-    //     next(); // permitimos el ingreso
-    //   })
-    //   return;
-    // }
+    if(!(REGEX_ENDPOINT_AUTH_LOGIN.test(req.path)) &&
+      !(REGEX_ENDPOINT_TESTING.test(req.path)) &&
+      !(REGEX_ENDPOINT_DOC.test(req.path))
+      )
+    {
+      TokenUtils.verificarTokenInHttpRequest(req, res, (error, result)=>  
+      {
+        if(error){
+          res.status(TokenUtils.UNAUTHORIZED_CODE).send(error.message)
+          // res.send(JSON.stringify(error))
+          // res.send(error.message)
+          return;
+        }
+        next(); // permitimos el ingreso
+      })
+      return;
+    }
     // console.log(`${req.method} ${req.path}`);
     next(); // permitimos el ingreso
   }
