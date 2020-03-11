@@ -86,7 +86,11 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
-                                                                       
+        if (queryParadero.codEmpresa == 6) // etul 4
+            queryParadero.codEmpresa = 13392;
+        else if (queryParadero.codEmpresa == 32) //etupsa
+            queryParadero.codEmpresa = 21220;
+
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             // console.log(listUnidadTrack)
             callback(null, listUnidadTrack);
