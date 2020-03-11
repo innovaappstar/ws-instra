@@ -83,6 +83,13 @@ var PROCEDURES = {
             proc : "ins.ProcLiquidacion",
             example : "ins.ProcLiquidacion '209', 11",
             comment : "este procedimiento me devuelve los detalles de una unidad como padron - placa, etc"
+        },
+        DETALLE_INCIDENCIA :
+        {
+            index : 106,
+            proc : "ins.ProcReporteInspectoria",
+            example : "ins.ProcReporteInspectoria '5', 106",
+            comment : "devuelve el detalle de una incidencia"
         }
     }
 

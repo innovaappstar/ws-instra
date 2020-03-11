@@ -10,6 +10,7 @@ import DataWs = require('../entity/DataWs');
 import { IQueryParadero, UnidadTrackRepository } from '../repository/UnidadTrackRepository';
 import { UnidadTrack } from '../entity/mongodb/tubus/UnidadTrack';
 import { BaseDEO } from './BaseDEO';
+import { configdb, IConfigDB } from '../config/connectionString';
 
 class BusquedaUnidadDEO extends BaseDEO
 {
@@ -86,10 +87,21 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
-        if (queryParadero.codEmpresa == 6) // etul 4
-            queryParadero.codEmpresa = 13392;
-        else if (queryParadero.codEmpresa == 32) //etupsa
-            queryParadero.codEmpresa = 21220;
+
+        // for (let element of configdb)
+        // {
+        //     if(element.id == queryParadero.codEmpresa)
+        //     {
+        //         queryParadero.codEmpresa = element.codEmpresaMoovit;
+        //         break;
+        //     }
+        // }
+        
+        configdb.forEach( (element : IConfigDB) => {
+            if(element.id == queryParadero.codEmpresa) queryParadero.codEmpresa = element.codEmpresaMoovit;
+        });
+
+        console.log("queryParadero "  + queryParadero);
 
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             // console.log(listUnidadTrack)

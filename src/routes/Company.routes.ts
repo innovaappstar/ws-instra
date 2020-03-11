@@ -62,6 +62,7 @@ export class CompanyRoutes extends BaseRoutes {
                 return;
             }
             let querySQL = CompanyDEO.getQueryCompanyList(requestAuthLogin);
+            
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSPRUEBAS, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(this.ALIAS_JSON_COMPANY_LIST, rowAuthResponse);

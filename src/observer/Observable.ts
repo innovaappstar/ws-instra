@@ -2,6 +2,7 @@ import IObserver = require("./IObserver");
 import IObservable = require("./IObservable");
 import DataWs = require("../entity/DataWs");
 import UnidadObserver = require("./UnidadObserver");
+import UsuarioObserver = require("./UsuarioObserver");
 import { IClientWS } from "../controllers/BaseWebSocket";
 
 
@@ -18,6 +19,7 @@ class Observable implements IObservable
 
     agregarObservadoresPredeterminados(): void {
         Observable.listObservadores.push(new UnidadObserver());
+        Observable.listObservadores.push(new UsuarioObserver());
     }
 
     removerObservadoresPredeterminados(): void {
