@@ -101,11 +101,12 @@ class BusquedaUnidadDEO extends BaseDEO
             if(element.id == queryParadero.codEmpresa) queryParadero.codEmpresa = element.codEmpresaMoovit;
         });
 
-        console.log("queryParadero "  + queryParadero);
+        //console.log("queryParadero "  + queryParadero);
 
 
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
-            // console.log(listUnidadTrack)
+            if(listUnidadTrack.length == 0) // lista de unidades vacIas : bug de mongodb in query agrupada
+                return;
             callback(null, listUnidadTrack);
         }).catch((error : Error)=>{
             console.error(error);

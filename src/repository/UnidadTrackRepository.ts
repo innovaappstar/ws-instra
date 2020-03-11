@@ -378,7 +378,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
     //     });
     // }
 
-         /**
+         /**Wed Mar 11 2020 06:28:59 GMT-0500 (GMT-05:00) {}
      * @param queryParadero 
      */
     async findListUnidadesCercanas(queryParadero : IQueryParadero):
@@ -389,7 +389,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
             codEmpresa : queryParadero.codEmpresa
         };
 
-        let LIMITE_DEFAULT = 100;    // usuarios default
+        let LIMITE_DEFAULT = 500;    // usuarios default
 
         return new Promise(async (resolve, reject)=>{
             const listUnidades = await this.repository.aggregate(
@@ -473,7 +473,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                 unidadCercana.distanciaMovimiento = distanciaMovimiento;
                 unidadCercana.distancia = ~~unidadCercana.distancia
                 listUnidadesResponse.push(unidadCercana);
-            })
+            }) 
             resolve(listUnidadesResponse);  // one document
         })
     }

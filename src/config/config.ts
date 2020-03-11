@@ -12,7 +12,7 @@ export const config = {
         },
         puertoHTTP : 2033,  // editar
         puertoWS : 2034,
-        host : '192.168.1.132',
+        host : '192.168.1.126',
         // host : '192.168.1.15',
         db : 'localhost:27017/vci',
         configdb : configdb,
