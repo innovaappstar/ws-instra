@@ -55,7 +55,9 @@ export class ORMAcess {
                         if(configdb.connection == null && configdb.operativo == OPERATIVO && configdb.nomDB == connection.name)
                             configdb.connection = connection;   // inject new connection
                         
-                        if(configdb.nomDB == "dbtubus2" && connection.name == "dbtubus2")
+                        // if(configdb.nomDB == "dbtubus2" && connection.name == "dbtubus2")
+                        // solo testing
+                        if(configdb.nomDB == "dbtubus" && connection.name == "dbtubus")
                         {
                             // try 
                             // {

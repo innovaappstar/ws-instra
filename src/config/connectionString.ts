@@ -19,6 +19,7 @@ export const COD_BDCONIN = 1000;
 export const DBNAME_LOG_MONGODB = "dblog";
 export const DBNAME_GPS_MONGODB = "gps";
 export const DBNAME_TSIR_MONGODB = "tsir";
+// export const DBNAME_TUBUS = "dbtubus2";
 export const DBNAME_TUBUS = "dbtubus";
 
 //     { nomDB : "AGPS_Vipusa", host : host, user : user, password : password, id : 42, operativo : 1, isHasAudioParlante : false,  isRechazoLLamada : 0},

@@ -103,7 +103,6 @@ class BusquedaUnidadDEO extends BaseDEO
 
         //console.log("queryParadero "  + queryParadero);
 
-
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             if(listUnidadTrack.length == 0) // lista de unidades vacIas : bug de mongodb in query agrupada
                 return;
