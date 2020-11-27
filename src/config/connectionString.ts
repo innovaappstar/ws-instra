@@ -53,6 +53,10 @@ export const configdb : Array<IConfigDB> = [
     { nomDB : "TeGuio", host : host, user : user, password : password, id : 41, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Vipusa", host : host, user : user, password : password, id : 42, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "Conin", host : host, user : user, password : password, id : COD_BDCONIN, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
+    { nomDB : "AGPS_SolOro", host : host, user : user, password : password, id : 45, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
+
+
+
     // string connections for mongodb
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps"},

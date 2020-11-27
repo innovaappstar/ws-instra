@@ -51,7 +51,7 @@ export default class ws extends BaseWebSocket
         //     codUsuario              : clienteWs.codUsuario
         // };
         // super.updateConexionCliente(conexionCliente, true);
-        console.log("cliente conectado " + clienteWs.codUsuario);
+        // console.log("cliente conectado " + clienteWs.codUsuario);
     }
 
     onTextMessage(data: string, clienteWs : IClientWS): void {
