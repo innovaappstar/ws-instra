@@ -72,7 +72,7 @@ export class AlertaRoutes extends BaseRoutes {
             }
 
             let querySQL = AlertDEO.getQueryRegisterAlert(requestAlert);
-
+            console.log("query -> ", querySQL)
             ORMAcess.execQuerySQL(querySQL, requestAlert.companyCode, true).then((result : any)=>{
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 let resultado = super.toObject(this.ALIAS_JSON_REGISTER_ALERT, rowAuthResponse);

@@ -19,8 +19,8 @@ export const COD_BDCONIN = 1000;
 export const DBNAME_LOG_MONGODB = "dblog";
 export const DBNAME_GPS_MONGODB = "gps";
 export const DBNAME_TSIR_MONGODB = "tsir";
-// export const DBNAME_TUBUS = "dbtubus2";
-export const DBNAME_TUBUS = "dbtubus";
+export const DBNAME_TUBUS = "dbtubus2";
+// export const DBNAME_TUBUS = "dbtubus";
 
 //     { nomDB : "AGPS_Vipusa", host : host, user : user, password : password, id : 42, operativo : 1, isHasAudioParlante : false,  isRechazoLLamada : 0},
 
@@ -30,10 +30,10 @@ export const configdb : Array<IConfigDB> = [
     { nomDB : "TGPS2012", host : host, user : user, password : password, id : 3, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Translicsa", host : host, user : user, password : password, id : 5, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Etul4", host : host, user : user, password : password, id : 6, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 13392},
-    { nomDB : "AGPS_StaCatalina", host : host, user : user, password : password, id : 8, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
+    { nomDB : "AGPS_StaCatalina", host : host, user : user, password : password, id : 8, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 14798},
     { nomDB : "AGPS_SJL", host : host, user : user, password : password, id : 11, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_BuenaEstrella", host : host, user : user, password : password, id : 13, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
-    { nomDB : "AGPS_Rapido", host : host, user : user, password : password, id : 14, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
+    { nomDB : "AGPS_Rapido", host : host, user : user, password : password, id : 14, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 21323},
     { nomDB : "AGPS_Chama", host : host, user : user, password : password, id : 15, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Salamanca", host : host, user : user, password : password, id : 16, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Lipetsa", host : host, user : user, password : password, id : 20, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
@@ -53,9 +53,9 @@ export const configdb : Array<IConfigDB> = [
     { nomDB : "TeGuio", host : host, user : user, password : password, id : 41, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "AGPS_Vipusa", host : host, user : user, password : password, id : 42, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
     { nomDB : "Conin", host : host, user : user, password : password, id : COD_BDCONIN, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
+    { nomDB : "AGPS_SantoCristo", host : host, user : user, password : password, id : 44, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 21383},
     { nomDB : "AGPS_SolOro", host : host, user : user, password : password, id : 45, operativo : OPERATIVO, typeDatabase : TYPE_SQL, connection : null, dirEntities : "sqlserver" , codEmpresaMoovit : 0},
-
-
+ 
 
     // string connections for mongodb
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}

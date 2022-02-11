@@ -22,8 +22,10 @@ export class BaseDEO
     public buildObject<T>(tramaSerializado : string, object : Object, tipoSeparador ?: string) : T{
       let listValoresTrama = tramaSerializado.split((tipoSeparador)? tipoSeparador : this.SEP_COLUMNA); // separador de columna
       let objectResponse : T = <any>{};
+      console.log("buildObject")
       Object.keys(object).forEach((key : string, index : number )=>{
         let valueFromKey = object[key];
+       
         if(typeof valueFromKey == "string")
           objectResponse[key] = listValoresTrama[index];
         else if(typeof valueFromKey == "number")
@@ -33,7 +35,15 @@ export class BaseDEO
       })
       return objectResponse;
     }
-
+    // esto es con fines de prueba, ya que en su momento buildObject retornaba 0 en codempresa
+    public buildObjectv2<T>(tramaSerializado : string, object : Object, tipoSeparador ?: string) : T{
+      let listValoresTrama = tramaSerializado.split((tipoSeparador)? tipoSeparador : this.SEP_COLUMNA); // separador de columna
+      let objectResponse : T = <any>{};
+      Object.keys(object).forEach((key : string, index : number )=>{
+        objectResponse[key] = Number(listValoresTrama[index]);
+      })
+      return objectResponse;
+    }
 
     /**
      * se debe castear un serializado a un objeto para 

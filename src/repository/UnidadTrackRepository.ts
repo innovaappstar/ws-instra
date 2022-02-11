@@ -403,7 +403,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                                 coordinates :   [queryParadero.lng, queryParadero.lat]
                             },
                             distanceField : "dist.calculated",
-                            // maxDistance : queryControl.maxDistance * ControlRepository.METERS_POR_KM,        // distancia máxima..
+                            maxDistance : queryParadero.maxDistance, // * ControlRepository.METERS_POR_KM,        // distancia máxima..
                             spherical : true,
                             num : LIMITE_DEFAULT,   // added
                             query: {    // INDEXAAAAAR
@@ -414,8 +414,9 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                     {
                         $group : {
                                 _id : {
-                                    nomRuta : "$nomRuta",
-                                    ladoActual : "$ladoActual"
+                                        nomRuta : "$nomRuta",
+                                   // ladoActual : "$ladoActual"
+                                        padronUnidad : "$padronUnidad"
                                     },                       
                                 distancia : {$first : "$dist.calculated"},  // auxiliar..
                                 codEmpresa : { $first : "$codEmpresa"},

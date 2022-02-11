@@ -71,9 +71,10 @@ class UnidadObserver implements IObserver
      */
     localizacionUnidadesCercanas(dataWs : DataWs, clientWS : IClientWS) : void
     {
-        // console.log(dataWs.data)
+        //console.log(dataWs.data)
         new BusquedaUnidadDEO().getQuerySQLBusquedaDetalleUnidadesCercanas(dataWs, clientWS, (error : Error, listUnidades : Array<UnidadTrack>) =>
         {
+            
             if(error){
                 console.error(error);
                 return;
@@ -86,6 +87,7 @@ class UnidadObserver implements IObserver
                 clientWS.ws.send(dataStandar);
                 return;
             }
+            //console.log(listUnidades.length + " unidades recuperadas por trama " + dataWs.data)
             listUnidades.forEach((unidadTrack : UnidadTrack, index : number)=>{
                 let separador = (index == listUnidades.length -1) ? "" : "~" ;
                 try {
@@ -105,6 +107,7 @@ class UnidadObserver implements IObserver
                 }
             })
             // console.log(unidadTrack);
+            // console.log("====== TRAMAAAAAAAA =======");
             let dataStandar = `${dataWs.indiceWs}|${dataWs.subIndiceWs}|1|1|lista de unidades|1#${listUnidadesSerializados}`
             // clientWS.socket.sendMessage(dataStandar);
             // console.log(dataStandar);

@@ -5,13 +5,14 @@
 import { configdb } from "./connectionString";
 
 var env = 'desarrollo';
+// var env = 'produccion';
 export const config = {
     desarrollo:{
         app : {
             nombre : 'servidor-template'
         },
         puertoHTTP : 2033,  // editar
-        puertoWS : 2032,
+        puertoWS : 2032, // 2032 - 2034
         // host : '192.168.1.126',
         host : '192.168.1.15',
         db : 'localhost:27017/vci',

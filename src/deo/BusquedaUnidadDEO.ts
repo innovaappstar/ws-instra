@@ -81,12 +81,17 @@ class BusquedaUnidadDEO extends BaseDEO
      */
     public getQuerySQLBusquedaDetalleUnidadesCercanas(dataws : DataWs, clientWS : IClientWS, callback : (error : Error, listUnidades : Array<UnidadTrack>) => void) : void
     {
-        let queryParadero = super.buildObject<IQueryParadero>(dataws.data, {
+        let queryParadero = super.buildObjectv2<IQueryParadero>(dataws.data, {
             lat : 0,
             lng : 1,
             maxDistance : 2,
             codEmpresa : 3
         })
+
+        // queryParadero.maxDistance = 200000
+        // console.log("queryParadero.codEmpresa incial bro ", queryParadero)
+
+        // queryParadero.codEmpresa = 44
 
         // for (let element of configdb)
         // {
@@ -96,12 +101,17 @@ class BusquedaUnidadDEO extends BaseDEO
         //         break;
         //     }
         // }
+         
+       
         
+
         configdb.forEach( (element : IConfigDB) => {
             if(element.id == queryParadero.codEmpresa) queryParadero.codEmpresa = element.codEmpresaMoovit;
         });
 
-        //console.log("queryParadero "  + queryParadero);
+       
+        // queryParadero.lat = -11.976760 
+        // queryParadero.lng = -77.078407
 
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             if(listUnidadTrack.length == 0) // lista de unidades vacIas : bug de mongodb in query agrupada

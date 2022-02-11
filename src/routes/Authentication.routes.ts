@@ -89,13 +89,16 @@ export class AuthenticationRoutes extends BaseRoutes {
             let querySQL = AuthenticationDEO.getQueryAuthLogIn(requestAuthLogin);
             // "exec ProcUsuarioV2 'ncorrales|6b6277afcb65d33525545904e95c2fa240632660|27-11-2019 16:44:12|MAC1|1.1.1|1.1.2|SM-104', 144"
             // "exec dbo.ProcUsuarioV2 'ncorrales','6b6277afcb65d33525545904e95c2fa240632660','03-12-2019 16:29:14','20:32:6C:12:39:0C','9','1.0','SM-A505G' , 12"
+            console.log(querySQL)
             ORMAcess.execQuerySQL(querySQL, COD_BDGPSGENERAL).then((result : any)=>{
+                console.log(result)
                 let rowAuthResponse = super.rowToObject(this.COL_NAME_RESPONSE, result[0])
                 rowAuthResponse["token"] = token;
                 let resultado = super.toObject(this.ALIAS_JSON_LOGIN, rowAuthResponse);
                 res.send(resultado);
                 // res.send(token);
             }).catch((error : Error)=>{
+                console.log(error)
                 let resultado = super.toObject(this.ALIAS_JSON_LOGIN, {
                         codResultado : 0,
                         desResultado : error.message});
