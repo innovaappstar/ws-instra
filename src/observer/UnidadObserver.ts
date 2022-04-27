@@ -80,6 +80,7 @@ class UnidadObserver implements IObserver
                 return;
             }
             let listUnidadesSerializados = "";
+            // console.log(listUnidades.length + " unidades recuperadas por trama " + dataWs.data)
             if(listUnidades.length == 0)
             {
                 let dataStandar = `${dataWs.indiceWs}|${dataWs.subIndiceWs}|1|1|no se encontraron unidades cercanas|1`
@@ -87,7 +88,6 @@ class UnidadObserver implements IObserver
                 clientWS.ws.send(dataStandar);
                 return;
             }
-            //console.log(listUnidades.length + " unidades recuperadas por trama " + dataWs.data)
             listUnidades.forEach((unidadTrack : UnidadTrack, index : number)=>{
                 let separador = (index == listUnidades.length -1) ? "" : "~" ;
                 try {
