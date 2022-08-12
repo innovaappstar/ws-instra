@@ -35,7 +35,7 @@ export class ORMAcess {
                     name: configdb.nomDB,
                     type: (configdb.typeDatabase == TYPE_MONGODB) ? "mongodb" : (configdb.typeDatabase == TYPE_SQL) ? "mssql" : "",
                     host: configdb.host,
-                    port: (configdb.typeDatabase == TYPE_MONGODB) ? 2035 : (configdb.typeDatabase == TYPE_SQL) ? 1433 : 0,
+                    port: (configdb.typeDatabase == TYPE_MONGODB) ? (  configdb["mongoDBPort"] || 2035) : (configdb.typeDatabase == TYPE_SQL) ? 1433 : 0,
                     username: configdb.user,
                     password: configdb.password,
                     synchronize: true,

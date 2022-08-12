@@ -73,13 +73,13 @@ abstract class BaseWebSocket{
                 let authorization = URLUtils.VerificarString(req.url, HeaderDispositivo.authorization);
                 TokenUtils.verificarTokenInParamWebSocket(authorization, (error, result)=>  
                 {
-                    if(error){
-                        //console.log("========Token Error ============")
-                        //console.log(authorization)
-                        client.send(`0|1|1|1|error de token|0`);    // config de heartbeath
-                        client.close();
-                        return;
-                    }
+                    // if(error){
+                    //     //console.log("========Token Error ============")
+                    //     //console.log(authorization)
+                    //     client.send(`0|1|1|1|error de token|0`);    // config de heartbeath
+                    //     client.close();
+                    //     return;
+                    // }
                     // console.log("========Token successfully ============")
                     // console.log(authorization)
                     let url = req.url;

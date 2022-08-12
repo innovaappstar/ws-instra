@@ -60,9 +60,13 @@ export const configdb : Array<IConfigDB> = [
     // string connections for mongodb
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null}
     // { nomDB : DBNAME_LOG_MONGODB, host : host, user : "wcubas", password : "lomizmo407", id : 1000, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps"},
-    { nomDB : DBNAME_GPS_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps", codEmpresaMoovit : 0},
-    { nomDB : DBNAME_TSIR_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 2, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tsir", codEmpresaMoovit : 0},
-    { nomDB : DBNAME_TUBUS, host : host, user : "innova", password : "lomizmo407", id : 3, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tubus", codEmpresaMoovit : 0}
+    //{ nomDB : DBNAME_GPS_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps", codEmpresaMoovit : 0, mongoDBPort : 27018},
+    //{ nomDB : DBNAME_TSIR_MONGODB, host : host, user : "innova", password : "lomizmo407", id : 2, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tsir", codEmpresaMoovit : 0, mongoDBPort : 27018},
+    // { nomDB : DBNAME_TUBUS, host : host, user : "innova", password : "lomizmo407", id : 3, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tubus", codEmpresaMoovit : 0}
+    
+    <any>{ nomDB : DBNAME_GPS_MONGODB, host : "192.168.1.12", user : "innova", password : "lomizmo407", id : 1, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "gps", codEmpresaMoovit : 0, mongoDBPort : 27018},
+    <any>{ nomDB : DBNAME_TSIR_MONGODB, host : "192.168.1.12", user : "innova", password : "lomizmo407", id : 2, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tsir", codEmpresaMoovit : 0, mongoDBPort : 27018},
+    <any>{ nomDB : DBNAME_TUBUS, host : "192.168.1.12", user : "innova", password : "lomizmo407", id : 3, operativo : OPERATIVO, typeDatabase : TYPE_MONGODB, connection : null, dirEntities : "tubus", codEmpresaMoovit : 0, mongoDBPort : 27018}
 
 
     // { nomDB : "bdGPSGeneral", host : host, user : user, password : password, id : 1, operativo : 0, codEmpresaMoovit : 0},

@@ -54,8 +54,7 @@ export default class ws extends BaseWebSocket
         // console.log("cliente conectado " + clienteWs.codUsuario);
     }
 
-    onTextMessage(data: string, clienteWs : IClientWS): void {
-        //console.log(data);
+    onTextMessage(data: string, clienteWs : IClientWS): void { 
         if(clienteWs.codTipoDispositivo == 200)
         {
             clienteWs.ws.send('envíado');

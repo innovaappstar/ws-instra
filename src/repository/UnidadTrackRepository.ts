@@ -141,7 +141,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                         distanceField : "dist.calculated",
                         // maxDistance : queryControl.maxDistance * ControlRepository.METERS_POR_KM,        // distancia máxima..
                         spherical : true,
-                        num : 5,   // added
+                        // num : 5,   // added
                         query: {    // INDEXAAAAAR
                                 $and: [{
                                     codEmpresa : codEmpresa, 
@@ -178,6 +178,9 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                             placaUnidad : { $first : "$placaUnidad"},
                             velocidad : { $first : "$velocidad"},
                         }
+                },
+                {
+                  $limit: 5,
                 },
                 {
                     $sort : {
@@ -405,7 +408,7 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                             distanceField : "dist.calculated",
                             maxDistance : queryParadero.maxDistance, // * ControlRepository.METERS_POR_KM,        // distancia máxima..
                             spherical : true,
-                            num : LIMITE_DEFAULT,   // added
+                            // num : LIMITE_DEFAULT,   // added
                             query: {    // INDEXAAAAAR
                                     $and: [queryBusqueda]
                                 }
@@ -443,6 +446,9 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                                 codAlerta : { $first : "$codAlerta"}
                                 
                             }
+                    },
+                    {
+                      $limit: LIMITE_DEFAULT,
                     },
                     {
                         $sort : {

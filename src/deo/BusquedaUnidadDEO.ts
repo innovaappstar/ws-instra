@@ -87,6 +87,7 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
+        // console.log(queryParadero)
 
         // queryParadero.maxDistance = 200000
         // console.log("queryParadero.codEmpresa incial bro ", queryParadero)

@@ -74,7 +74,8 @@ class UnidadObserver implements IObserver
         //console.log(dataWs.data)
         new BusquedaUnidadDEO().getQuerySQLBusquedaDetalleUnidadesCercanas(dataWs, clientWS, (error : Error, listUnidades : Array<UnidadTrack>) =>
         {
-            
+            //console.log("LIST UNIDAD CERCANAS.. FROM MONGODB..")
+            //console.log(error || listUnidades)
             if(error){
                 console.error(error);
                 return;
