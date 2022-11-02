@@ -1,8 +1,8 @@
 {
     "type": "mongodb",
     "host": "192.168.1.12",
-    "port": 27018,
-    "username": "innova",
+    "port": 2035,
+    "username": "wcubas",
     "password": "lomizmo407",
     "database": "dblog",
     "synchronize": true,

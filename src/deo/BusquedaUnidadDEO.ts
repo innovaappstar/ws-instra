@@ -87,7 +87,7 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
-        // console.log(queryParadero)
+        
 
         // queryParadero.maxDistance = 200000
         // console.log("queryParadero.codEmpresa incial bro ", queryParadero)
@@ -102,23 +102,29 @@ class BusquedaUnidadDEO extends BaseDEO
         //         break;
         //     }
         // }
-         
-       
+          
         
-
         configdb.forEach( (element : IConfigDB) => {
             if(element.id == queryParadero.codEmpresa) queryParadero.codEmpresa = element.codEmpresaMoovit;
         });
 
        
+        if(clientWS.codEmpresa == 25)
+            queryParadero.codEmpresa = clientWS.codEmpresa;
+ 
         // queryParadero.lat = -11.976760 
         // queryParadero.lng = -77.078407
 
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             if(listUnidadTrack.length == 0) // lista de unidades vacIas : bug de mongodb in query agrupada
                 return;
+            
             callback(null, listUnidadTrack);
         }).catch((error : Error)=>{
+            if(clientWS.codEmpresa == 25){
+                console.log("#3.2 >> ", error)
+            }
+
             console.error(error);
             callback(error, null);
         })

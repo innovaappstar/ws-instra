@@ -22,6 +22,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cheerio-get-css-selector": "^2.0.0",
     "dateformat": "^3.0.3",
+    "detect-port": "^1.5.1",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "fs": "0.0.1-security",

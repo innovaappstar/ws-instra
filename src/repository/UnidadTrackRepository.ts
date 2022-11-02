@@ -387,10 +387,18 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
     async findListUnidadesCercanas(queryParadero : IQueryParadero):
     Promise<Array<UnidadTrack>>
     {
+         if(queryParadero.codEmpresa == 25){
+             queryParadero.codEmpresa = parseInt(queryParadero.codEmpresa.toString())
+             // queryParadero.maxDistance = 100000; 
+         }
+        
         let queryBusqueda = {
             fechaHoraPaso :  { $gt: new DateUtils().getDateAddMinutes(-10) },
             codEmpresa : queryParadero.codEmpresa
         };
+        console.log("--- DATA findListUnidadesCercanas ----")
+        console.log(queryBusqueda)
+
 
         let LIMITE_DEFAULT = 500;    // usuarios default
 
@@ -462,6 +470,8 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
                     }
                 ]
             ).toArray();
+
+             
             let listUnidadesResponse : Array<UnidadTrack> = []
             listUnidades.forEach((unidadCercana : UnidadTrack, index : number)=>{
                 let queryPuntoAnterior : IQueryParadero = <IQueryParadero>{

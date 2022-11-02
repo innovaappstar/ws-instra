@@ -42,6 +42,11 @@ ORMAcess.startConnections(__dirname);  // inicializa las conexiones.
 app.listen(); // inicializa el servidor http
 ws.getInstance();
 
+setTimeout(async () => { 
+  console.log("KILLEANDO APP PARA LIMPIAR LA MEMORIA BUFER DE SOLICITUDES A LA BD MONGO Y/O SQL ...")
+  process.exit(1);
+}, 24 * (60 * (60 * 1000)) )  // cada 24 horas
+
 // new Testing().initBuilding();
 
 // console.log(timeConverted);

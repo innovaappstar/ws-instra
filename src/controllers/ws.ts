@@ -65,6 +65,11 @@ export default class ws extends BaseWebSocket
             // });
             return;
         }
+
+        if(clienteWs.codEmpresa == 25){
+            console.log("mensaje unidad johan >> ", data)
+        }
+
         CheckDataUtils.comprobandoDatagrama(data, clienteWs, (checkData: ICheckData): void =>
         {
             if(checkData.error){console.log(checkData.error); return;};
