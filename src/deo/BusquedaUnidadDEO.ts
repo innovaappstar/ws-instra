@@ -87,6 +87,11 @@ class BusquedaUnidadDEO extends BaseDEO
             maxDistance : 2,
             codEmpresa : 3
         })
+
+        if(clientWS.md == "GM1917" || clientWS.md == "2201117TL"){
+            console.log(clientWS.codEmpresa, "-", clientWS.codUsuario, "-", clientWS.md)
+            console.log("____ unidad pruebas de jesus fabian.. ")
+        }
         
 
         // queryParadero.maxDistance = 200000
@@ -108,24 +113,27 @@ class BusquedaUnidadDEO extends BaseDEO
             if(element.id == queryParadero.codEmpresa) queryParadero.codEmpresa = element.codEmpresaMoovit;
         });
 
-       
+        if(clientWS.md == "GM1917" || clientWS.md == "2201117TL"){
+            console.log("____ query paradero forEach after..")
+            console.log(queryParadero)
+        }
+        
         if(clientWS.codEmpresa == 25)
             queryParadero.codEmpresa = clientWS.codEmpresa;
  
         // queryParadero.lat = -11.976760 
         // queryParadero.lng = -77.078407
-
+        
+   
         new UnidadTrackRepository().findListUnidadesCercanas(queryParadero).then((listUnidadTrack : Array<UnidadTrack>)=>{
             if(listUnidadTrack.length == 0) // lista de unidades vacIas : bug de mongodb in query agrupada
                 return;
             
             callback(null, listUnidadTrack);
-        }).catch((error : Error)=>{
-            if(clientWS.codEmpresa == 25){
-                console.log("#3.2 >> ", error)
-            }
-
-            console.error(error);
+        }).catch((error : Error)=>{ 
+            if(clientWS.md == "GM1917" || clientWS.md == "2201117TL"){
+                console.log("error find list unidades cercanas " + JSON.stringify(error))
+            }  
             callback(error, null);
         })
 

@@ -36,6 +36,8 @@ export default class ws extends BaseWebSocket
 
     onOpen(clienteWs: IClientWS): void {
         this.listDispositivo.push(clienteWs);
+        
+        console.log("conexiòn onOpen modelo -> ", clienteWs.md)
         //clienteWs.ws.send('2|1|1|1|notificacion observer|1#https://files.informabtl.com/uploads/2016/02/promociones.jpg|promociòn valida hasta el lunes!');    // todo : V10.3 para evitar q se llene su bd y ralentice memoria
         // clienteWs.ws.send('10|8|1|1|passwordOffLine|0#92922');    // password offline
         clienteWs.ws.send('6|1|1|1|conexionweboscket|0');    // password offline

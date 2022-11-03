@@ -396,9 +396,17 @@ export class UnidadTrackRepository extends Repository<UnidadTrack>{
             fechaHoraPaso :  { $gt: new DateUtils().getDateAddMinutes(-10) },
             codEmpresa : queryParadero.codEmpresa
         };
-        console.log("--- DATA findListUnidadesCercanas ----")
-        console.log(queryBusqueda)
+        //console.log("--- DATA findListUnidadesCercanas ----")
+        //console.log(queryBusqueda)
 
+
+        if(queryParadero.codEmpresa == 25){
+            queryParadero.codEmpresa = parseInt(queryParadero.codEmpresa.toString())
+            // queryBusqueda.fechaHoraPaso = { $gt: new DateUtils().getDateAddMinutes(-60) }   // pruebas
+           //  console.log("ajustado los tiempos para pruebas empresa")
+            // queryParadero.maxDistance = 100000; 
+        }
+       
 
         let LIMITE_DEFAULT = 500;    // usuarios default
 
